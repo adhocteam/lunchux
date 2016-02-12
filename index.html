@@ -10,7 +10,12 @@
          html { background: #eee; }
          body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #fff; padding: 20px; }
          header h1 { font-size: 20px; font-weight: 400; margin: 0 0 1em 0; text-align: center; }
+         .help { font-size: smaller; }
+         .help:before { content: "? " }
+         .current { background: papayawhip; }
+         .button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid black; border-radius: 4px; cursor: pointer; }
         </style>
+        <script src="app.js"></script>
     </head>
     <body>
         <header>
@@ -22,7 +27,7 @@
         </header>
 
         <main>
-            <section>
+            <section class="view" id="get-started">
                 <h2>Welcome!</h2>
                 <p>Let's help you get kids in your home get their school lunches for free or reduced cost.</p>
                 <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the ? icon or use the FAQ at the bottom of the screen.</p>
@@ -30,6 +35,54 @@
                 <h2>Let's get started.</h2>
                 <h3>Are you over the age of 18?</h3>
                 <p>This application has to be completed by a member of the household who is an adult over the age of 18.</p>
+                <div>
+                    <a class="button" href="#household-size">Yes</a>
+                    <a class="button" href="#need-adult">No</a>
+                </div>
+            </section>
+
+            <section class="view" id="household-size">
+                <h2>Great!</h2>
+                <h3>How many people are in your home?</h3>
+                <p>Make sure you count anyone who is supported by the household or contributes to it, including you. They don't have to be related to you!</p>
+                <p class="help">Common questions about households</p>
+                <div>
+                    <label>
+                        Kids under 18<br>
+                        <input type="text">
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Adults over 18<br>
+                        <input type="text">
+                    </label>
+                </div>
+                <p>You'll need income information for each of these <i class="to-do">n</i> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
+                <div>
+                    <a class="button" href="#get-started">Go back</a>
+                    <a class="button" href="#kids">Continue</a>
+                </div>
+            </section>
+
+            <section class="view" id="need-adult">
+                <h2>Sorry, you need an adult!</h2>
+                <p>This application has to be completed by someone over the age of 18, even if it's for you.</p>
+                <p>If you don't have an adult who can do this application on your behalf, please call your school at:</p>
+                <p class="tel">(123) 456-7890</p>
+                <div>
+                    <a class="button" href="#household-size">Go back</a>
+                </div>
+            </section>
+
+            <section class="view" id="kids">
+                <h2>Let's talk about the kids.</h2>
+                <p>This is anyone in your household under the age of 18.</p>
+                <p>We're talking babies, toddlers, and kids, whether they're in school or not.</p>
+                <div>
+                    <a class="button" href="#household-size">Go back</a>
+                    <a class="button" href="#TKTK">Continue</a>
+                </div>
             </section>
         </main>
     </body>
