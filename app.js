@@ -11,11 +11,26 @@
 
     NodeList.prototype.forEach = Array.prototype.forEach;
 
-    function setView() {
-        qsa(".view").forEach(function(view) {
-            view.style.display = 'none';
+    function Controller() {}
+
+    Controller.prototype.setView = function(id) {
+        this.hideAll();
+        qs("#" + id).classList.add("show");
+        qs("#" + id).classList.remove("hide");
+    };
+
+    Controller.prototype.hideAll = function() {
+        qsa(".screen").forEach(function(el) {
+            el.classList.add("hide");
+            el.classList.remove("show");
         });
-        qs(document.location.hash || "#get-started").style.display = 'block';
+    };
+
+    var controller = new Controller();
+
+    function setView() {
+        var id = window.location.hash ? window.location.hash.slice(1) : "get-started";
+        controller.setView(id);
     }
 
     addEventListener("hashchange", setView);

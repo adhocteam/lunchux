@@ -1,0 +1,28 @@
+* { box-sizing: border-box; }
+html { background: #ddd; }
+body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #fff; }
+.help { font-size: smaller; }
+.help:before { content: "? " }
+.current { background: papayawhip; }
+.button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid #000; border-radius: 4px; cursor: pointer; transition: all 0.25s ease; }
+.button:hover { color: #fff; background: #000; }
+a { color: #000; }
+#menu:before { content: "🍔"; }
+header, main { padding: 20px 30px; }
+header { background: #eee; border-bottom: 1px solid #ccc; }
+.nav h1 { font-size: 20px; font-weight: 400; text-align: center; }
+.nav { display: flex; justify-content: space-between; }
+.nav div, .nav h1 { flex: 1; margin: 0; }
+.nav #signout { text-align: right; }
+main { clear: both; }
+.button-group { display: flex; justify-content: space-between; }
+.button-group .button { width: 25%; text-align: center; }
+.person-list { list-style-type: none; margin: 0 0 1em 0; padding: 0; }
+.person { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
+.person .actions:after { content: " >"; color: #ccc; font-weight: 700; }
+.valid { color: #090; }
+.invalid { color: #900; }
+.add-person { margin-bottom: 1em; }
+.show { opacity: 1; display: block; }
+.hide { opacity: 0; display: none; }
+.form-controls-group { margin-bottom: 1em; }

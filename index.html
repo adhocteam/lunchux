@@ -5,29 +5,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lunch UX</title>
-        <style>
-         * { box-sizing: border-box; }
-         html { background: #eee; }
-         body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #fff; padding: 20px; }
-         header h1 { font-size: 20px; font-weight: 400; margin: 0 0 1em 0; text-align: center; }
-         .help { font-size: smaller; }
-         .help:before { content: "? " }
-         .current { background: papayawhip; }
-         .button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid black; border-radius: 4px; cursor: pointer; }
-        </style>
+        <link href="style.css" rel="stylesheet">
         <script src="app.js"></script>
     </head>
     <body>
         <header>
-            <h1>LunchUX</h1>
             <div class="nav">
-                <div>Menu</div>
-                <div>Sign Out</div>
+                <div id="menu">Menu</div>
+                <h1>LunchUX</h1>
+                <div id="signout">Sign Out</div>
             </div>
         </header>
 
         <main>
-            <section class="view" id="get-started">
+            <section class="screen" id="get-started">
                 <h2>Welcome!</h2>
                 <p>Let's help you get kids in your home get their school lunches for free or reduced cost.</p>
                 <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the ? icon or use the FAQ at the bottom of the screen.</p>
@@ -35,13 +26,13 @@
                 <h2>Let's get started.</h2>
                 <h3>Are you over the age of 18?</h3>
                 <p>This application has to be completed by a member of the household who is an adult over the age of 18.</p>
-                <div>
-                    <a class="button" href="#household-size">Yes</a>
+                <div class="button-group">
                     <a class="button" href="#need-adult">No</a>
+                    <a class="button" href="#household-size">Yes</a>
                 </div>
             </section>
 
-            <section class="view" id="household-size">
+            <section class="screen" id="household-size">
                 <h2>Great!</h2>
                 <h3>How many people are in your home?</h3>
                 <p>Make sure you count anyone who is supported by the household or contributes to it, including you. They don't have to be related to you!</p>
@@ -59,31 +50,150 @@
                     </label>
                 </div>
                 <p>You'll need income information for each of these <i class="to-do">n</i> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
-                <div>
+                <div class="button-group">
                     <a class="button" href="#get-started">Go back</a>
                     <a class="button" href="#kids">Continue</a>
                 </div>
             </section>
 
-            <section class="view" id="need-adult">
+            <section class="screen" id="need-adult">
                 <h2>Sorry, you need an adult!</h2>
                 <p>This application has to be completed by someone over the age of 18, even if it's for you.</p>
                 <p>If you don't have an adult who can do this application on your behalf, please call your school at:</p>
                 <p class="tel">(123) 456-7890</p>
-                <div>
-                    <a class="button" href="#household-size">Go back</a>
+                <div class="button-group">
+                    <a class="button" href="#get-started">Go back</a>
                 </div>
             </section>
 
-            <section class="view" id="kids">
+            <section class="screen" id="kids">
                 <h2>Let's talk about the kids.</h2>
                 <p>This is anyone in your household under the age of 18.</p>
                 <p>We're talking babies, toddlers, and kids, whether they're in school or not.</p>
-                <div>
+                <p>You've told us you have 3 kids under 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
+
+                <ul class="person-list">
+                    <li class="person valid">
+                        <div class="person-name">Bailey Grey</div>
+                        <div class="actions">Edit these details</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Zola Grey</div>
+                        <div class="actions">Information missing!</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Kid #3</div>
+                        <div class="actions">Add new information</div>
+                    </li>
+                </ul>
+
+                <div class="add-person">
+                    Missing anyone?
+                    <div class="person invalid">
+                        <div class="person-name">Add another child</div>
+                        <div class="actions">Add new information</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
                     <a class="button" href="#household-size">Go back</a>
-                    <a class="button" href="#TKTK">Continue</a>
+                    <a class="button" href="#adults">Continue</a>
                 </div>
             </section>
+
+            <section class="screen" id="adults">
+                <h2>Let's talk about the adults.</h2>
+                <p>This is anyone in your household over the age of 18, including you.</p>
+                <p>You've told us you have 2 people over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
+
+                <ul class="person-list">
+                    <li class="person valid">
+                        <div class="person-name">Meredith Grey</div>
+                        <div class="actions">Edit these details</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Amelia Shepard</div>
+                        <div class="actions">Information missing!</div>
+                    </li>
+                </ul>
+
+                <div class="add-person">
+                    Missing anyone?
+                    <div class="person invalid">
+                        <div class="person-name">Add another adult</div>
+                        <div class="actions">Add new information</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <a class="button" href="#kids">Go back</a>
+                    <a class="button" href="#other-help">Continue</a>
+                </div>
+            </section>
+
+            <section class="screen" id="other-help">
+                <h2>Let's talk about other help.</h2>
+                <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
+                <div class="form-controls-group">
+                    <label><input type="radio" name="other-help">No</label><br>
+                    <label><input type="radio" name="other-help">Yes</label><br>
+                    <label>Please enter just one case number:<br>
+                        <input type="text" placeholder="case number"></label>
+                </div>
+                <div class="button-group">
+                    <a class="button" href="#adults">Go back</a>
+                    <a class="button" href="#income">Continue</a>
+                </div>
+            </section>
+
+            <section class="screen" id="income">
+                <h2>Now let's talk about income.</h2>
+                <p>We need to know about your household's earnings.</p>
+                <p>Income can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Kids' income needs to be listed as well.</p>
+                <p class="help">See a comprehensive list of income sources.</p>
+                <p>You've told us you have 5 people in your household. Let's list each one's income.</p>
+
+                <ul class="person-list">
+                    <li class="person valid">
+                        <div class="person-name">Bailey Grey</div>
+                        <div class="actions">Edit these details</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Zola Grey</div>
+                        <div class="actions">Information missing!</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Ellis Grey</div>
+                        <div class="actions">Add new information</div>
+                    </li>
+                    <li class="person valid">
+                        <div class="person-name">Meredith Grey</div>
+                        <div class="actions">Edit these details</div>
+                    </li>
+                    <li class="person invalid">
+                        <div class="person-name">Amelia Shepard</div>
+                        <div class="actions">Information missing!</div>
+                    </li>
+                </ul>
+
+                <div class="button-group">
+                    <a class="button" href="#other-help">Go back</a>
+                    <a class="button" href="#review">Continue</a>
+                </div>
+            </section>
+
+            <section class="screen" id="review">
+                <h2>You're all set.</h2>
+                <p>Please review the information you entered, and correct any mistakes you see.</p>
+                <p>There are <b>3 kids</b> and <b>2 adults</b> in your household, for a total of <b>5 people</b>. Do you need to add anyone else?</p>
+                <div>
+                    <a class="button" href="#kids">Add kids</a>
+                </div>
+                <div>
+                    <a class="button" href="#">Submit application for lunch</a>
+                </div>
+            </section>
+
         </main>
     </body>
 </html>
