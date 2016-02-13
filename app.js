@@ -83,7 +83,7 @@
     View.prototype.bind = function(event, handler) {
         var self = this;
         switch (event) {
-        case "setHouseholdSize":
+        case "updateHouseholdSize":
             $on(self.$hhSizeFwdBtn, "click", function(event) {
                 var numKids = parseInt(self.$numKids.value, 10);
                 var numAdults = parseInt(self.$numAdults.value, 10);
@@ -108,7 +108,7 @@
         this.model = model;
         var self = this;
 
-        this.view.bind("setHouseholdSize", function(numKids, numAdults) {
+        this.view.bind("updateHouseholdSize", function(numKids, numAdults) {
             self.updateHouseholdSize(numKids, numAdults);
         });
 

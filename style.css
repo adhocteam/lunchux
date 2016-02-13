@@ -21,11 +21,12 @@ main { clear: both; }
 .button-group { display: flex; justify-content: space-between; }
 .button-group .button { width: 25%; text-align: center; }
 .person-list { list-style-type: none; margin: 0 0 1em 0; padding: 0; }
-.person { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
+.person-summary { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
 .person .actions:after { content: " >"; color: #ccc; font-weight: 700; }
-.valid { color: #090; }
-.invalid { color: #900; }
+.valid .person-summary { color: #090; }
+.invalid .person-summary, .invalid .notes { color: #900; }
 .add-person { margin-bottom: 1em; }
 .show { opacity: 1; display: block; }
 .hide { opacity: 0; display: none; }
 .form-controls-group { margin-bottom: 1em; }
+.notes { font-size: smaller; }

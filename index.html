@@ -49,7 +49,7 @@
                         <input type="text" name="num-adults">
                     </label>
                 </div>
-                <p>You'll need income information for each of these <i class="to-do">n</i> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
+                <p>You'll need income information for each of these <span class="num-people">n</span> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
                 <div class="button-group">
                     <a class="button back" href="#get-started">Go back</a>
                     <a class="button fwd" href="#kids">Continue</a>
@@ -74,24 +74,67 @@
 
                 <ul class="person-list">
                     <li class="person valid">
-                        <div class="person-name">Bailey Grey</div>
-                        <div class="actions">Edit these details</div>
+                        <div class="person-summary">
+                            <div class="person-name">Bailey Grey</div>
+                            <div class="actions">Edit these details</div>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Zola Grey</div>
-                        <div class="actions">Information missing!</div>
+                        <div class="person-summary">
+                            <div class="person-name">Zola Grey</div>
+                            <div class="actions">Information missing!</div>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Kid #3</div>
-                        <div class="actions">Add new information</div>
+                        <div class="person-summary">
+                            <div class="person-name">Kid #3</div>
+                            <div class="actions">Add new information</div>
+                        </div>
+
+                        <div class="person-details-form" id="CONVERT_TO_TEMPLATE">
+                            <div>
+                                <label>
+                                    Name (ex: Kid U. Eighteen)<br>
+                                    <input name="" type="text" value="" placeholder="Name">
+                                </label>
+                            </div>
+
+                            <div>
+                                Is &lt;name&gt; a student?<br>
+                                <label><input name="is-student" type="radio" value="no"> No</label><br>
+                                <label><input name="is-student" type="radio" value="yes"> Yes</label><br>
+                            </div>
+
+                            <div>
+                                Is &lt;name&gt; a foster child<br>
+                                <label><input name="is-foster-child" type="radio" value="no"> No</label><br>
+                                <label><input name="is-foster-child" type="radio" value="yes"> Yes</label><br>
+                            </div>
+
+                            <div>
+                                Is &lt;name&gt; considered homeless, a runaway, a migrant, or is &lt;name&gt; enrolled in the Head Start program?
+                                <p class="help" >What do these terms mean?</p>
+                                <label><input name="is-foster-child" type="radio" value="no"> No</label><br>
+                                <label><input name="is-foster-child" type="radio" value="yes"> Yes</label><br>
+                            </div>
+
+                            <p>Thank you! In just a bit, we'll ask you about &lt;name&gt;'s income.</p>
+
+                            <div>
+                                <button class="button">Save</button>
+                            </div>
+                        </div>
+
                     </li>
                 </ul>
 
                 <div class="add-person">
                     Missing anyone?
                     <div class="person invalid">
-                        <div class="person-name">Add another child</div>
-                        <div class="actions">Add new information</div>
+                        <div class="person-summary">
+                            <div class="person-name">Add another child</div>
+                            <div class="actions">Add new information</div>
+                        </div>
                     </div>
                 </div>
 
@@ -108,20 +151,26 @@
 
                 <ul class="person-list">
                     <li class="person valid">
-                        <div class="person-name">Meredith Grey</div>
-                        <div class="actions">Edit these details</div>
+                        <div class="person-summary">
+                            <div class="person-name">Meredith Grey</div>
+                            <div class="actions">Edit these details</div>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Amelia Shepard</div>
-                        <div class="actions">Information missing!</div>
+                        <div class="person-summary">
+                            <div class="person-name">Amelia Shepard</div>
+                            <div class="actions">Information missing!</div>
+                        </div>
                     </li>
                 </ul>
 
                 <div class="add-person">
                     Missing anyone?
                     <div class="person invalid">
-                        <div class="person-name">Add another adult</div>
-                        <div class="actions">Add new information</div>
+                        <div class="person-summary">
+                            <div class="person-name">Add another adult</div>
+                            <div class="actions">Add new information</div>
+                        </div>
                     </div>
                 </div>
 
@@ -155,24 +204,40 @@
 
                 <ul class="person-list">
                     <li class="person valid">
-                        <div class="person-name">Bailey Grey</div>
-                        <div class="actions">Edit these details</div>
+                        <div class="person-summary">
+                            <div class="person-name">Bailey Grey</div>
+                            <div class="actions">Edit these details</div>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Zola Grey</div>
-                        <div class="actions">Information missing!</div>
+                        <div class="person-summary">
+                            <div class="person-name">Zola Grey</div>
+                            <div class="actions">Information missing!</div>
+                        </div>
+                        <div class="notes">
+                            <p>Please complete Zola's information. Your application can't be submitted without it.</p>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Ellis Grey</div>
-                        <div class="actions">Add new information</div>
+                        <div class="person-summary">
+                            <div class="person-name">Ellis Grey</div>
+                            <div class="actions">Add new information</div>
+                        </div>
                     </li>
                     <li class="person valid">
-                        <div class="person-name">Meredith Grey</div>
-                        <div class="actions">Edit these details</div>
+                        <div class="person-summary">
+                            <div class="person-name">Meredith Grey</div>
+                            <div class="actions">Edit these details</div>
+                        </div>
                     </li>
                     <li class="person invalid">
-                        <div class="person-name">Amelia Shepard</div>
-                        <div class="actions">Information missing!</div>
+                        <div class="person-summary">
+                            <div class="person-name">Amelia Shepard</div>
+                            <div class="actions">Information missing!</div>
+                        </div>
+                        <div class="notes">
+                            <p>Please complete Amelia's information. Your application can't be submitted without it.</p>
+                        </div>
                     </li>
                 </ul>
 
