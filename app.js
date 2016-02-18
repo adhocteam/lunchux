@@ -795,12 +795,12 @@
         }
 
         var html = [
-                '<div class="details-form" style="display: none">' +
+                '<form class="details-form" style="display: none">' +
                     '<p><b>How much does ' + name + ' contribute in income, and how often? If they don\'t have any earnings, enter \'0\'.' +
                     incomeTypes.map(function(type) {
                         return '<div><label>' +
                             'From ' + type.label + ':<br>' +
-                            '<input name="income-' + type.value + '-amount" type="text" placeholder="$" value="' + incomeAmount(person, type.value) + '">' +
+                            '<input name="income-' + type.value + '-amount" type="text" placeholder="$" value="' + incomeAmount(person, type.value) + '" required pattern="[0-9]+">' +
                             '</label>' +
                             '<select name="income-' + type.value + '-freq">' +
                             frequencies.map(function(freq) {
@@ -811,7 +811,7 @@
                     '<div>' +
                         '<button class="button save">Save</button>' +
                     '</div>' +
-                '</div>'
+                '</form>'
             ].join("\n");
         form.innerHTML = html;
 
@@ -840,7 +840,8 @@
             }.bind(this));
             break;
         case "handleSaveBtnClick":
-            $delegate(this.el, "button.save", "click", function(event) {
+            $delegate(this.el, "form", "submit", function(event) {
+                event.preventDefault();
                 handler(this, this.person);
             }.bind(this));
             break;
@@ -960,7 +961,9 @@
             for (var type in p.incomes) {
                 if (p.incomes.hasOwnProperty(type)) {
                     var income = p.incomes[type];
-                    text.push(income.amount + ' ' + income.freq);
+                    if (income.amount != 0) {
+                        text.push(income.amount + ' ' + income.freq);
+                    }
                 }
             }
             text = text.join(", ");
