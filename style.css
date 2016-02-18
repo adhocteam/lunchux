@@ -7,7 +7,7 @@ body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #f
 .help { font-size: smaller; }
 .help:before { content: "? "; color: #fff; background: #000; }
 .current { background: papayawhip; }
-.button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid #000; border-radius: 4px; cursor: pointer; transition: all 0.25s ease; background: #fff; }
+.button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid #000; border-radius: 4px; cursor: pointer; transition: all 0.25s ease; background: #fff; font-size: 16px; }
 .button:hover { color: #fff; background: #000; }
 a { color: #000; }
 #menu:before { content: "🍔 "; }

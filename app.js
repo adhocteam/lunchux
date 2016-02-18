@@ -306,30 +306,27 @@
     // views
 
     function HouseholdSizeView(options) {
-        this.hhSizeFwdBtn = qs("#household-size .button.fwd");
         this.numKidsInput = qs("#household-size [name=num-kids]");
         this.numAdultsInput = qs("#household-size [name=num-adults]");
+        this.formEl = qs("#household-size form");
         this.listenersToUnload = [];
         this.model = options.model;
     }
 
     HouseholdSizeView.prototype.bind = function(event, handler) {
         switch (event) {
-        case "setHouseholdSize":
-            var listener = this.setHouseholdSizeHandler.bind(this, handler);
-            $on(this.hhSizeFwdBtn, "click", listener);
-            var unloader = (function() {
-                $off(this.hhSizeFwdBtn, "click", listener);
-            }).bind(this);
+        case "handleSetHouseholdSize":
+            var unloader = $on(this.formEl, "submit", function(event) {
+                event.preventDefault();
+                var numKids = parseInt(this.numKidsInput.value, 10);
+                var numAdults = parseInt(this.numAdultsInput.value, 10);
+                var submitBtn = qs("button.fwd", this.formEl);
+                var nextScreenId = submitBtn.getAttribute("data-next-screen");
+                handler({numKids: numKids, numAdults: numAdults, nextScreenId: nextScreenId});
+            }.bind(this));
             this.listenersToUnload.push(unloader);
             break;
         }
-    };
-
-    HouseholdSizeView.prototype.setHouseholdSizeHandler = function(handler) {
-        var numKids = parseInt(this.numKidsInput.value, 10);
-        var numAdults = parseInt(this.numAdultsInput.value, 10);
-        handler(numKids, numAdults);
     };
 
     HouseholdSizeView.prototype.render = function() {
@@ -1064,7 +1061,7 @@
         }
         this.handlers = {
             "household-size": [
-                {event: "setHouseholdSize", handler: this.setHouseholdSize.bind(this)}
+                {event: "handleSetHouseholdSize", handler: this.setHouseholdSize.bind(this)}
             ],
             "kids": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
@@ -1103,8 +1100,9 @@
         this.events.bind(event, handler);
     };
 
-    Controller.prototype.setHouseholdSize = function(numKids, numAdults) {
-        this.model.setHouseholdSize(numKids, numAdults);
+    Controller.prototype.setHouseholdSize = function(options) {
+        this.model.setHouseholdSize(options.numKids, options.numAdults);
+        this.setView(options.nextScreenId);
     };
 
     Controller.prototype.toggleDetailsForm = function(view) {
@@ -1139,6 +1137,8 @@
 
     Controller.prototype.handleAddPersonClick = function(options) {
         this.model.addPerson(options);
+        // TODO this is kind of a hack because event listening is not working
+        // correctly at the moment:
         window.location.reload();
     };
 
@@ -1170,11 +1170,14 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
-        window.history.pushState(null, "", "#submitted");
         this.setView("submitted");
     };
 
     Controller.prototype.setView = function(id) {
+        window.location.hash = "#" + id;
+    };
+
+    Controller.prototype.loadView = function(id) {
         console.debug("setting view '%s'", id);
         this.hideAll();
         qs("#" + id).classList.add("show");
@@ -1268,12 +1271,12 @@
 
         initDebugging();
 
-        function setView() {
+        function loadView() {
             var id = window.location.hash ? window.location.hash.slice(1) : initialViewId;
-            controller.setView(id);
+            controller.loadView(id);
         }
 
-        $on(window, "hashchange", setView);
-        setView();
+        $on(window, "hashchange", loadView);
+        loadView();
     }, false);
 }());
