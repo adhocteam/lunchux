@@ -415,27 +415,27 @@
         var form = document.createElement("div");
         li.appendChild(form);
         var formHTML = [
-                '<div class="details-form" style="display: none">' +
+                '<form class="details-form" style="display: none">' +
                     '<div>' +
                         '<label>' +
                             'Name (ex: Kid U. Eighteen)<br>' +
-                            '<input name="name" type="text" placeholder="Name" value="' + person.name + '">' +
+                            '<input name="name" type="text" placeholder="Name" required value="' + person.name + '">' +
                         '</label>' +
                     '</div>' +
                     '<div>' +
                         '<p>Is ' + name + ' a student?</p>' +
-                        '<label><input name="is-student" type="radio" value="no" ' + tribool(person.isStudent, false) + '> No</label><br>' +
+                        '<label><input name="is-student" type="radio" value="no" required ' + tribool(person.isStudent, false) + '> No</label><br>' +
                         '<label><input name="is-student" type="radio" value="yes" ' + tribool(person.isStudent, true) + '> Yes</label><br>' +
                    '</div>' +
                     '<div>' +
                         '<p>Is ' + name + ' a foster child?</p>' +
-                        '<label><input name="is-foster-child" type="radio" value="no" ' + tribool(person.isFosterChild, false)  + '> No</label><br>' +
+                        '<label><input name="is-foster-child" type="radio" value="no" required ' + tribool(person.isFosterChild, false)  + '> No</label><br>' +
                         '<label><input name="is-foster-child" type="radio" value="yes" ' + tribool(person.isFosterChild, true) + '> Yes</label><br>' +
                     '</div>' +
                     '<div>' +
                         '<p>Is ' + name + ' considered homeless, a runaway, a migrant, or is ' + name + ' enrolled in the Head Start program?</p>' +
                         '<p class="help">What do these terms mean?</p>' +
-                        '<label><input name="is-homeless" type="radio" value="no" ' + tribool(person.isHomeless, false) + '> No</label><br>' +
+                        '<label><input name="is-homeless" type="radio" value="no" required ' + tribool(person.isHomeless, false) + '> No</label><br>' +
                         '<label><input name="is-homeless" type="radio" value="yes" ' + tribool(person.isHomeless, true) + '> Yes</label><br>' +
                     '</div>' +
                     '<p>We are required to ask for information about your children\'s race and ethnicity. This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>' +
@@ -458,7 +458,7 @@
                     '<div>' +
                         '<button class="button save">Save</button>' +
                     '</div>' +
-                '</div>'
+                '</form>'
             ].join("\n");
         form.innerHTML = formHTML;
 
@@ -493,7 +493,8 @@
             }.bind(this));
             break;
         case "handleSaveBtnClick":
-            $delegate(this.el, "button.save", "click", function(event) {
+            $delegate(this.el, "form", "submit", function(event) {
+                event.preventDefault();
                 handler(this, this.person);
             }.bind(this));
             break;
