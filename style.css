@@ -11,7 +11,7 @@ body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #f
 .button:hover { color: #fff; background: #000; }
 a { color: #000; }
 #menu:before { content: "🍔 "; }
-header, main { padding: 20px 30px; }
+header .nav, main { padding: 20px 30px; }
 header { background: #eee; border-bottom: 1px solid #ccc; }
 .nav h1 { font-size: 20px; font-weight: 400; text-align: center; }
 .nav { display: flex; justify-content: space-between; }
@@ -35,7 +35,9 @@ main { clear: both; }
 [name=num-kids], [name=num-adults] { padding: 10px; font-size: 20px; text-align: center; }
 .notes { font-size: smaller; }
 #debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px red dotted; }
-h1 a { text-decoration: none; }
+.nav a, .subnav a { text-decoration: none; }
 #faq dt { margin-top: 1em; }
 #faq dt:after { content: " >"; color: #ccc; font-weight: 700; }
 #faq dd { display: none; }
+.subnav { list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; background: #fff; font-size: smaller; }
+.subnav li { border: 1px solid #666; padding: 10px; flex: 1 0 auto; text-align: center; }
