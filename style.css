@@ -36,3 +36,6 @@ main { clear: both; }
 .notes { font-size: smaller; }
 #debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px red dotted; }
 h1 a { text-decoration: none; }
+#faq dt { margin-top: 1em; }
+#faq dt:after { content: " >"; color: #ccc; font-weight: 700; }
+#faq dd { display: none; }
