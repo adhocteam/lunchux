@@ -12,7 +12,7 @@
         <header>
             <div class="nav">
                 <div id="menu">Menu</div>
-                <h1>LunchUX</h1>
+                <h1><a href="/">LunchUX</a></h1>
                 <div id="signout">Sign Out</div>
             </div>
         </header>
@@ -21,11 +21,11 @@
             <section class="screen" id="get-started">
                 <h2>Welcome!</h2>
                 <p>Let's help you get kids in your home get their school lunches for free or reduced cost.</p>
-                <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the ? icon or use the FAQ at the bottom of the screen.</p>
+                <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the ? icon or use the FAQ at the top of the screen.</p>
 
                 <h2>Let's get started.</h2>
-                <h3>Are you over the age of 18?</h3>
-                <p>This application has to be completed by a member of the household who is an adult over the age of 18.</p>
+                <h3>Are you over the age of 21?</h3>
+                <p>This application has to be completed by a member of the household who is an adult over the age of 21.</p>
                 <div class="button-group">
                     <a class="button" href="#need-adult">No</a>
                     <a class="button" href="#household-size">Yes</a>
@@ -37,17 +37,19 @@
                 <h3>How many people are in your home?</h3>
                 <p>Make sure you count anyone who is supported by the household or contributes to it, including you. They don't have to be related to you!</p>
                 <p class="help">Common questions about households</p>
-                <div>
-                    <label>
-                        Kids under 18<br>
-                        <input type="text" name="num-kids">
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Adults over 18<br>
-                        <input type="text" name="num-adults">
-                    </label>
+                <div class="form-controls-group">
+                    <div>
+                        <label>
+                            Kids under 18<br>
+                            <input type="text" name="num-kids" size="3" maxlength="2">
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Adults over 18<br>
+                            <input type="text" name="num-adults" size="3" maxlength="2">
+                        </label>
+                    </div>
                 </div>
                 <p>You'll need income information for each of these <span class="num-people">n</span> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
                 <div class="button-group">
@@ -58,7 +60,7 @@
 
             <section class="screen" id="need-adult">
                 <h2>Sorry, you need an adult!</h2>
-                <p>This application has to be completed by someone over the age of 18, even if it's for you.</p>
+                <p>This application has to be completed by someone over the age of 21, even if it's for you.</p>
                 <p>If you don't have an adult who can do this application on your behalf, please call your school at:</p>
                 <p class="tel">(123) 456-7890</p>
                 <div class="button-group">
@@ -70,68 +72,14 @@
                 <h2>Let's talk about the kids.</h2>
                 <p>This is anyone in your household under the age of 18.</p>
                 <p>We're talking babies, toddlers, and kids, whether they're in school or not.</p>
-                <p>You've told us you have 3 kids under 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
+                <p>You've told us you have <span class="num-people"></span> kids under 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
 
-                <ul class="person-list">
-                    <li class="person valid">
-                        <div class="person-summary">
-                            <div class="person-name">Bailey Grey</div>
-                            <div class="actions">Edit these details</div>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Zola Grey</div>
-                            <div class="actions">Information missing!</div>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Kid #3</div>
-                            <div class="actions">Add new information</div>
-                        </div>
-
-                        <div class="person-details-form" id="CONVERT_TO_TEMPLATE">
-                            <div>
-                                <label>
-                                    Name (ex: Kid U. Eighteen)<br>
-                                    <input name="" type="text" value="" placeholder="Name">
-                                </label>
-                            </div>
-
-                            <div>
-                                Is &lt;name&gt; a student?<br>
-                                <label><input name="is-student" type="radio" value="no"> No</label><br>
-                                <label><input name="is-student" type="radio" value="yes"> Yes</label><br>
-                            </div>
-
-                            <div>
-                                Is &lt;name&gt; a foster child<br>
-                                <label><input name="is-foster-child" type="radio" value="no"> No</label><br>
-                                <label><input name="is-foster-child" type="radio" value="yes"> Yes</label><br>
-                            </div>
-
-                            <div>
-                                Is &lt;name&gt; considered homeless, a runaway, a migrant, or is &lt;name&gt; enrolled in the Head Start program?
-                                <p class="help" >What do these terms mean?</p>
-                                <label><input name="is-foster-child" type="radio" value="no"> No</label><br>
-                                <label><input name="is-foster-child" type="radio" value="yes"> Yes</label><br>
-                            </div>
-
-                            <p>Thank you! In just a bit, we'll ask you about &lt;name&gt;'s income.</p>
-
-                            <div>
-                                <button class="button">Save</button>
-                            </div>
-                        </div>
-
-                    </li>
-                </ul>
-
+                <ul class="person-list"></ul>
+                
                 <div class="add-person">
                     Missing anyone?
                     <div class="person invalid">
-                        <div class="person-summary">
+                        <div class="person-name-bar">
                             <div class="person-name">Add another child</div>
                             <div class="actions">Add new information</div>
                         </div>
@@ -147,29 +95,38 @@
             <section class="screen" id="adults">
                 <h2>Let's talk about the adults.</h2>
                 <p>This is anyone in your household over the age of 18, including you.</p>
-                <p>You've told us you have 2 people over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
+                <p>You've told us you have <span class="num-people"></span> people over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
 
-                <ul class="person-list">
-                    <li class="person valid">
-                        <div class="person-summary">
-                            <div class="person-name">Meredith Grey</div>
-                            <div class="actions">Edit these details</div>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Amelia Shepard</div>
-                            <div class="actions">Information missing!</div>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="person-list"></ul>
 
                 <div class="add-person">
                     Missing anyone?
                     <div class="person invalid">
-                        <div class="person-summary">
+                        <div class="person-name-bar">
                             <div class="person-name">Add another adult</div>
                             <div class="actions">Add new information</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ssn-form">
+                    <p>Do you or anybody in your household have a Social Security Number (SSN)?</p>
+                    <div class="form-controls-group">
+                        <div>
+                            <label>
+                                <input type="radio" name="has-ssn" value="yes"> Yes
+                            </label>
+                            <div class="last-4-ssn-control" style="display: none"> <!-- initially hidden, visibility conditional on has-ssn checked -->
+                                <label>
+                                    Please enter only the <b>last four digits</b>.<br>
+                                    XXX - XXX - <input type="text" name="last-4-ssn" size="5" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}">
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="radio" name="has-ssn" value="no"> No
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -182,12 +139,22 @@
 
             <section class="screen" id="other-help">
                 <h2>Let's talk about other help.</h2>
-                <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
-                <div class="form-controls-group">
-                    <label><input type="radio" name="other-help">No</label><br>
-                    <label><input type="radio" name="other-help">Yes</label><br>
-                    <label>Please enter just one case number:<br>
-                        <input type="text" placeholder="case number"></label>
+                <div class="other-help-form">
+                    <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
+                    <div class="form-controls-group">
+                        <div>
+                            <label><input type="radio" name="has-other-help" value="yes">Yes</label>
+                        </div>
+                        <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
+                            <label>
+                                Please enter just one case number:<br>
+                                <input type="text" name="case-number" placeholder="case number">
+                            </label>
+                        </div>
+                        <div>
+                            <label><input type="radio" name="has-other-help" value="no">No</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="button-group">
                     <a class="button" href="#adults">Go back</a>
@@ -200,45 +167,9 @@
                 <p>We need to know about your household's earnings.</p>
                 <p>Income can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Kids' income needs to be listed as well.</p>
                 <p class="help">See a comprehensive list of income sources.</p>
-                <p>You've told us you have 5 people in your household. Let's list each one's income.</p>
+                <p>You've told us you have <span class="num-people"></span> people in your household. Let's list each one's income.</p>
 
                 <ul class="person-list">
-                    <li class="person valid">
-                        <div class="person-summary">
-                            <div class="person-name">Bailey Grey</div>
-                            <div class="actions">Edit these details</div>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Zola Grey</div>
-                            <div class="actions">Information missing!</div>
-                        </div>
-                        <div class="notes">
-                            <p>Please complete Zola's information. Your application can't be submitted without it.</p>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Ellis Grey</div>
-                            <div class="actions">Add new information</div>
-                        </div>
-                    </li>
-                    <li class="person valid">
-                        <div class="person-summary">
-                            <div class="person-name">Meredith Grey</div>
-                            <div class="actions">Edit these details</div>
-                        </div>
-                    </li>
-                    <li class="person invalid">
-                        <div class="person-summary">
-                            <div class="person-name">Amelia Shepard</div>
-                            <div class="actions">Information missing!</div>
-                        </div>
-                        <div class="notes">
-                            <p>Please complete Amelia's information. Your application can't be submitted without it.</p>
-                        </div>
-                    </li>
                 </ul>
 
                 <div class="button-group">
@@ -250,15 +181,122 @@
             <section class="screen" id="review">
                 <h2>You're all set.</h2>
                 <p>Please review the information you entered, and correct any mistakes you see.</p>
-                <p>There are <b>3 kids</b> and <b>2 adults</b> in your household, for a total of <b>5 people</b>. Do you need to add anyone else?</p>
-                <div>
+
+                <p class="hh-description"></p>
+
+                <div class="button-group">
                     <a class="button" href="#kids">Add kids</a>
+                    <a class="button" href="#adults">Add adults</a>
                 </div>
-                <div>
-                    <a class="button" href="#">Submit application for lunch</a>
+
+                <ul class="person-list"></ul>
+
+                <div class="other-help-summary">
+                    <p><b>Assistance</b></p>
+                    <div class="summary"></div>
+                    <div>
+                        <a class="button" href="#other-help">Edit this information</a>
+                    </div>
+                </div>
+
+                <div class="ssn-summary">
+                    <p><b>Social Security</b></p>
+                    <div class="summary"></div>
+                    <div>
+                        <a class="button" href="#adults">Edit this information</a>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="contact-info">
+                        <p>Is there a good way for your school to get in contact with you?</p>
+                        <div class="form-controls-group">
+                            <div>
+                                <label>Phone number:<br>
+                                    <input type="text" name="phone" value="" placeholder="(555) 555-1212">
+                                </label>
+                            </div>
+                            <div>
+                                <label>Email address:<br>
+                                    <input type="email" name="email" value="" placeholder="email@example.com">
+                                </label>
+                            </div>
+                        </div>
+
+                        <p>Is there an address we can share?</p>
+                        <p>If not, that's ok! It won't affect the application.</p>
+                        <div class="form-controls-group">
+                            <div>
+                                <label><input type="radio" name="has-address" value="yes"> Yes</label>
+                            </div>
+                            <div>
+                                <label><input type="radio" name="has-address" value="no"> No</label>
+                            </div>
+                            <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
+                                <div>
+                                    <label>Street address:<br>
+                                        <input type="text" name="street" value="" placeholder="123 Fake St">
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>City:<br>
+                                        <input type="text" name="city" value="" placeholder="Anytown">
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>State:<br>
+                                        <select name="state">
+                                            <option value=""></option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>ZIP Code:<br>
+                                        <input type="text" name="zip" value="" placeholder="99999">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agreements">
+                        <p><b>Almost done!</b></p>
+                        <p>We have to show you some information before you submit this application.</p>
+                        <ul>
+                            <li><a href="#TKTK">USDA non-discrimination statement</a></li>
+                            <li><a href="#TKTK">Use of information statement</a></li>
+                        </ul>
+                    </div>
+                    <div class="sign-form">
+                        <p><b>Time to sign!</b></p>
+                        <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
+                        <div class="form-controls-group">
+                            <div>
+                                <label>
+                                    Enter your name:<br>
+                                    <input type="text" name="signature" placeholder="Your name" required>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="button">Submit application for lunch</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="screen" id="submitted">
+                <h2>Submitted!</h2>
+                <p>Your application has been submitted! Next, school officials will check your information and let you know about any next steps.</p>
+                <div class="button-group">
+                    <a class="button" href="#">Email this application to yourself</a>
+                    <a class="button" href="#">Print this application</a>
                 </div>
             </section>
 
+            <div id="debug">
+                <pre style="display: none"></pre>
+                <i style="font-size: smaller">Show debug</i>
+            </div>
         </main>
     </body>
 </html>
