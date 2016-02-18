@@ -98,6 +98,7 @@
         this.isFosterChild = options.isFosterChild;
         this.isHomeless = options.isHomeless;
         this.isHipanic = options.isHispanic;
+        this.isHipanicDeclined = options.isHispanicDeclined;
         this.races = options.races || [];
         this.incomes = options.incomes || {};
     };
@@ -179,7 +180,7 @@
         this.editingPerson = null;
         this.formDisplay = [];
     };
-    
+
     Model.prototype.toggleDetailsForm = function(view) {
         var state;
         var found = false;
@@ -193,7 +194,7 @@
 
         if (!found) {
             state = {view: view, show: true}; // show on initial click
-            this.formDisplay.push(state); 
+            this.formDisplay.push(state);
         } else {
             state.show = !state.show;
         }
@@ -400,7 +401,8 @@
             {label: "Asian", value: "asian"},
             {label: "Black or African-American", value: "black"},
             {label: "Native Hawaiian or other Pacific Islander", value: "hawaiian"},
-            {label: "White", value: "white"}
+            {label: "White", value: "white"},
+            {label: "Decline to answer", value: "declined"}
         ];
 
         var name = person.name;
@@ -441,8 +443,9 @@
                     '<p>We are required to ask for information about your children\'s race and ethnicity. This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>' +
                     '<p><b>Ethnicity</b></p>' +
                     '<div>' +
-                         '<label><input name="is-hispanic" type="radio" value="yes" ' + tribool(person.isHispanic, true) + '> Hispanic or Latino</label><br>' +
+                         '<label><input name="is-hispanic" type="radio" value="yes" required ' + tribool(person.isHispanic, true) + '> Hispanic or Latino</label><br>' +
                          '<label><input name="is-hispanic" type="radio" value="no" ' + tribool(person.isHispanic, false) + '> Not Hispanic nor Latino</label><br>' +
+                         '<label><input name="is-hispanic" type="radio" value="declined" ' + tribool(person.isHispanicDeclined, true) + '> Decline to answer</label><br>' +
                     '</div>' +
                     '<p>' +
                         '<b>Race</b>' +
@@ -479,8 +482,20 @@
             break;
         case "handleBooleanRadioClick":
             $delegate(this.el, "[type=radio]", "click", function(event) {
-                var checked = event.target.value === "yes" && event.target.checked;
-                handler(this.person, event.target.name, checked);
+                var input = event.target;
+                if (input.name === "is-hispanic") {
+                    if (input.value === "declined" && input.checked) {
+                        handler(this.person, "is-hispanic", undefined);
+                        handler(this.person, "is-hispanic-declined", true);
+                        return;
+                    } else {
+                        handler(this.person, "is-hispanic-declined", undefined);
+                        handler(this.person, "is-hispanic", input.value === "yes" && input.checked);
+                        return;
+                    }
+                }
+                var checked = input.value === "yes" && input.checked;
+                handler(this.person, input.name, checked);
             }.bind(this));
             break;
         case "handleRaceCheckboxClick":
@@ -696,6 +711,15 @@
             }.bind(this));
             this.unloaders.push(unload);
             break;
+        case "handleContinueBtnClick":
+            var unload = $on(qs("#adults form.ssn-form"), "submit", function(event) {
+                event.preventDefault();
+                var submitBtn = qs("button.button", event.target);
+                var nextScreenId = submitBtn.getAttribute("data-next-screen");
+                handler({nextScreenId: nextScreenId});
+            }.bind(this));
+            this.unloaders.push(unload);
+            break;
         default:
             this.peopleListView.bind(event, handler);
         }
@@ -730,6 +754,15 @@
             var caseNumber = qs("[name=case-number]", this.otherHelpFormEl);
             var unload = $on(caseNumber, "input", function(event) {
                 handler(caseNumber.value);
+            }.bind(this));
+            this.unloaders.push(unload);
+            break;
+        case "handleContinueBtnClick":
+            var unload = $on(qs("#other-help form"), "submit", function(event) {
+                event.preventDefault();
+                var submitBtn = qs("button.button", event.target);
+                var nextScreenId = submitBtn.getAttribute("data-next-screen");
+                handler({nextScreenId: nextScreenId});
             }.bind(this));
             this.unloaders.push(unload);
             break;
@@ -1078,11 +1111,13 @@
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleLast4SSNInput", handler: this.handleLast4SSNInput.bind(this)},
                 {event: "handleHasSSNRadioClick", handler: this.handleHasSSNRadioClick.bind(this)},
-                {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)}
+                {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "other-help": [
                 {event: "handleHasOtherHelpRadioClick", handler: this.handleHasOtherHelpRadioClick.bind(this)},
-                {event: "handleCaseNumberInput", handler: this.handleCaseNumberInput.bind(this)}
+                {event: "handleCaseNumberInput", handler: this.handleCaseNumberInput.bind(this)},
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "income": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
@@ -1119,7 +1154,8 @@
             "is-student": "isStudent",
             "is-homeless": "isHomeless",
             "is-foster-child": "isFosterChild",
-            "is-hispanic": "isHispanic"
+            "is-hispanic": "isHispanic",
+            "is-hispanic-declined": "isHispanicDeclined"
         };
         var propName = propNameMap[name];
         var options = {};
@@ -1149,6 +1185,10 @@
 
     Controller.prototype.handleHasSSNRadioClick = function(hasSSN) {
         this.model.set("hasSSN", hasSSN);
+    };
+
+    Controller.prototype.handleContinueBtnClick = function(options) {
+        this.setView(options.nextScreenId);
     };
 
     Controller.prototype.handleHasOtherHelpRadioClick = function(hasOtherHelp) {
