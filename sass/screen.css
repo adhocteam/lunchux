@@ -255,6 +255,9 @@ a {
   background-color: #ddd;
   color: #fff; }
 
+.no-bold {
+  font-weight: normal; }
+
 /* ============= 
    HEADERS
    ============= */
@@ -318,6 +321,9 @@ main {
     width: 25%;
     text-align: center; }
 
+/* ============= 
+   HOUSEHOLD INFO
+   ============= */
 .person-list {
   list-style-type: none;
   margin: 0 0 1em 0;
@@ -369,6 +375,14 @@ main {
 
 .notes {
   font-size: smaller; }
+
+.ssn {
+  display: inline-block; }
+
+input.ssn {
+  width: 75px;
+  margin-left: 3px;
+  text-align: center; }
 
 /* ============= 
    FAQ
