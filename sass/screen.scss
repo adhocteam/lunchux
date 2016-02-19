@@ -13,7 +13,7 @@ html { background: #ddd; }
 
 body { 
   
-  @include outer-container;
+  //@include outer-container;
   font-family: sans-serif; 
   margin: 0 auto; 
   background: #fff; 
@@ -88,6 +88,7 @@ header {
   //all .nav lives in the header
   .nav {
     
+    @include outer-container;
     padding: 20px 30px;
     display: flex; 
     justify-content: space-between;
@@ -168,10 +169,15 @@ header {
   } 
 }
 
+/* ============= 
+   MAINS
+   ============= */
+   
 main { 
   
   padding: 20px 30px; 
   clear: both;
+  @include outer-container;
 }
 
 .button-group { 

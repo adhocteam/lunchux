@@ -460,6 +460,7 @@
                     '<p>Thank you! In just a bit, we\'ll ask you about ' + name + '\'s income.</p>' +
                     '<div>' +
                         '<button class="button save">Save</button>' +
+                        '<button class="button delete">Remove</button>' +
                     '</div>' +
                 '</form>'
             ].join("\n");
@@ -642,6 +643,7 @@
                     '</div>' +
                     '<div>' +
                         '<button class="button save">Save</button>' +
+                        '<button class="button delete">Remove</button>' +
                     '</div>' +
                 '</div>'
             ].join("\n");
