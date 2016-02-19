@@ -17,6 +17,20 @@ h6 {
   margin: 0 0 $small-spacing;
 }
 
+h1 {
+  
+  font-size:$base-font-size * 2;
+}
+
+h2 {
+  
+  font-size:$base-font-size * 1.75;
+}
+
+h3 {
+  
+  font-size:$base-font-size * 1.25;
+}
 p {
   margin: 0 0 $small-spacing;
 }

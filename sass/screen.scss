@@ -2,11 +2,8 @@
 @import "base/base"; // bitters
 @import "neat/neat"; // docs say this comes after bitters
 
-$red: #f05f5c;
-$green: #090;
-$yellow: #ffc549;
-//$blue is defined in bitters
 
+//colors are defined in base/_variables.scss
 
 #debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px $red dotted; }
 
@@ -14,7 +11,14 @@ $yellow: #ffc549;
 
 html { background: #ddd; }
 
-body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #fff; }
+body { 
+  
+  @include outer-container;
+  font-family: sans-serif; 
+  margin: 0 auto; 
+  background: #fff; 
+     
+}
 
 .help { font-size: smaller; }
 .help:before { content: "? "; color: #fff; background: #000; }
@@ -24,18 +28,47 @@ body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #f
 .button { 
   display: inline-block; 
   text-decoration: none; 
-  color:black;
   padding: 5px 7px; 
-  border: 1px solid #000; 
+  //border: 1px solid #000; 
   border-radius: 4px; 
   cursor: pointer; 
   transition: all 0.25s ease; 
-  background: #fff; font-size: 16px; 
+  color:#fff;
   
 }
-.button:hover { color: #fff; background: #000; }
+
+.button:hover { color: #fff; //background: #000; 
+  }
 
 a { color: #000; }
+
+.warning {
+    
+  background-color: $red;
+  
+}
+
+.warning:hover {
+  
+  background-color:tint($red, 40%);
+}
+
+.save,
+.fwd {
+  
+  background-color: $green;
+}
+
+.fwd:hover {
+  
+  background-color:tint($green, 40%);
+}
+
+.back {
+  
+  background-color: $light-gray;
+  color:#fff;
+}
 
 /* ============= 
    HEADERS
@@ -90,15 +123,26 @@ header {
   
   list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; background: #fff; font-size: smaller; 
 
-  a {
-    
-    text-decoration: none;
-    
-  } 
-  
   li {
     
-    border: 1px solid #666; padding: 10px; flex: 1 0 auto; text-align: center;
+    background: $blue;
+    border-left: 1px solid tint($blue, 25%); 
+    border-right: 1px solid tint($blue, 25%); 
+    padding: 10px; flex: 1 0 auto; text-align: center;
+    
+    a {
+    
+      text-decoration: none;
+      color:white;
+      font-weight: bold;
+      
+    } 
+    
+    a:hover {
+        
+      color:tint($blue, 55%);
+      
+    }
     
   } 
 }

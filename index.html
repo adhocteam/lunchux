@@ -8,6 +8,7 @@
         <link href="style.css" rel="stylesheet">
         <script src="app.js"></script>
     </head>
+    
     <body>
         <header>
             <div class="nav">
@@ -35,8 +36,8 @@
                 <h3>Are you over the age of 21?</h3>
                 <p>This application has to be completed by a member of the household who is an adult over the age of 21.</p>
                 <div class="button-group">
-                    <a class="button" href="#need-adult">No</a>
-                    <a class="button" href="#household-size">Yes</a>
+                    <a class="button warning" href="#need-adult">No</a>
+                    <a class="button fwd" href="#household-size">Yes</a>
                 </div>
             </section>
 
@@ -100,8 +101,8 @@
                 </div>
 
                 <div class="button-group">
-                    <a class="button" href="#household-size">Go back</a>
-                    <a class="button" href="#adults">Continue</a>
+                    <a class="button back" href="#household-size">Go back</a>
+                    <a class="button fwd" href="#adults">Continue</a>
                 </div>
             </section>
 
@@ -144,8 +145,8 @@
                     </div>
 
                     <div class="button-group">
-                        <a class="button" href="#kids">Go back</a>
-                        <button class="button" data-next-screen="other-help">Continue</button>
+                        <a class="button back" href="#kids">Go back</a>
+                        <button class="button fwd" data-next-screen="other-help">Continue</button>
                     </div>
                 </form>
             </section>
@@ -168,8 +169,8 @@
                             <label><input type="radio" name="has-other-help" value="no">No</label>
                         </div>
                         <div class="button-group">
-                            <a class="button" href="#adults">Go back</a>
-                            <button class="button" data-next-screen="income">Continue</button>
+                            <a class="button back" href="#adults">Go back</a>
+                            <button class="button fwd" data-next-screen="income">Continue</button>
                         </div>
                     </div>
                 </form>
@@ -186,8 +187,8 @@
                 </ul>
 
                 <div class="button-group">
-                    <a class="button" href="#other-help">Go back</a>
-                    <a class="button" href="#review">Continue</a>
+                    <a class="button back" href="#other-help">Go back</a>
+                    <a class="button fwd" href="#review">Continue</a>
                 </div>
             </section>
 
@@ -292,7 +293,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="button">Submit application for lunch</button>
+                        <button class="button fwd">Submit application for lunch</button>
                     </div>
                 </form>
             </section>
@@ -378,4 +379,5 @@
             </div>
         </main>
     </body>
+    
 </html>

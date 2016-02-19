@@ -150,6 +150,15 @@ h6 {
   line-height: 1.2;
   margin: 0 0 0.75em; }
 
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.75em; }
+
+h3 {
+  font-size: 1.25em; }
+
 p {
   margin: 0 0 0.75em; }
 
@@ -192,10 +201,16 @@ html {
   background: #ddd; }
 
 body {
-  max-width: 480px;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
   font-family: sans-serif;
   margin: 0 auto;
   background: #fff; }
+  body::after {
+    clear: both;
+    content: "";
+    display: table; }
 
 .help {
   font-size: smaller; }
@@ -211,21 +226,34 @@ body {
 .button {
   display: inline-block;
   text-decoration: none;
-  color: black;
   padding: 5px 7px;
-  border: 1px solid #000;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.25s ease;
-  background: #fff;
-  font-size: 16px; }
+  color: #fff; }
 
 .button:hover {
-  color: #fff;
-  background: #000; }
+  color: #fff; }
 
 a {
   color: #000; }
+
+.warning {
+  background-color: #f05f5c; }
+
+.warning:hover {
+  background-color: #f69f9d; }
+
+.save,
+.fwd {
+  background-color: #66c266; }
+
+.fwd:hover {
+  background-color: #a3daa3; }
+
+.back {
+  background-color: #ddd;
+  color: #fff; }
 
 /* ============= 
    HEADERS
@@ -265,13 +293,19 @@ header {
   justify-content: center;
   background: #fff;
   font-size: smaller; }
-  .subnav a {
-    text-decoration: none; }
   .subnav li {
-    border: 1px solid #666;
+    background: #1565c0;
+    border-left: 1px solid #508cd0;
+    border-right: 1px solid #508cd0;
     padding: 10px;
     flex: 1 0 auto;
     text-align: center; }
+    .subnav li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold; }
+    .subnav li a:hover {
+      color: #96bae3; }
 
 main {
   padding: 20px 30px;
@@ -303,7 +337,7 @@ main {
   cursor: pointer; }
 
 .valid .person-name-bar {
-  color: #090; }
+  color: #66c266; }
 
 .invalid .person-name-bar,
 .invalid .notes {
