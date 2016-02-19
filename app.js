@@ -1087,14 +1087,16 @@
         case "handleSubmit":
             var unloader = $on(this.formEl, "submit", function(event) {
                 event.preventDefault();
-                var form = event.target;
-                var elements = Array.prototype.slice.call(form);
-                var values = elements.filter(function(el) {
-                    return el.name !== "";
-                }).map(function(el) {
-                    return {name: el.name, value: el.value};
-                });
-                handler(values);
+                if (window.confirm("Are you sure you want to submit your application?")) {
+                    var form = event.target;
+                    var elements = Array.prototype.slice.call(form);
+                    var values = elements.filter(function(el) {
+                        return el.name !== "";
+                    }).map(function(el) {
+                        return {name: el.name, value: el.value};
+                    });
+                    handler(values);
+                }
             }.bind(this));
             this.unloaders.push(unloader);
         }
