@@ -1223,6 +1223,7 @@
         this.hideAll();
         qs("#" + id).classList.add("show");
         qs("#" + id).classList.remove("hide");
+        this.setActiveNavTab(id);
 
         if (this.activeView && this.activeView.unload) {
             this.activeView.unload();
@@ -1244,6 +1245,18 @@
                 this.events.notify("view:loaded");
             }
         }
+    };
+
+    Controller.prototype.setActiveNavTab = function(viewId) {
+        qsa("header .subnav li").forEach(function(li) {
+            var a = qs("a", li);
+            if ((a.hash === "#" + viewId) ||
+                (a.hash === "" && viewId === "get-started")) {
+                li.classList.add("active");
+            } else {
+                li.classList.remove("active");
+            }
+        });
     };
 
     Controller.prototype.hideAll = function() {
