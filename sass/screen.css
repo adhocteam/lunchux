@@ -178,6 +178,13 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
+#debug {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  border: 2px #f05f5c dotted; }
+
 * {
   box-sizing: border-box; }
 
@@ -204,6 +211,7 @@ body {
 .button {
   display: inline-block;
   text-decoration: none;
+  color: black;
   padding: 5px 7px;
   border: 1px solid #000;
   border-radius: 4px;
@@ -219,42 +227,62 @@ body {
 a {
   color: #000; }
 
+/* ============= 
+   HEADERS
+   ============= */
 #menu:before {
   content: "🍔 "; }
-
-header .nav, main {
-  padding: 20px 30px; }
 
 header {
   background: #eee;
   border-bottom: 1px solid #ccc; }
+  header .nav {
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between; }
+    header .nav a {
+      text-decoration: none; }
+    header .nav div {
+      flex: 1;
+      margin: 0; }
+    header .nav h1 {
+      font-size: 20px;
+      font-weight: 400;
+      text-align: center;
+      flex: 1;
+      margin: 0; }
+    header .nav #signout {
+      text-align: right; }
 
-.nav h1 {
-  font-size: 20px;
-  font-weight: 400;
-  text-align: center; }
-
-.nav {
+/* ============= 
+   SUBNAV
+   ============= */
+.subnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: space-between; }
-
-.nav div, .nav h1 {
-  flex: 1;
-  margin: 0; }
-
-.nav #signout {
-  text-align: right; }
+  justify-content: center;
+  background: #fff;
+  font-size: smaller; }
+  .subnav a {
+    text-decoration: none; }
+  .subnav li {
+    border: 1px solid #666;
+    padding: 10px;
+    flex: 1 0 auto;
+    text-align: center; }
 
 main {
+  padding: 20px 30px;
   clear: both; }
 
 .button-group {
   display: flex;
   justify-content: space-between; }
-
-.button-group .button {
-  width: 25%;
-  text-align: center; }
+  .button-group .button {
+    width: 25%;
+    text-align: center; }
 
 .person-list {
   list-style-type: none;
@@ -271,15 +299,15 @@ main {
   content: " >";
   color: #ccc;
   font-weight: 700; }
-
 .person .actions:hover {
   cursor: pointer; }
 
 .valid .person-name-bar {
   color: #090; }
 
-.invalid .person-name-bar, .invalid .notes {
-  color: #c00; }
+.invalid .person-name-bar,
+.invalid .notes {
+  color: #f05f5c; }
 
 .person-name {
   font-weight: 700; }
@@ -295,9 +323,6 @@ main {
   opacity: 0;
   display: none; }
 
-.form-controls-group {
-  margin-bottom: 1em; }
-
 #household-size .form-controls-group {
   display: flex;
   justify-content: space-around;
@@ -311,40 +336,16 @@ main {
 .notes {
   font-size: smaller; }
 
-#debug {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px;
-  border: 2px red dotted; }
-
-.nav a, .subnav a {
-  text-decoration: none; }
-
+/* ============= 
+   FAQ
+   ============= */
 #faq dt {
   margin-top: 1em; }
-
-#faq dt:after {
-  content: " >";
-  color: #ccc;
-  font-weight: 700; }
-
+  #faq dt :after {
+    content: " >";
+    color: #ccc;
+    font-weight: 700; }
 #faq dd {
   display: none; }
-
-.subnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  background: #fff;
-  font-size: smaller; }
-
-.subnav li {
-  border: 1px solid #666;
-  padding: 10px;
-  flex: 1 0 auto;
-  text-align: center; }
 
 /*# sourceMappingURL=screen.css.map */

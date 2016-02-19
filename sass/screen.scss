@@ -2,43 +2,187 @@
 @import "base/base"; // bitters
 @import "neat/neat"; // docs say this comes after bitters
 
+$red: #f05f5c;
+$green: #090;
+$yellow: #ffc549;
+//$blue is defined in bitters
+
+
+#debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px $red dotted; }
+
 * { box-sizing: border-box; }
+
 html { background: #ddd; }
+
 body { max-width: 480px; font-family: sans-serif; margin: 0 auto; background: #fff; }
+
 .help { font-size: smaller; }
 .help:before { content: "? "; color: #fff; background: #000; }
+
 .current { background: papayawhip; }
-.button { display: inline-block; text-decoration: none; padding: 5px 7px; border: 1px solid #000; border-radius: 4px; cursor: pointer; transition: all 0.25s ease; background: #fff; font-size: 16px; }
+
+.button { 
+  display: inline-block; 
+  text-decoration: none; 
+  color:black;
+  padding: 5px 7px; 
+  border: 1px solid #000; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: all 0.25s ease; 
+  background: #fff; font-size: 16px; 
+  
+}
 .button:hover { color: #fff; background: #000; }
+
 a { color: #000; }
+
+/* ============= 
+   HEADERS
+   ============= */
+   
 #menu:before { content: "🍔 "; }
-header .nav, main { padding: 20px 30px; }
-header { background: #eee; border-bottom: 1px solid #ccc; }
-.nav h1 { font-size: 20px; font-weight: 400; text-align: center; }
-.nav { display: flex; justify-content: space-between; }
-.nav div, .nav h1 { flex: 1; margin: 0; }
-.nav #signout { text-align: right; }
-main { clear: both; }
-.button-group { display: flex; justify-content: space-between; }
-.button-group .button { width: 25%; text-align: center; }
+
+header { 
+  
+  background: #eee; border-bottom: 1px solid #ccc; 
+  
+  //all .nav lives in the header
+  .nav {
+    
+    padding: 20px 30px;
+    display: flex; 
+    justify-content: space-between;
+    
+    a {
+      
+      text-decoration: none; 
+    }
+    
+    div {
+      
+      flex: 1; margin: 0;
+      
+    }
+    
+    h1 {
+      
+      font-size: 20px; 
+      font-weight: 400; 
+      text-align: center;
+      flex: 1; margin: 0;
+      
+    }
+    
+    #signout {
+      
+      text-align: right;
+    }
+  }
+  
+}
+
+/* ============= 
+   SUBNAV
+   ============= */
+
+.subnav { 
+  
+  list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; background: #fff; font-size: smaller; 
+
+  a {
+    
+    text-decoration: none;
+    
+  } 
+  
+  li {
+    
+    border: 1px solid #666; padding: 10px; flex: 1 0 auto; text-align: center;
+    
+  } 
+}
+
+main { 
+  
+  padding: 20px 30px; 
+  clear: both;
+}
+
+.button-group { 
+  
+  display: flex; 
+  justify-content: space-between; 
+  
+  .button {
+    
+    width: 25%; text-align: center;
+    
+  }
+ }
+
 .person-list { list-style-type: none; margin: 0 0 1em 0; padding: 0; }
+
 .person-name-bar { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
-.person .actions:after { content: " >"; color: #ccc; font-weight: 700; }
-.person .actions:hover { cursor: pointer; }
-.valid .person-name-bar { color: #090; }
-.invalid .person-name-bar, .invalid .notes { color: #c00; }
+
+.person {
+  
+  .actions:after { content: " >"; color: #ccc; font-weight: 700; }
+  .actions:hover { cursor: pointer; }
+  
+}
+
+.valid {
+  
+  .person-name-bar { color: $green; }
+  
+}
+
+.invalid {
+  
+  .person-name-bar, 
+  .notes { 
+    color: $red; 
+  }
+  
+}
+
 .person-name { font-weight: 700; }
+
 .add-person { margin-bottom: 1em; }
+
 .show { opacity: 1; display: block; }
+
 .hide { opacity: 0; display: none; }
-.form-controls-group { margin-bottom: 1em; }
+
+.form-controls-group { //margin-bottom: 1em; 
+  }
+
 #household-size .form-controls-group { display: flex; justify-content: space-around; text-align: center; }
 [name=num-kids], [name=num-adults] { padding: 10px; font-size: 20px; text-align: center; }
+
 .notes { font-size: smaller; }
-#debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px red dotted; }
-.nav a, .subnav a { text-decoration: none; }
-#faq dt { margin-top: 1em; }
-#faq dt:after { content: " >"; color: #ccc; font-weight: 700; }
-#faq dd { display: none; }
-.subnav { list-style-type: none; margin: 0; padding: 0; display: flex; justify-content: center; background: #fff; font-size: smaller; }
-.subnav li { border: 1px solid #666; padding: 10px; flex: 1 0 auto; text-align: center; }
+
+
+/* ============= 
+   FAQ
+   ============= */
+
+#faq {
+  
+  dt {
+    
+    margin-top: 1em;
+    
+    :after {
+      
+      content: " >"; color: #ccc; font-weight: 700;
+    }
+    
+  }
+  
+  dd {
+    display: none;
+    
+  } 
+}
