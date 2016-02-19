@@ -208,11 +208,6 @@ body {
 .help {
   font-size: smaller; }
 
-.help:before {
-  content: "? ";
-  color: #fff;
-  background: #000; }
-
 .current {
   background: papayawhip; }
 
@@ -250,6 +245,21 @@ a {
 
 .no-bold {
   font-weight: normal; }
+
+.question-mark-small {
+  width: 20px;
+  height: 20px;
+  background-image: url("/question_mark.svg");
+  display: inline-block;
+  vertical-align: middle; }
+
+.question-mark {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  background-image: url("/question_mark.svg"); }
 
 /* ============= 
    HEADERS
@@ -415,5 +425,27 @@ input.ssn {
     font-weight: 700; }
 #faq dd {
   display: none; }
+
+/* ============= 
+   FOOTER
+   ============= */
+footer {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-bottom: 15px;
+  padding-top: 30px;
+  font-size: small;
+  color: #ddd; }
+  footer::after {
+    clear: both;
+    content: "";
+    display: table; }
+  footer a {
+    color: #ddd;
+    text-decoration: underline; }
+  footer .question-mark-small {
+    margin-right: 7px; }
 
 /*# sourceMappingURL=screen.css.map */

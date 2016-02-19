@@ -21,7 +21,6 @@ body {
 }
 
 .help { font-size: smaller; }
-.help:before { content: "? "; color: #fff; background: #000; }
 
 .current { background: papayawhip; }
 
@@ -37,8 +36,9 @@ body {
   
 }
 
-.button:hover { color: #fff; //background: #000; 
-  }
+.button:hover { 
+  color: #fff; //background: #000; 
+}
 
 a { color: #000; }
 
@@ -74,6 +74,25 @@ a { color: #000; }
   
   font-weight:normal;
   
+}
+
+.question-mark-small {
+  
+  width:20px;
+  height:20px;
+  background-image: url('/question_mark.svg');
+  display:inline-block;
+  vertical-align: middle;
+}
+
+.question-mark {
+  
+  width:30px;
+  height: 30px;
+  display:inline-block;
+  vertical-align: middle;
+  margin-right:10px;
+  background-image: url('/question_mark.svg');
 }
 /* ============= 
    HEADERS
@@ -283,3 +302,29 @@ input.ssn {
     
   } 
 }
+
+/* ============= 
+   FOOTER
+   ============= */
+   
+   footer {
+     
+     @include outer-container;
+     text-align: center;
+     padding-bottom:15px;
+     padding-top:30px;
+     font-size:small;
+     color:$light-gray;
+     
+     a {
+       
+       color:$light-gray;
+       text-decoration: underline;
+       
+     }
+     
+     .question-mark-small {
+       
+       margin-right:7px;
+     }
+   }
