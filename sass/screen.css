@@ -231,9 +231,14 @@ button {
 a {
   color: #000; }
 
+.delete {
+  margin-top: 5px; }
+
+.delete,
 .warning {
   background-color: #f05f5c; }
 
+.delete:hover,
 .warning:hover {
   background-color: #f69f9d; }
 

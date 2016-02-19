@@ -53,12 +53,18 @@ button {
 
 a { color: #000; }
 
+.delete {
+  
+  margin-top:5px;
+}
+.delete,
 .warning {
     
   background-color: $red;
   
 }
 
+.delete:hover,
 .warning:hover {
   
   background-color:tint($red, 40%);
