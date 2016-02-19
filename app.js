@@ -1122,6 +1122,15 @@
             "income": IncomeView,
             "review": ReviewView
         }
+        this.progress = [
+            "get-started",
+            "household-size",
+            "kids",
+            "adults",
+            "other-help",
+            "income",
+            "review"
+        ];
         this.handlers = {
             "household-size": [
                 {event: "handleSetHouseholdSize", handler: this.setHouseholdSize.bind(this)}
@@ -1286,15 +1295,21 @@
     };
 
     Controller.prototype.setActiveNavTab = function(viewId) {
+        var progress = this.progress.indexOf(viewId);
         qsa("header .subnav li").forEach(function(li) {
             var a = qs("a", li);
-            if ((a.hash === "#" + viewId) ||
-                (a.hash === "" && viewId === "get-started")) {
+            var thisViewId = a.hash === "" ? "get-started" : a.hash.slice(1);
+            if ((thisViewId === viewId)) {
                 li.classList.add("active");
             } else {
                 li.classList.remove("active");
             }
-        });
+            if (this.progress.indexOf(thisViewId) < progress) {
+                li.classList.add("done");
+            } else {
+                li.classList.remove("done");
+            }
+        }.bind(this));
     };
 
     Controller.prototype.hideAll = function() {
