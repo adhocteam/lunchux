@@ -300,13 +300,14 @@ header {
     background: #1565c0;
     border-left: 1px solid #508cd0;
     border-right: 1px solid #508cd0;
-    padding: 10px;
-    flex: 1 0 auto;
-    text-align: center; }
+    text-align: center;
+    flex: 1 0 auto; }
     .subnav li a {
       text-decoration: none;
       color: white;
-      font-weight: bold; }
+      font-weight: bold;
+      display: block;
+      padding: 10px; }
     .subnav li a:hover {
       color: #96bae3; }
 
@@ -384,12 +385,15 @@ input.ssn {
   margin-left: 3px;
   text-align: center; }
 
+.agreements ul li {
+  margin-bottom: 10px; }
+
 /* ============= 
    FAQ
    ============= */
 #faq dt {
   margin-top: 1em; }
-  #faq dt :after {
+  #faq dt:after {
     content: " >";
     color: #ccc;
     font-weight: 700; }

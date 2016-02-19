@@ -133,14 +133,16 @@ header {
     background: $blue;
     border-left: 1px solid tint($blue, 25%); 
     border-right: 1px solid tint($blue, 25%); 
-    padding: 10px; flex: 1 0 auto; text-align: center;
+    text-align: center;
+    flex: 1 0 auto;
     
     a {
     
       text-decoration: none;
       color:white;
       font-weight: bold;
-      
+      display:block;
+      padding: 10px;  
     } 
     
     a:hover {
@@ -228,6 +230,17 @@ input.ssn {
   text-align: center;
 }
 
+.agreements {
+  
+  ul {
+    
+    li {
+      
+      margin-bottom:10px;
+    }
+  }
+}
+
 /* ============= 
    FAQ
    ============= */
@@ -238,7 +251,7 @@ input.ssn {
     
     margin-top: 1em;
     
-    :after {
+    &:after {
       
       content: " >"; color: #ccc; font-weight: 700;
     }
