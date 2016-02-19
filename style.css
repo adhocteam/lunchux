@@ -1,5 +1,3 @@
 @import "sass/screen.css";
 
 /* moved css to screen.scss */
-
-.subnav li.active { background: papayawhip; }

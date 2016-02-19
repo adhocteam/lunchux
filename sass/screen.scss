@@ -147,8 +147,22 @@ header {
     
     a:hover {
         
-      color:tint($blue, 55%);
+      //color:shade($blue, 20%);
+      color:#fff;
+      background-color:tint($blue, 50%);
+      transition: background-color 0.25s ease; 
+            
+    }
+    
+    &.active {
       
+      background-color:tint($blue, 50%);
+      
+      a {
+        
+        color:shade($blue, 20%);
+        
+      }
     }
     
   } 
