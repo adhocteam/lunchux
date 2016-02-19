@@ -172,6 +172,18 @@
         this.events.notify("addedPerson", person);
     }
 
+    Model.prototype.deletePerson = function(person) {
+        var index;
+        this.data.people.forEach(function(p, i) {
+            if (p === person) {
+                index = i;
+            }
+        });
+        this.data.people.splice(index, 1);
+        this.save();
+        this.events.notify("deletedPerson", person);
+    };
+
     Model.prototype.all = function() {
         return this.data;
     };
@@ -460,7 +472,7 @@
                     '<p>Thank you! In just a bit, we\'ll ask you about ' + name + '\'s income.</p>' +
                     '<div>' +
                         '<button class="button save">Save</button>' +
-                        '<button class="button delete">Remove</button>' +
+                        '<a class="button delete" href="#">Remove</a>' +
                     '</div>' +
                 '</form>'
             ].join("\n");
@@ -514,6 +526,12 @@
                 handler(this, this.person);
             }.bind(this));
             break;
+        case "handleDeleteBtnClick":
+            $delegate(this.el, ".button.delete", "click", function(event) {
+                event.preventDefault();
+                handler(this.person);
+            }.bind(this));
+            break;
         }
     };
 
@@ -529,6 +547,7 @@
             "handleBooleanRadioClick",
             "handleRaceCheckboxClick",
             "handleSaveBtnClick",
+            "handleDeleteBtnClick",
             "handleIncomeAmountInput",
             "handleIncomeFrequencyChange"
         ];
@@ -643,7 +662,7 @@
                     '</div>' +
                     '<div>' +
                         '<button class="button save">Save</button>' +
-                        '<button class="button delete">Remove</button>' +
+                        '<a class="button delete" href="#">Remove</a>' +
                     '</div>' +
                 '</div>'
             ].join("\n");
@@ -667,6 +686,12 @@
         case "handleSaveBtnClick":
             $delegate(this.el, "button.save", "click", function(event) {
                 handler(this, this.person);
+            }.bind(this));
+            break;
+        case "handleDeleteBtnClick":
+            $delegate(this.el, ".button.delete", "click", function(event) {
+                event.preventDefault();
+                handler(this.person);
             }.bind(this));
             break;
         }
@@ -1105,12 +1130,14 @@
                 {event: "handleBooleanRadioClick", handler: this.handleBooleanRadioClick.bind(this)},
                 {event: "handleRaceCheckboxClick", handler: this.handleRaceCheckboxClick.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
+                {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)}
             ],
             "adults": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
                 {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
+                {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleLast4SSNInput", handler: this.handleLast4SSNInput.bind(this)},
                 {event: "handleHasSSNRadioClick", handler: this.handleHasSSNRadioClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
@@ -1172,6 +1199,13 @@
     Controller.prototype.handleSaveBtnClick = function(view, person) {
         this.model.savePerson(person);
         this.model.toggleDetailsForm(view);
+    };
+
+    Controller.prototype.handleDeleteBtnClick = function(person) {
+        this.model.deletePerson(person);
+        // TODO this is kind of a hack because event listening is not working
+        // correctly at the moment:
+        window.location.reload();
     };
 
     Controller.prototype.handleAddPersonClick = function(options) {
