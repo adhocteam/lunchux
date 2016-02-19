@@ -1,10 +1,4 @@
 @charset "UTF-8";
-html {
-  box-sizing: border-box; }
-
-*, *::after, *::before {
-  box-sizing: inherit; }
-
 button, input[type="button"], input[type="reset"], input[type="submit"] {
   appearance: none;
   background-color: #1565c0;
@@ -177,6 +171,12 @@ img,
 picture {
   margin: 0;
   max-width: 100%; }
+
+html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
 
 * {
   box-sizing: border-box; }
