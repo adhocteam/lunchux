@@ -246,6 +246,7 @@ a {
 .fwd {
   background-color: #66c266; }
 
+.save:hover,
 .fwd:hover {
   background-color: #a3daa3; }
 

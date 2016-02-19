@@ -76,6 +76,7 @@ a { color: #000; }
   background-color: $green;
 }
 
+.save:hover,
 .fwd:hover {
   
   background-color:tint($green, 40%);
