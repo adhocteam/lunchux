@@ -68,8 +68,8 @@
                     <p>You'll need income information for each of these <span class="num-people">n</span> people. It's ok if someone doesn't have an income -- please still include them as a member of your household!</p>
 
                     <div class="button-group">
-                        <a class="button back" href="#get-started">Go back</a>
-                        <button class="button fwd" data-next-screen="kids">Continue</button>
+                      <a class="button back" href="#get-started">Go back</a>
+                      <button class="button fwd" data-next-screen="kids">Continue</button>
                     </div>
                 </form>
             </section>
@@ -93,7 +93,7 @@
                 <ul class="person-list"></ul>
                 
                 <div class="add-person">
-                    Missing anyone?
+                    <h3>Missing anyone?</h3>
                     <div class="person invalid">
                         <div class="person-name-bar">
                             <div class="person-name">Add another child</div>
@@ -116,7 +116,7 @@
                 <ul class="person-list"></ul>
 
                 <div class="add-person">
-                    Missing anyone?
+                    <h3>Missing anyone?</h3>
                     <div class="person invalid">
                         <div class="person-name-bar">
                             <div class="person-name">Add another adult</div>
@@ -126,6 +126,7 @@
                 </div>
 
                 <form class="ssn-form">
+                  <h3>Social Security</h3>
                     <p>Do you or anybody in your household have a Social Security Number (SSN)?</p>
                     <div class="form-controls-group">
                         <div>
@@ -156,7 +157,8 @@
             <section class="screen" id="other-help">
                 <h2>Let's talk about other help.</h2>
                 <form class="other-help-form">
-                    <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
+                  <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
+                  <p class="help"><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</p>
                     <div class="form-controls-group">
                         <div>
                             <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
@@ -182,61 +184,64 @@
                 <h2>Now let's talk about income.</h2>
                 <p>We need to know about your household's earnings.</p>
                 <p>Income can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Kids' income needs to be listed as well.</p>
-                <p class="help">See a comprehensive list of income sources.</p>
+                <p class="help"><span class='question-mark'></span>What counts as income?</p>
                 <p>You've told us you have <span class="num-people"></span> people in your household. Let's list each one's income.</p>
 
                 <ul class="person-list">
                 </ul>
 
                 <div class="button-group">
-                    <a class="button back" href="#other-help">Go back</a>
-                    <a class="button fwd" href="#review">Continue</a>
+                  <a class="button back" href="#other-help">Go back</a>
+                  <a class="button fwd" href="#review">Continue</a>
                 </div>
             </section>
 
             <section class="screen" id="review">
+              
                 <h2>You're all set.</h2>
                 <p>Please review the information you entered, and correct any mistakes you see.</p>
 
                 <p class="hh-description"></p>
 
-                <div class="button-group">
-                    <a class="button" href="#kids">Add kids</a>
-                    <a class="button" href="#adults">Add adults</a>
+                <div class="button-group-other">
+                  <a class="button fwd" href="#kids">Add kids</a>
+                  <a class="button fwd" href="#adults">Add adults</a>
                 </div>
 
                 <ul class="person-list"></ul>
 
                 <div class="other-help-summary">
-                    <p><b>Assistance</b></p>
-                    <div class="summary"></div>
-                    <div>
-                        <a class="button" href="#other-help">Edit this information</a>
-                    </div>
+                  <h3>Assistance</h3>
+                  <div class="summary"></div>
+                  
+                  <div>
+                    <a class="button" href="#other-help">Edit this information</a>
+                  </div>
                 </div>
 
                 <div class="ssn-summary">
-                    <p><b>Social Security</b></p>
-                    <div class="summary"></div>
-                    <div>
-                        <a class="button" href="#adults">Edit this information</a>
-                    </div>
+                  <h3>Social Security</h3>
+                  <div class="summary"></div>
+                  <div>
+                      <a class="button" href="#adults">Edit this information</a>
+                  </div>
                 </div>
 
                 <form>
                     <div class="contact-info">
-                        <p>Is there a good way for your school to get in contact with you?</p>
-                        <div class="form-controls-group">
-                            <div>
-                                <label>Phone number:<br>
-                                    <input type="text" name="phone" value="" placeholder="(555) 555-1212">
-                                </label>
-                            </div>
-                            <div>
-                                <label>Email address:<br>
-                                    <input type="email" name="email" value="" placeholder="email@example.com">
-                                </label>
-                            </div>
+                      <h3>Contact information</h3>
+                      <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
+                      <div class="form-controls-group">
+                          <div>
+                              <label>Phone number:<br>
+                                  <input type="text" name="phone" value="" placeholder="(555) 555-1212">
+                              </label>
+                          </div>
+                          <div>
+                              <label>Email address:<br>
+                                  <input type="email" name="email" value="" placeholder="email@example.com">
+                              </label>
+                          </div>
                         </div>
 
                         <p><b>Is there an address we can share?</b> If not, that's ok! It won't affect the application.</p>
@@ -274,7 +279,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="agreements">
+                    
+                    <div class="agreements inner-section">
                         <h2>Almost done!</h2>
                         <p>We have to show you some information before you submit this application.</p>
                         <ul>
@@ -282,7 +288,8 @@
                             <li><button href="#use-of-info-statement">Use of information statement</button></li>
                         </ul>
                     </div>
-                    <div class="sign-form">
+                    
+                    <div class="sign-form inner-section last">
                         <h2>Time to sign!</h2>
                         <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
                         <div class="form-controls-group">

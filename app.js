@@ -424,25 +424,25 @@
                             '<input name="name" type="text" placeholder="Name" required value="' + person.name + '">' +
                         '</label>' +
                     '</div>' +
-                    '<div>' +
-                        '<p>Is ' + name + ' a student?</p>' +
+                    '<div class="normal-label">' +
+                        '<p><b>Is ' + name + ' a student?</b></p>' +
                         '<label><input name="is-student" type="radio" value="no" required ' + tribool(person.isStudent, false) + '> No</label>' +
                         '<label><input name="is-student" type="radio" value="yes" ' + tribool(person.isStudent, true) + '> Yes</label>' +
                    '</div>' +
-                    '<div>' +
-                        '<p>Is ' + name + ' a foster child?</p>' +
+                    '<div class="normal-label">' +
+                        '<p><b>Is ' + name + ' a foster child?</b></p>' +
                         '<label><input name="is-foster-child" type="radio" value="no" required ' + tribool(person.isFosterChild, false)  + '> No</label>' +
                         '<label><input name="is-foster-child" type="radio" value="yes" ' + tribool(person.isFosterChild, true) + '> Yes</label>' +
                     '</div>' +
-                    '<div>' +
-                        '<p>Is ' + name + ' considered homeless, a runaway, a migrant, or is ' + name + ' enrolled in the Head Start program?</p>' +
-                        '<p class="help">What do these terms mean?</p>' +
+                    '<div class="normal-label">' +
+                        '<p><b>Is ' + name + ' considered homeless, a runaway, a migrant, or is ' + name + ' enrolled in the Head Start program?</b></p>' +
+                        '<p class="help"><span class="question-mark"></span>What do these terms mean?</p>' +
                         '<label><input name="is-homeless" type="radio" value="no" required ' + tribool(person.isHomeless, false) + '> No</label>' +
                         '<label><input name="is-homeless" type="radio" value="yes" ' + tribool(person.isHomeless, true) + '> Yes</label>' +
                     '</div>' +
-                    '<p>We are required to ask for information about your children\'s race and ethnicity. This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>' +
+                    '<p><b>We are required to ask for information about your children\'s race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>' +
                     '<p><b>Ethnicity</b></p>' +
-                    '<div>' +
+                    '<div class="normal-label">' +
                          '<label><input name="is-hispanic" type="radio" value="yes" required ' + tribool(person.isHispanic, true) + '> Hispanic or Latino</label>' +
                          '<label><input name="is-hispanic" type="radio" value="no" ' + tribool(person.isHispanic, false) + '> Not Hispanic nor Latino</label>' +
                          '<label><input name="is-hispanic" type="radio" value="declined" ' + tribool(person.isHispanicDeclined, true) + '> Decline to answer</label>' +
@@ -450,7 +450,7 @@
                     '<p>' +
                         '<b>Race</b>' +
                     '</p>' +
-                    '<div>' +
+                    '<div class="normal-label">' +
                          races.map(function(r) {
                             return '<label>' +
                                        '<input type="checkbox" name="race" value="' + r.value + '" ' + (person.races.indexOf(r.value) >= 0 ? "checked" : "") + '> ' + r.label +
@@ -458,7 +458,7 @@
                          }).join("\n") +
                     '</div>' +
                     '<p>Thank you! In just a bit, we\'ll ask you about ' + name + '\'s income.</p>' +
-                    '<div>' +
+                    '<div class="button-group">' +
                         '<button class="button save">Save</button>' +
                         '<button class="button delete">Remove</button>' +
                     '</div>' +
