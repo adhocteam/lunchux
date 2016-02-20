@@ -607,7 +607,7 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: KidPersonView, model: this.model, peopleMethod: this.model.kids});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
-        this.numPeopleEl.innerHTML = this.model.kids().length.toString();
+        this.numPeopleEl.innerHTML = pluralize(this.model.kids().length, "kid");
     };
 
     KidListView.prototype.unload = function() {
@@ -713,7 +713,7 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: AdultPersonView, model: this.model, peopleMethod: this.model.adults});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
-        this.numPeopleEl.innerHTML = this.model.adults().length.toString();
+        this.numPeopleEl.innerHTML = pluralize(this.model.adults().length, "adult");
     };
 
     AdultListView.prototype.bind = function(event, handler) {
@@ -916,6 +916,7 @@
     IncomeView.prototype.render = function() {
         empty(this.listEl);
         this.listEl.appendChild(this.peopleListView.render().el);
+        this.numPeopleEl.innerHTML = pluralize(this.model.all().people.length, "person", "people");
     };
 
     IncomeView.prototype.bind = function(event, handler) {
