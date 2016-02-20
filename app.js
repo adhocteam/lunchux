@@ -97,8 +97,8 @@
         this.isStudent = options.isStudent;
         this.isFosterChild = options.isFosterChild;
         this.isHomeless = options.isHomeless;
-        this.isHipanic = options.isHispanic;
-        this.isHipanicDeclined = options.isHispanicDeclined;
+        this.isHispanic = options.isHispanic;
+        this.isHispanicDeclined = options.isHispanicDeclined;
         this.races = options.races || [];
         this.incomes = options.incomes || {};
     };
