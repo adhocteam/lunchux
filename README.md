@@ -17,3 +17,11 @@ $ python -m SimpleHTTPServer
 ```
 
 And then go to the listening address it gives you in your web browser.
+
+### Tests
+
+There are some Jasmine unit-level tests in the jasmine/ directory. To run them, just open the jasmine/SpecRunner.html file in a browser:
+
+```
+open jasmine/SpecRunner.html
+```
