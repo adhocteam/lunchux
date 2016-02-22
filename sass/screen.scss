@@ -1,5 +1,6 @@
 @import "bourbon/bourbon";
 @import "base/base"; // bitters
+@import "base/_grid-settings";
 @import "neat/neat"; // docs say this comes after bitters
 
 
@@ -457,3 +458,117 @@ input.ssn {
        margin-right:7px;
      }
    }
+   
+   
+/* ============= 
+   Mobile 
+   ============= */
+   
+@media screen and (max-width: $medium-screen) {
+  
+  .subnav {
+    
+    display:none;
+    
+  }
+  
+  .mobile-subnav {
+    
+    padding-top:20px;  
+    display:block;
+    text-align: center;
+    margin: 0 auto;
+  
+    li, .prog-bar {
+      
+      width:40px;
+      height:40px;
+      display:inline-block;
+      
+    }
+    
+    .prog-bar {
+      
+      width: 20px;
+      height: 4px;
+      background: $light-gray;
+      margin-bottom: 8px;
+    }
+    
+    .prog-round {
+      
+      width: 20px;
+      height: 20px;
+      -moz-border-radius: 20px;
+      -webkit-border-radius:  20px;
+      border-radius:  20px;
+      background: transparent;
+      border:4px solid $light-gray;
+      
+      &.done {
+        
+        border-color:$dark-blue;
+      }
+      
+      a {
+      
+        display:block; 
+        width:100%;
+        height:100%; 
+        position:relative;  
+        padding:0;
+        
+        .prog-label {
+          
+          display:none;
+          position:absolute;
+          top:20px;
+          left:-4px;
+        }
+      }
+      
+      &.active {
+        
+        background-color: $blue;
+        border:4px solid $blue;
+        
+        a {
+          
+          .prog-label {
+          
+            color:$blue;
+            display:block;
+          }
+          
+        }
+        
+      }
+      
+    }
+  }
+  
+  li.done + span.prog-bar {
+    
+    background-color: $dark-blue;
+  }
+  
+  .screen {
+    
+    @include span-columns(12);
+    @include shift(0);
+  }
+  
+  .hide {
+    
+    display:none;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  
+  .mobile-subnav {
+  
+    display:none;
+    
+  }
+}

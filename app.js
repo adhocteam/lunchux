@@ -1060,7 +1060,7 @@
 
     Controller.prototype.setActiveNavTab = function(viewId) {
         var progress = this.progress.indexOf(viewId);
-        qsa("header .subnav li").forEach(function(li) {
+        qsa(".subnav li").forEach(function(li) {
             var a = qs("a", li);
             var thisViewId = a.hash === "" ? "get-started" : a.hash.slice(1);
             if ((thisViewId === viewId)) {
