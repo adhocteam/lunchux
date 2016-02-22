@@ -10,12 +10,13 @@
 
 * { box-sizing: border-box; }
 
-html { background: #ddd; }
+html { background: #fff; }
 
 body { 
   
   //@include outer-container;
-  font-family: sans-serif; 
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  -webkit-font-smoothing: antialiased; 
   margin: 0 auto; 
   background: #fff; 
      
@@ -26,38 +27,40 @@ body {
   font-size: smaller; 
   margin-top:1em;
   margin-bottom:1em !important;
+  border: 2px $red dotted;
+  padding:10px;
 }
 
 .current { background: papayawhip; }
+
+button {
+  
+  //padding: 0.75em 1.5em !important;
+  padding: 5px 7px;
+}
 
 .button { 
   display: inline-block; 
   text-decoration: none; 
   padding: 5px 7px; 
-  //border: 1px solid #000; 
   border-radius: 4px; 
   cursor: pointer; 
   transition: all 0.25s ease; 
   color:#fff;
-  
+  font-weight:600;
 }
 
 .button:hover { 
   color: #fff; //background: #000; 
 }
 
-button {
+.info {
   
-  padding: 0.75em 1.5em !important;
-  
+  background-color: $blue;
 }
 
 a { color: #000; }
 
-.delete {
-  
-  margin-top:5px;
-}
 .delete,
 .warning {
     
@@ -164,6 +167,17 @@ header {
     #signout {
       
       text-align: right;
+    }
+    
+    .faq {
+      
+      color: $red;
+      vertical-align: text-bottom;
+      
+      &:hover { 
+       
+        color: shade($red, 30%);
+      }
     }
   }
   
