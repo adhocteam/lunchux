@@ -59,31 +59,25 @@ button {
   background-color: $blue;
 }
 
-a { color: #000; }
-
-.delete,
 .warning {
     
   background-color: $red;
   
-}
-
-.delete:hover,
-.warning:hover {
-  
-  background-color:tint($red, 40%);
+  &:hover {
+    
+    background-color:tint($red, 40%);
+  }
 }
 
 .save,
 .fwd {
   
   background-color: $green;
-}
-
-.save:hover,
-.fwd:hover {
   
-  background-color:tint($green, 40%);
+  &:hover {
+    
+    background-color:tint($green, 40%);
+  }
 }
 
 .back {
@@ -100,12 +94,26 @@ a { color: #000; }
 
 .save {
   
-  float:left;
+  padding: 0.75em 1.5em !important;
+  
 }
 
 .delete {
   
-  float:right;
+  color:$red;
+  background:none;
+  font-size: 0.85em;
+  text-decoration: underline;
+  
+  &:hover {
+    
+    color: shade($red, 30%);
+  }
+}
+
+.submit {
+  
+  padding: 0.75em 1.5em !important;
 }
 
 .question-mark-small {
@@ -126,6 +134,9 @@ a { color: #000; }
   margin-right:10px;
   background-image: url('/question_mark.svg');
 }
+
+a { color: #000; }
+
 /* ============= 
    HEADERS
    ============= */
@@ -262,7 +273,10 @@ main {
   }
  }
  
- 
+ .no-justify {
+   
+   display:list-item;
+ }
 
 /* ============= 
    HOUSEHOLD INFO

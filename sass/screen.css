@@ -235,24 +235,17 @@ button {
 .info {
   background-color: #61a6de; }
 
-a {
-  color: #000; }
-
-.delete,
 .warning {
   background-color: #f05f5c; }
-
-.delete:hover,
-.warning:hover {
-  background-color: #f69f9d; }
+  .warning:hover {
+    background-color: #f69f9d; }
 
 .save,
 .fwd {
   background-color: #66c266; }
-
-.save:hover,
-.fwd:hover {
-  background-color: #a3daa3; }
+  .save:hover,
+  .fwd:hover {
+    background-color: #a3daa3; }
 
 .back {
   background-color: #ddd;
@@ -262,10 +255,18 @@ a {
   font-weight: normal; }
 
 .save {
-  float: left; }
+  padding: 0.75em 1.5em !important; }
 
 .delete {
-  float: right; }
+  color: #f05f5c;
+  background: none;
+  font-size: 0.85em;
+  text-decoration: underline; }
+  .delete:hover {
+    color: #a84340; }
+
+.submit {
+  padding: 0.75em 1.5em !important; }
 
 .question-mark-small {
   width: 20px;
@@ -281,6 +282,9 @@ a {
   vertical-align: middle;
   margin-right: 10px;
   background-image: url("/question_mark.svg"); }
+
+a {
+  color: #000; }
 
 /* ============= 
    HEADERS
@@ -383,6 +387,9 @@ main {
   .button-group .button {
     width: 25%;
     text-align: center; }
+
+.no-justify {
+  display: list-item; }
 
 /* ============= 
    HOUSEHOLD INFO

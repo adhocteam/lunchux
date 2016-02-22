@@ -233,9 +233,9 @@
                          }).join("\n") +
                     '</div>' +
                     '<p>Thank you! In just a bit, we\'ll ask you about ' + name + '\'s income.</p>' +
-                    '<div class="button-group">' +
-                        '<button class="button save">Save</button>' +
-                        '<a class="button delete" href="#">Remove</a>' +
+                    '<div class="button-group no-justify">' +
+                        '<button class="button save">Save</button>' + '<br>' +
+                        '<a class="delete" href="#">Remove</a>' +
                     '</div>' +
                 '</form>'
             ].join("\n");
@@ -423,9 +423,9 @@
                             '<input name="name" type="text" placeholder="Name" value="' + person.name + '">' +
                         '</label>' +
                     '</div>' +
-                    '<div>' +
-                        '<button class="button save">Save</button>' +
-                        '<a class="button delete" href="#">Remove</a>' +
+                    '<div class="button-group no-justify">' +
+                        '<button class="button save">Save</button>' + '<br>' +
+                        '<a class="delete" href="#">Remove</a>' +
                     '</div>' +
                 '</div>'
             ].join("\n");
