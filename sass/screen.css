@@ -254,6 +254,9 @@ button {
 .no-bold {
   font-weight: normal; }
 
+.bold {
+  font-weight: 600; }
+
 .save {
   padding: 0.75em 1.5em !important; }
 
@@ -342,6 +345,8 @@ header {
     border-right: 1px solid #89bce6;
     text-align: center;
     flex: 1 0 auto; }
+    .subnav li.done {
+      background: #1E5A8C; }
     .subnav li a {
       text-decoration: none;
       color: white;
@@ -498,6 +503,10 @@ input.ssn {
   border-bottom: 0;
   margin-top: 0; }
 
+.styled-list-inner {
+  margin-left: 5%;
+  list-style: circle; }
+
 /* ============= 
    FAQ
    ============= */
@@ -507,27 +516,19 @@ input.ssn {
     content: " >";
     color: #ccc;
     font-weight: 700; }
-#faq dd {
-  display: none; }
 
 /* ============= 
    FOOTER
    ============= */
 footer {
-  max-width: 68em;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
-  padding-bottom: 15px;
-  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-top: 15px;
   font-size: small;
-  color: #ddd; }
-  footer::after {
-    clear: both;
-    content: "";
-    display: table; }
+  background-color: #f4f4f4;
+  color: #b1b1b1; }
   footer a {
-    color: #ddd;
+    color: #b1b1b1;
     text-decoration: underline; }
   footer .question-mark-small {
     margin-right: 7px; }

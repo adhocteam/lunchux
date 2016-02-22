@@ -92,6 +92,11 @@ button {
   
 }
 
+.bold {
+  
+  font-weight:600;
+}
+
 .save {
   
   padding: 0.75em 1.5em !important;
@@ -136,6 +141,7 @@ button {
 }
 
 a { color: #000; }
+
 
 /* ============= 
    HEADERS
@@ -209,6 +215,11 @@ header {
     border-right: 1px solid tint($blue, 25%); 
     text-align: center;
     flex: 1 0 auto;
+    
+    &.done {
+  
+      background: #1E5A8C; 
+    }
     
     a {
     
@@ -438,6 +449,11 @@ input.ssn {
   margin-top:0;
 }
 
+.styled-list-inner {
+  
+  margin-left:5%;
+  list-style:circle;
+}
 /* ============= 
    FAQ
    ============= */
@@ -456,7 +472,7 @@ input.ssn {
   }
   
   dd {
-    display: none;
+    //display: none;
     
   } 
 }
@@ -467,16 +483,16 @@ input.ssn {
    
    footer {
      
-     @include outer-container;
      text-align: center;
-     padding-bottom:15px;
-     padding-top:30px;
+     padding-bottom:10px;
+     padding-top:15px;
      font-size:small;
-     color:$light-gray;
+     background-color: $lightest-grey;
+     color:shade($light-gray, 20%);
      
      a {
        
-       color:$light-gray;
+       color:shade($light-gray, 20%);
        text-decoration: underline;
        
      }
