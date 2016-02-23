@@ -83,13 +83,13 @@ describe('Model', function() {
     var model = new Model(store);
 
     it("should get data from the underlying data model", function(){
-      model.data.numKids = 12;
-      expect(model.get("numKids")).toEqual(12);
+      model.data.last4SSN = "1234";
+      expect(model.get("last4SSN")).toEqual("1234");
     });
 
     it("should set data to the underlying model", function(){
-      model.set("numKids", 13);
-      expect(model.data.numKids).toEqual(13);
+      model.set("last4SSN", "4321");
+      expect(model.data.last4SSN).toEqual("4321");
     });
   });
 

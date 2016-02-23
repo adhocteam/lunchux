@@ -53,8 +53,6 @@ Model.prototype.clear = function() {
 
 Model.prototype.defaultValues = function() {
     return {
-        numKids: 0,
-        numAdults: 0,
         people: [],
         hasSSN: false,
         last4SSN: "",
