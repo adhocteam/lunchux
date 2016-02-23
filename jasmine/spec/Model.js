@@ -1,5 +1,8 @@
-describe('Model', function() {
+var Model = LunchUX.Model;
+var Person = LunchUX.Person;
+var AgeClass = LunchUX.AgeClass;
 
+describe('Model', function() {
   it('should initialize the data with default values', function(){
     var store = new InMemoryStore('lunchux-test');
     var model = new Model(store);
