@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lunch UX</title>
         <link href="style.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="models.js"></script>
         <script src="app.js"></script>
     </head>
@@ -27,7 +28,7 @@
               <li><a href="#income">Income</a></li>
               <li><a href="#review">Verify</a></li>
             </ul><!---->
-            
+
         </header>
 
         <ul class='subnav mobile-subnav'>
@@ -59,7 +60,7 @@
             <a href="#review"><span class='prog-label'>Verify</span></a>
           </li>
         </ul>
-            
+
         <main>
             <section class="screen" id="get-started">
                 <h2>Welcome!</h2>
@@ -408,7 +409,7 @@
                             <li class='styled-list-inner'>Veteran’s benefits</li>
                           </ul>
                           <span class='bold'>Don't include income from any other cash-value public assistance benefits not listed here.</span>
-                        
+
                         </li>
                         <li class='styled-list'>Pensions/Retirement/All Other Income
                           <ul>
@@ -423,7 +424,7 @@ benefits)</li>
                             <li class='styled-list-inner'>Rental income</li>
                             <li class='styled-list-inner'>Regular cash payments from outside household</li>
                           </ul>
-                        
+
                         </li>
                       </dd>
                 </dl>
@@ -466,6 +467,138 @@ benefits)</li>
         <footer>
           <span class='question-mark-small'></span>icon by <a href='https://thenounproject.com/search/?q=question+mark&i=178771'>Jevgeni Striganov</a> via <a href='https://thenounproject.com'>The Noun Project.</a>
         </footer>
+
+        <script type="text/template" id="person-template">
+          <li class="person valid">
+            <div class="person-name-bar">
+              <div class="person-name"><%= person.name %></div>
+              <div class="actions">Edit these details</div>
+            </div>
+          </li>
+        </script>
+
+        <script type="text/template" id="kid-person-form-template">
+          <% var name = person.name %>
+          <form class="details-form" style="display: none">
+            <div>
+              <label>
+                Name (ex: Kid U. Eighteen)<br>
+                <input name="name" type="text" placeholder="Name" required value="<%- name %>">
+              </label>
+            </div>
+            <div class="normal-label">
+              <p><b>Is <%- name %> a student?</b></p>
+              <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
+              <label><input name="is-student" type="radio" value="yes" <%= tribool(person.isStudent, true) %>> Yes</label>
+            </div>
+            <div class="normal-label">
+              <p><b>Is <%- name %> a foster child?</b></p>
+              <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
+              <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
+            </div>
+            <div class="normal-label">
+              <p><b>Is <%- name %> considered homeless, a runaway, a migrant, or is <%- name %> enrolled in the Head Start program?</b></p>
+              <p class="help"><span class="question-mark"></span>What do these terms mean?</p>
+              <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
+              <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
+            </div>
+            <p><b>We are required to ask for information about your children's race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
+            <p><b>Ethnicity</b></p>
+            <div class="normal-label">
+              <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
+              <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
+              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
+            </div>
+            <p>
+              <b>Race</b>
+            </p>
+            <div class="normal-label">
+              <% races.map(function(r) { %>
+              <label>
+                <input type="checkbox" name="race" value="<%= r.value %>" <%= (person.races.indexOf(r.value) >= 0 ? "checked" : "") %>> <%= r.label %>
+              </label>
+              <% }) %>
+            </div>
+            <p>Thank you! In just a bit, we'll ask you about <%= name %>'s income.</p>
+            <div class="button-group no-justify">
+              <button class="button save">Save</button><br>
+              <a class="delete" href="#">Remove</a>
+            </div>
+          </form>
+        </script>
+
+        <script type="text/template" id="adult-person-form-template">
+          <div class="details-form" style="display: none">
+            <div>
+              <label>
+                Name (ex: Kid U. Eighteen)<br>
+                <input name="name" type="text" placeholder="Name" value="<%- person.name %>">
+              </label>
+            </div>
+            <div class="button-group no-justify">
+              <button class="button save">Save</button><br>
+              <a class="delete" href="#">Remove</a>
+            </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="income-person-form-template">
+          <form class="details-form" style="display: none">
+            <p><b>How much does <%= person.name %> contribute in income, and how often? If they don't have any earnings, enter '0'.</b></p>
+            <% incomeTypes.map(function(type) { %>
+            <div>
+              <label>
+                From <%= type.label %><br>
+                <input name="income-<%= type.value %>-amount" type="text" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required pattern="[0-9]+">
+              </label>
+              <select name="income-<%= type.value %>-freq">
+                <% frequencies.map(function(freq) { %>
+                <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
+                <% }) %>
+              </select>
+            </div>
+            <% }) %>
+            <div>
+              <button class="button save">Save</button>
+            </div>
+          </form>
+        </script>
+
+        <script type="text/template" id="review-description-template">
+          <p>
+            There are <b><%= pluralize(numKids, "kid") %></b> and
+            <b><%= pluralize(numAdults, "adult") %></b> in your household, for a
+            total of
+            <b><%= pluralize(numPeople, "person", "people") %></b>.
+            Do you need to add anyone else?
+          </p>
+        </script>
+
+        <script type="text/template" id="kid-summary-template">
+          <li><%= person.name %> <%= person.isStudent ? "is" : "is not" %> a student.</li>
+          <li><%= person.name %> <%= person.isFosterChild ? "is" : "is not" %> a foster child.</li>
+          <li><%= person.name %> <%= person.isHomeless ? "is" : "is not" %> considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>
+          <li><%= person.name %> has <%= incomeText(person) %>.</li>
+        </script>
+
+        <script type="text/template" id="adult-summary-template">
+          <li><%= person.name %> is an adult member of your household.</li>
+          <li><%= person.name %> has <%= incomeText(person) %>.</li>
+        </script>
+
+        <script type="text/template" id="person-summary-template">
+          <% people.forEach(function(person) { %>
+          <li class="person valid">
+            <div class="person-name-bar">
+              <div class="person-name"><%= person.name %></div>
+              <div class="actions"><a href="#<%= person.ageClass === AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
+            </div>
+            <ul class="summary">
+              <%= person.ageClass === AgeClass.child ? kidSummary(person) : adultSummary(person) %>
+            </ul>
+          </li>
+          <% }) %>
+        </script>
 
     </body>
 

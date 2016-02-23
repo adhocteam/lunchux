@@ -117,22 +117,21 @@
         });
     };
 
+    function templateFrom(selector) {
+        var templateEl = qs(selector);
+        if (!templateEl) throw new Error("couldn't find template from selector " + selector);
+        return _.template(templateEl.innerHTML);
+    }
+
     function PersonView(options) {
         this.el = document.createElement("div");
+        this.template = templateFrom("#person-template");
         this.model = options.model; // app-wide model
         this.person = options.person;
     }
 
     PersonView.prototype.render = function() {
-        var html = [
-            '<li class="person ' + 'valid' + '">' +
-                '<div class="person-name-bar">' +
-                    '<div class="person-name">' + this.person.name + '</div>' +
-                    '<div class="actions">Edit these details</div>' +
-                '</div>' +
-            '</li>'
-        ].join("\n");
-        this.el.innerHTML = html;
+        this.el.innerHTML = this.template({person: this.person});
         return this;
     };
 
@@ -142,6 +141,7 @@
         this.el = options.el;
         this.model = options.model;
         this.person = options.person;
+        this.template = templateFrom("#kid-person-form-template");
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
@@ -180,8 +180,6 @@
             {label: "Decline to answer", value: "declined"}
         ];
 
-        var name = person.name;
-
         function tribool(prop, test) {
             if (prop === undefined || prop === null) {
                 return ""
@@ -191,55 +189,7 @@
 
         var form = document.createElement("div");
         li.appendChild(form);
-        var formHTML = [
-                '<form class="details-form" style="display: none">' +
-                    '<div>' +
-                        '<label>' +
-                            'Name (ex: Kid U. Eighteen)<br>' +
-                            '<input name="name" type="text" placeholder="Name" required value="' + person.name + '">' +
-                        '</label>' +
-                    '</div>' +
-                    '<div class="normal-label">' +
-                        '<p><b>Is ' + name + ' a student?</b></p>' +
-                        '<label><input name="is-student" type="radio" value="no" required ' + tribool(person.isStudent, false) + '> No</label>' +
-                        '<label><input name="is-student" type="radio" value="yes" ' + tribool(person.isStudent, true) + '> Yes</label>' +
-                   '</div>' +
-                    '<div class="normal-label">' +
-                        '<p><b>Is ' + name + ' a foster child?</b></p>' +
-                        '<label><input name="is-foster-child" type="radio" value="no" required ' + tribool(person.isFosterChild, false)  + '> No</label>' +
-                        '<label><input name="is-foster-child" type="radio" value="yes" ' + tribool(person.isFosterChild, true) + '> Yes</label>' +
-                    '</div>' +
-                    '<div class="normal-label">' +
-                        '<p><b>Is ' + name + ' considered homeless, a runaway, a migrant, or is ' + name + ' enrolled in the Head Start program?</b></p>' +
-                        '<p class="help"><span class="question-mark"></span>What do these terms mean?</p>' +
-                        '<label><input name="is-homeless" type="radio" value="no" required ' + tribool(person.isHomeless, false) + '> No</label>' +
-                        '<label><input name="is-homeless" type="radio" value="yes" ' + tribool(person.isHomeless, true) + '> Yes</label>' +
-                    '</div>' +
-                    '<p><b>We are required to ask for information about your children\'s race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>' +
-                    '<p><b>Ethnicity</b></p>' +
-                    '<div class="normal-label">' +
-                         '<label><input name="is-hispanic" type="radio" value="yes" required ' + tribool(person.isHispanic, true) + '> Hispanic or Latino</label>' +
-                         '<label><input name="is-hispanic" type="radio" value="no" ' + tribool(person.isHispanic, false) + '> Not Hispanic nor Latino</label>' +
-                         '<label><input name="is-hispanic" type="radio" value="declined" ' + tribool(person.isHispanicDeclined, true) + '> Decline to answer</label>' +
-                    '</div>' +
-                    '<p>' +
-                        '<b>Race</b>' +
-                    '</p>' +
-                    '<div class="normal-label">' +
-                         races.map(function(r) {
-                            return '<label>' +
-                                       '<input type="checkbox" name="race" value="' + r.value + '" ' + (person.races.indexOf(r.value) >= 0 ? "checked" : "") + '> ' + r.label +
-                                   '</label>';
-                         }).join("\n") +
-                    '</div>' +
-                    '<p>Thank you! In just a bit, we\'ll ask you about ' + name + '\'s income.</p>' +
-                    '<div class="button-group no-justify">' +
-                        '<button class="button save">Save</button>' + '<br>' +
-                        '<a class="delete" href="#">Remove</a>' +
-                    '</div>' +
-                '</form>'
-            ].join("\n");
-        form.innerHTML = formHTML;
+        form.innerHTML = this.template({person: person, races: races, tribool: tribool});
 
         return this;
     };
@@ -383,6 +333,7 @@
         this.el = options.el;
         this.model = options.model;
         this.person = options.person;
+        this.template = templateFrom("#adult-person-form-template");
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
@@ -413,24 +364,7 @@
         var li = qs("li", this.el);
         var form = document.createElement("div");
         li.appendChild(form);
-        var name = person.name;
-
-        var html = [
-                '<div class="details-form" style="display: none">' +
-                    '<div>' +
-                        '<label>' +
-                            'Name (ex: Kid U. Eighteen)<br>' +
-                            '<input name="name" type="text" placeholder="Name" value="' + person.name + '">' +
-                        '</label>' +
-                    '</div>' +
-                    '<div class="button-group no-justify">' +
-                        '<button class="button save">Save</button>' + '<br>' +
-                        '<a class="delete" href="#">Remove</a>' +
-                    '</div>' +
-                '</div>'
-            ].join("\n");
-        form.innerHTML = html;
-
+        form.innerHTML = this.template({person: this.person});
         return this;
     };
 
@@ -571,6 +505,7 @@
         this.el = options.el;
         this.model = options.model;
         this.person = options.person;
+        this.template = templateFrom("#income-person-form-template");
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
@@ -595,11 +530,10 @@
         var li = qs("li", this.el);
         var form = document.createElement("div");
         li.appendChild(form);
-        var name = person.name;
 
         var incomeTypes = [
             {label: 'work', value: 'work'},
-            {label: 'assistance programs, alimony, or child support', value: 'assistance-programs'},
+            {label: 'assistance programs, alimony, or child support', value: 'assistance'},
             {label: 'pensions, retirement, or any other income', value: 'pensions'}
         ];
 
@@ -615,26 +549,14 @@
                 "";
         }
 
-        var html = [
-                '<form class="details-form" style="display: none">' +
-                    '<p><b>How much does ' + name + ' contribute in income, and how often? If they don\'t have any earnings, enter \'0\'.' +
-                    incomeTypes.map(function(type) {
-                        return '<div><label>' +
-                            'From ' + type.label + ':<br>' +
-                            '<input name="income-' + type.value + '-amount" type="text" placeholder="$" value="' + incomeAmount(person, type.value) + '" required pattern="[0-9]+">' +
-                            '</label>' +
-                            '<select name="income-' + type.value + '-freq">' +
-                            frequencies.map(function(freq) {
-                                return '<option ' + (incomeFrequency(person, type.value) === freq ? "selected" : "") + '>' + freq + '</option>';
-                            }).join("\n") +
-                            '</select>' +
-                       '</div>'}).join("\n") +
-                    '<div>' +
-                        '<button class="button save">Save</button>' +
-                    '</div>' +
-                '</form>'
-            ].join("\n");
-        form.innerHTML = html;
+        form.innerHTML = this.template({
+            person: person,
+            incomeTypes:
+            incomeTypes,
+            frequencies: frequencies,
+            incomeAmount: incomeAmount,
+            incomeFrequency: incomeFrequency
+        });
 
         return this;
     };
@@ -756,6 +678,11 @@
         this.model = options.model;
         this.unloaders = [];
 
+        this.descriptionTemplate = templateFrom("#review-description-template");
+        this.kidSummaryTemplate = templateFrom('#kid-summary-template');
+        this.adultSummaryTemplate = templateFrom('#adult-summary-template');
+        this.personSummaryTemplate = templateFrom('#person-summary-template');
+
         this.model.on("updated:hasAddress", function() {
             qs(".address", this.contactInfoEl).style.display = this.model.get("hasAddress") ? "block" : "none";
         }.bind(this));
@@ -767,16 +694,12 @@
         var numAdults = people.filter(function(person) { return person.ageClass === AgeClass.adult; }).length;
         var numPeople = people.length;
 
-        var descriptionHTML = [
-            '<p>',
-                'There are <b>' + pluralize(numKids, "kid") + '</b> and ',
-                '<b>' + pluralize(numAdults, "adult") + '</b> ',
-                'in your household, for a total of ',
-                '<b>' + pluralize(numPeople, "person", "people")  + '</b>. ',
-                'Do you need to add anyone else?',
-            '</p>'
-        ].join("\n");
-        this.hhDescriptionEl.innerHTML = descriptionHTML;
+        this.hhDescriptionEl.innerHTML = this.descriptionTemplate({
+            numKids: numKids,
+            numAdults: numAdults,
+            numPeople: numPeople,
+            pluralize: pluralize
+        });
 
         function incomeText(p) {
             var text = [];
@@ -794,35 +717,18 @@
         }
 
         function kidSummary(p) {
-            var html = [
-                '<li>' + p.name + ' ' + (p.isStudent ? "is" : "is not") + ' a student.</li>' +
-                '<li>' + p.name + ' ' + (p.isFosterChild ? "is" : "is not") + ' a foster child.</li>' +
-                '<li>' + p.name + ' ' + (p.isHomeless ? "is" : "is not") + ' considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>' +
-                '<li>' + p.name + ' has ' + incomeText(p) + '.</li>'
-            ].join("\n");
-            return html;
+            return this.kidSummaryTemplate({person: p, incomeText: incomeText});
         }
 
         function adultSummary(p) {
-            var html = [
-                '<li>' + p.name + ' is an adult member of your household.</li>' +
-                '<li>' + p.name + ' has ' + incomeText(p) + '.</li>'
-            ].join("\n");
-            return html;
+            return this.adultSummaryTemplate({person: p, incomeText: incomeText});
         }
 
-        var summaryHTML = people.map(function(p) {
-            return '<li class="person valid">' +
-                '<div class="person-name-bar">' +
-                    '<div class="person-name">' + p.name + '</div>' +
-                    '<div class="actions"><a href="#' + (p.ageClass === AgeClass.child ? "kids" : "adults") + '">Edit these details</a></div>' +
-                '</div>' +
-                '<ul class="summary">' +
-                    (p.ageClass === AgeClass.child ? kidSummary(p) : adultSummary(p)) +
-                '</ul>' +
-            '</li>';
-        }).join("\n");
-        this.personListEl.innerHTML = summaryHTML;
+        this.personListEl.innerHTML = this.personSummaryTemplate({
+            people: people,
+            kidSummary: kidSummary.bind(this),
+            adultSummary: adultSummary.bind(this),
+        });
 
         this.otherHelpEl.innerHTML = this.model.get("hasOtherHelp") ? "Someone in your household receives SNAP, TANF, or FDPIR." :
             "Nobody in your household receives other assistance.";
