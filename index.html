@@ -23,8 +23,8 @@
               <li><a href="#">Welcome</a></li>
               <li><a href="#household-size">Household</a></li>
               <li><a href="#kids">Kids</a></li>
-              <li><a href="#adults">Adults</a></li>
               <li><a href="#other-help">Assistance</a></li>
+              <li><a href="#adults">Adults</a></li>
               <li><a href="#income">Income</a></li>
               <li><a href="#review">Verify</a></li>
             </ul><!---->
@@ -141,6 +141,32 @@
                 </div>
             </section>
 
+            <section class="screen" id="other-help">
+                <h2>Let's talk about other help.</h2>
+                <form class="other-help-form">
+                  <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
+                  <p class="help"><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</p>
+                    <div class="form-controls-group">
+                        <div>
+                            <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
+                        </div>
+                        <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
+                            <label>
+                                Please enter just one case number:<br>
+                                <input type="text" name="case-number" placeholder="case number">
+                            </label>
+                        </div>
+                        <div>
+                            <label><input type="radio" name="has-other-help" value="no">No</label>
+                        </div>
+                        <div class="button-group">
+                            <a class="button back" href="#adults">Go back</a>
+                            <button class="button fwd" data-next-screen="adults">Continue</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
             <section class="screen" id="adults">
                 <h2>Let's talk about the adults.</h2>
                 <p>This is anyone in your household over the age of 18, including you.</p>
@@ -184,32 +210,6 @@
                     <div class="button-group">
                         <a class="button back" href="#kids">Go back</a>
                         <button class="button fwd" data-next-screen="other-help">Continue</button>
-                    </div>
-                </form>
-            </section>
-
-            <section class="screen" id="other-help">
-                <h2>Let's talk about other help.</h2>
-                <form class="other-help-form">
-                  <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
-                  <p class="help"><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</p>
-                    <div class="form-controls-group">
-                        <div>
-                            <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
-                        </div>
-                        <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
-                            <label>
-                                Please enter just one case number:<br>
-                                <input type="text" name="case-number" placeholder="case number">
-                            </label>
-                        </div>
-                        <div>
-                            <label><input type="radio" name="has-other-help" value="no">No</label>
-                        </div>
-                        <div class="button-group">
-                            <a class="button back" href="#adults">Go back</a>
-                            <button class="button fwd" data-next-screen="income">Continue</button>
-                        </div>
                     </div>
                 </form>
             </section>

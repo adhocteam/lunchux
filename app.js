@@ -796,8 +796,8 @@
             "get-started",
             "household-size",
             "kids",
-            "adults",
             "other-help",
+            "adults",
             "income",
             "review"
         ];
@@ -935,8 +935,19 @@
         window.location.hash = "#" + id;
     };
 
+    Controller.prototype.getViewToLoad = function(id) {
+        return this.views[id];
+    };
+
     Controller.prototype.loadView = function(id) {
         console.debug("setting view '%s'", id);
+
+        if ((id === "adults" || id === "income") && model.get("hasOtherHelp")) {
+            console.debug("short-circuit %s due to hasOtherHelp == true", id);
+            controller.setView("review");
+            return;
+        }
+
         this.hideAll();
         qs("#" + id).classList.add("show");
         qs("#" + id).classList.remove("hide");
@@ -948,19 +959,17 @@
             this.events.notify("view:unloaded");
         }
 
-        if (this.views[id]) {
-            var viewClass = this.views[id];
-            if (viewClass) {
-                var view = new this.views[id]({model: this.model});
-                view.render();
-                this.activeView = view;
-                if (this.handlers[id]) {
-                    this.handlers[id].forEach(function(handler) {
-                        view.bind(handler.event, handler.handler);
-                    });
-                }
-                this.events.notify("view:loaded");
+        var viewToLoad = this.getViewToLoad(id);
+        if (viewToLoad) {
+            var view = new viewToLoad({model: this.model});
+            view.render();
+            this.activeView = view;
+            if (this.handlers[id]) {
+                this.handlers[id].forEach(function(handler) {
+                    view.bind(handler.event, handler.handler);
+                });
             }
+            this.events.notify("view:loaded");
         }
     };
 
@@ -990,20 +999,6 @@
     };
 
     // the app
-
-    var DUMMY_DATA = {
-        household: {
-            numKids: 3,
-            numAdults: 2,
-            people: [
-                new Person({name: "Bailey Grey", ageClass: AgeClass.child}),
-                new Person({name: "Zola Grey", ageClass: AgeClass.child}),
-                new Person({name: "Ellis Grey", ageClass: AgeClass.child}),
-                new Person({name: "Meredith Grey", ageClass: AgeClass.adult}),
-                new Person({name: "Amelia Shepard", ageClass: AgeClass.adult})
-            ]
-        }
-    };
 
     function initDebugging() {
         function updateDebugWindow() {
@@ -1041,7 +1036,6 @@
 
     $on(window, "DOMContentLoaded", function() {
         var store = new Store("lunchux");
-//        Store.save(DUMMY_DATA.household);
         var model = this.model = new Model(store);
         var controller = this.controller = new Controller(model);
         var initialViewId = "get-started";
