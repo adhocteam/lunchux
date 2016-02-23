@@ -73,17 +73,10 @@ Model.prototype.defaultValues = function() {
     };
 };
 
-Model.prototype.setHouseholdSize = function(numKids, numAdults) {
-    var household = this.all();
-    household.numKids = numKids;
-    household.numAdults = numAdults;
-    household.people = [];
-    for (var i = 0; i < numKids; i++) {
-        household.people.push(new Person({name: "Kid #" + (i+1).toString(), ageClass: AgeClass.child}));
-    }
-    for (var i = 0; i < numAdults; i++) {
-        household.people.push(new Person({name: "Adult #" + (i+1).toString(), ageClass: AgeClass.adult}));
-    }
+Model.prototype.setInitialHousehold = function() {
+    this.data.people = [];
+    this.data.people.push(new Person({name: "Kid #1", ageClass: AgeClass.child}));
+    this.data.people.push(new Person({name: "Adult #1", ageClass: AgeClass.adult}));
     this.save();
 };
 

@@ -85,42 +85,6 @@
 
     // views
 
-    function HouseholdSizeView(options) {
-        this.numKidsInput = qs("#household-size [name=num-kids]");
-        this.numAdultsInput = qs("#household-size [name=num-adults]");
-        this.formEl = qs("#household-size form");
-        this.listenersToUnload = [];
-        this.model = options.model;
-    }
-
-    HouseholdSizeView.prototype.bind = function(event, handler) {
-        switch (event) {
-        case "handleSetHouseholdSize":
-            var unloader = $on(this.formEl, "submit", function(event) {
-                event.preventDefault();
-                var numKids = parseInt(this.numKidsInput.value, 10);
-                var numAdults = parseInt(this.numAdultsInput.value, 10);
-                var submitBtn = qs("button.fwd", this.formEl);
-                var nextScreenId = submitBtn.getAttribute("data-next-screen");
-                handler({numKids: numKids, numAdults: numAdults, nextScreenId: nextScreenId});
-            }.bind(this));
-            this.listenersToUnload.push(unloader);
-            break;
-        }
-    };
-
-    HouseholdSizeView.prototype.render = function() {
-        var household = this.model.all();
-        this.numKidsInput.value = household.numKids;
-        this.numAdultsInput.value = household.numAdults;
-    };
-
-    HouseholdSizeView.prototype.unload = function() {
-        this.listenersToUnload.forEach(function(unload) {
-            unload();
-        });
-    };
-
     function templateFrom(selector) {
         var templateEl = qs(selector);
         if (!templateEl) throw new Error("couldn't find template from selector " + selector);
@@ -789,7 +753,6 @@
         this.activeView = null;
         this.events = new LunchUX.Event();
         this.views = {
-            "household-size": HouseholdSizeView,
             "kids": KidListView,
             "adults": AdultListView,
             "other-help": OtherHelpView,
@@ -798,7 +761,6 @@
         }
         this.progress = [
             "get-started",
-            "household-size",
             "kids",
             "other-help",
             "adults",
@@ -806,9 +768,6 @@
             "review"
         ];
         this.handlers = {
-            "household-size": [
-                {event: "handleSetHouseholdSize", handler: this.setHouseholdSize.bind(this)}
-            ],
             "kids": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
                 {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
@@ -848,11 +807,6 @@
 
     Controller.prototype.on = function(event, handler) {
         this.events.bind(event, handler);
-    };
-
-    Controller.prototype.setHouseholdSize = function(options) {
-        this.model.setHouseholdSize(options.numKids, options.numAdults);
-        this.setView(options.nextScreenId);
     };
 
     Controller.prototype.toggleDetailsForm = function(view) {
@@ -964,6 +918,10 @@
             console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
             return;
+        }
+
+        if ((id === "kids" || id === "adults") && this.model.get("people").length === 0) {
+            this.model.setInitialHousehold();
         }
 
         this.hideAll();

@@ -13,19 +13,18 @@ describe('Model', function() {
     expect(model.data).toEqual({numKids: 12});
   });
 
-  describe('setHouseholdSize', function() {
-    it('should set the household size for kids and adults', function(){
-      var store = new InMemoryStore('lunchux-test');
-      var model = new Model(store);
-      model.setHouseholdSize(3, 2);
-      expect(model.data['numKids']).toEqual(3);
-      expect(model.data['numAdults']).toEqual(2);
-      expect(model.data['people'][0]['name']).toEqual('Kid #1');
-      expect(model.data['people'][1]['name']).toEqual('Kid #2');
-      expect(model.data['people'][2]['name']).toEqual('Kid #3');
-      expect(model.data['people'][3]['name']).toEqual('Adult #1');
-      expect(model.data['people'][4]['name']).toEqual('Adult #2');
-    });
+  describe('setInitialHousehold', function() {
+      it('should set an initial household of 1 child and 1 adult', function() {
+          var store = new InMemoryStore('lunchux-test');
+          var model = new Model(store);
+          expect(model.get('people').length).toEqual(0);
+          model.setInitialHousehold();
+          expect(model.get('people').length).toEqual(2);
+          expect(model.kids().length).toEqual(1);
+          expect(model.adults().length).toEqual(1);
+          expect(model.kids()[0].name).toEqual('Kid #1');
+          expect(model.adults()[0].name).toEqual('Adult #1');
+      });
   });
 
   describe('addPerson', function() {
@@ -46,30 +45,6 @@ describe('Model', function() {
       model.reset();
       expect(model.editingPerson).toBe(null);
       expect(model.formDisplay).toEqual([]);
-    });
-  });
-
-  describe('kids and adults', function(){
-    var store = new InMemoryStore('lunchux-test');
-    var model = new Model(store);
-    model.setHouseholdSize(4, 1);
-
-    describe('kids', function(){
-      it('should return the kids', function(){
-        expect(model.kids().length).toEqual(4);
-        for (i = 0; i < 4; i++) {
-          expect(model.kids()[i]['name']).toEqual("Kid #" + (i+1));
-        }
-      });
-    });
-
-    describe('adults', function(){
-      it('should return the adults', function(){
-        expect(model.adults().length).toEqual(1);
-        for (i = 0; i < 1; i++) {
-          expect(model.adults()[i]['name']).toEqual("Adult #" + (i+1));
-        }
-      });
     });
   });
 
