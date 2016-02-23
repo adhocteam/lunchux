@@ -910,7 +910,9 @@
         };
     }
 
-    Controller.prototype.loadView = function(id) {
+    Controller.prototype.loadView = function(id, options) {
+        options = options || {};
+
         console.debug("setting view '%s'", id);
 
         var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild });
@@ -922,6 +924,12 @@
 
         if ((id === "kids" || id === "adults") && this.model.get("people").length === 0) {
             this.model.setInitialHousehold();
+        }
+
+        if (options.initial && this.model.get("people").length > 0) {
+            qs(".existing-session").classList.remove("hide");
+        } else {
+            qs(".existing-session").classList.add("hide");
         }
 
         this.hideAll();
@@ -1018,12 +1026,12 @@
 
         initDebugging();
 
-        function loadView() {
+        function loadView(event, initial) {
             var id = window.location.hash ? window.location.hash.slice(1) : initialViewId;
-            controller.loadView(id);
+            controller.loadView(id, {initial: !!initial});
         }
 
         $on(window, "hashchange", loadView);
-        loadView();
+        loadView(null, true);
     }, false);
 }());
