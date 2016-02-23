@@ -111,4 +111,19 @@ describe('Model', function() {
       expect(model.editingPerson.incomes["salary"].amount).toEqual(100);
     });
   });
+
+    describe("existing session", function() {
+        var store = new InMemoryStore("lunchux-test");
+        var model = new Model(store);
+
+        it("should not have an existing session initially", function() {
+            expect(model.hasExistingSession()).toBe(false);
+        });
+
+        it("should have an existing session", function() {
+            model.setInitialHousehold();
+            var newModel = new Model(store);
+            expect(newModel.hasExistingSession()).toBe(true);
+        });
+    });
 });

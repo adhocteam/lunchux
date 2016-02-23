@@ -926,7 +926,7 @@
             this.model.setInitialHousehold();
         }
 
-        if (options.initial && this.model.get("people").length > 0) {
+        if (options.initial && this.model.hasExistingSession()) {
             qs(".existing-session").classList.remove("hide");
         } else {
             qs(".existing-session").classList.add("hide");

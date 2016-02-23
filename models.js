@@ -228,3 +228,7 @@ Model.prototype.updatePersonIncome = function(person, type, options) {
     this.editingPerson.incomes = incomes;
     this.events.notify("editedPerson");
 };
+
+Model.prototype.hasExistingSession = function() {
+    return this.get("people").length > 0;
+};
