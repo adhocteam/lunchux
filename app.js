@@ -939,11 +939,23 @@
         return this.views[id];
     };
 
+    if (!Array.prototype.all) {
+        Array.prototype.all = function(predicate) {
+            for (var i = 0; i < this.length; i++) {
+                if (!predicate(this[i])) {
+                    return false;
+                }
+            }
+            return true;
+        };
+    }
+
     Controller.prototype.loadView = function(id) {
         console.debug("setting view '%s'", id);
 
-        if ((id === "adults" || id === "income") && model.get("hasOtherHelp")) {
-            console.debug("short-circuit %s due to hasOtherHelp == true", id);
+        var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild });
+        if ((id === "adults" || id === "income") && (this.model.get("hasOtherHelp") || allFosterKids)) {
+            console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
             return;
         }
