@@ -1,9 +1,7 @@
 function extend(dest, src) {
-    for (var k in src) {
-        if (src.hasOwnProperty(k)) {
-            dest[k] = src[k];
-        }
-    }
+    for (var k in src) if (src.hasOwnProperty(k)) dest[k] = src[k];
+    function Temp() { this.constructor = dest; }
+    dest.prototype = src === null ? Object.create(src) : (Temp.prototype = src.prototype; new Temp());
     return dest;
 }
 
