@@ -46,6 +46,11 @@ function Model(store) {
     this.formDisplay = [];
 }
 
+Model.prototype.clear = function() {
+    this.data = this.defaultValues();
+    this.store.reset();
+};
+
 Model.prototype.defaultValues = function() {
     return {
         numKids: 0,

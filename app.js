@@ -79,6 +79,10 @@
         localStorage[this.name] = JSON.stringify(data);
     };
 
+    Store.prototype.reset = function() {
+        delete localStorage[this.name];
+    };
+
     // views
 
     function HouseholdSizeView(options) {
@@ -928,6 +932,8 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
+        // TODO: send model values to server
+        this.model.clear();
         this.setView("submitted");
     };
 
