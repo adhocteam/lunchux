@@ -355,18 +355,16 @@ header {
     position: relative; }
     .subnav li.done {
       background: #4b8566; }
+      .subnav li.done a {
+        color: #fff; }
+        .subnav li.done a a:hover {
+          color: #E1EEE7; }
     .subnav li a {
       text-decoration: none;
       color: #39644d;
       font-weight: bold;
       display: block;
       padding: 10px; }
-    .subnav li.done a {
-      color: #fff; }
-    .subnav li a:hover {
-      color: #fff;
-      background-color: #f0f7f3;
-      transition: background-color 0.25s ease; }
     .subnav li.active {
       background-color: #7fb799; }
       @media screen and (min-width: 600px) {

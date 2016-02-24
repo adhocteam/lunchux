@@ -232,8 +232,13 @@ header {
 
 
     &.done {
-
       background: darken($blue,50);
+      a {
+        color: #fff;
+        a:hover {
+          color: $blue;
+        }
+      }
     }
 
     a {
@@ -243,19 +248,6 @@ header {
       font-weight: bold;
       display:block;
       padding: 10px;
-    }
-
-    &.done a {
-      color: #fff;
-    }
-
-    a:hover {
-
-      //color:shade($blue, 20%);
-      color:#fff;
-      background-color:tint($blue, 50%);
-      transition: background-color 0.25s ease;
-
     }
 
     &.active {
