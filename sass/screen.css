@@ -251,7 +251,7 @@ button {
 
 .back {
   background-color: #ddd;
-  color: #fff; }
+  color: #444; }
 
 .no-bold {
   font-weight: normal; }
@@ -614,7 +614,7 @@ footer {
   background-color: #f4f4f4;
   color: #b1b1b1; }
   footer a {
-    color: #b1b1b1;
+    color: #444;
     text-decoration: underline; }
   footer .question-mark-small {
     margin-right: 7px; }
