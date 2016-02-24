@@ -132,7 +132,7 @@
 
         function tribool(prop, test) {
             if (prop === undefined || prop === null) {
-                return ""
+                return "";
             }
             return (test === false && prop === false) || (test === true && prop === true) ? "checked" : "";
         }
@@ -202,7 +202,7 @@
         this.personView = (options.personView || PersonView);
         this.el = null;
         this.model = options.model;
-        this.peopleMethod = options.peopleMethod || function() { return this.all().people }
+        this.peopleMethod = options.peopleMethod || function() { return this.all().people; };
 
         this.events = [
             "toggleDetailsForm",
@@ -257,7 +257,7 @@
         switch (event) {
         case "handleAddPersonClick":
             var unload = $on(qs(".actions", this.addPersonEl), "click", function(event) {
-                handler({name: "Kid #" + (this.model.kids().length + 1), ageClass: AgeClass.child});
+                handler({name: "Kid #" + (this.model.kids().length + 1), ageClass: LunchUX.AgeClass.child});
             }.bind(this));
             this.listenersToUnload.push(unload);
             break;
@@ -364,9 +364,10 @@
     };
 
     AdultListView.prototype.bind = function(event, handler) {
+        var unloader;
         switch (event) {
         case "handleLast4SSNInput":
-            var unloader = $on(qs("[name=last-4-ssn]", this.ssnFormEl), "input", function(event) {
+            unloader = $on(qs("[name=last-4-ssn]", this.ssnFormEl), "input", function(event) {
                 handler(event.target.value);
             }.bind(this));
             this.unloaders.push(unloader);
@@ -380,19 +381,19 @@
             }.bind(this));
             break;
         case "handleAddPersonClick":
-            var unload = $on(qs("#adults .add-person .actions"), "click", function(event) {
-                handler({name: "Adult #" + (this.model.adults().length + 1), ageClass: AgeClass.adult});
+            unloader = $on(qs("#adults .add-person .actions"), "click", function(event) {
+                handler({name: "Adult #" + (this.model.adults().length + 1), ageClass: LunchUX.AgeClass.adult});
             }.bind(this));
-            this.unloaders.push(unload);
+            this.unloaders.push(unloader);
             break;
         case "handleContinueBtnClick":
-            var unload = $on(qs("#adults form.ssn-form"), "submit", function(event) {
+            unloader = $on(qs("#adults form.ssn-form"), "submit", function(event) {
                 event.preventDefault();
                 var submitBtn = qs("button.button", event.target);
                 var nextScreenId = submitBtn.getAttribute("data-next-screen");
                 handler({nextScreenId: nextScreenId});
             }.bind(this));
-            this.unloaders.push(unload);
+            this.unloaders.push(unloader);
             break;
         default:
             this.peopleListView.bind(event, handler);
@@ -415,6 +416,7 @@
     }
 
     OtherHelpView.prototype.bind = function(event, handler) {
+        var unload;
         switch (event) {
         case "handleHasOtherHelpRadioClick":
             qsa("[name=has-other-help]", this.otherHelpFormEl).forEach(function(el) {
@@ -426,13 +428,13 @@
             break;
         case "handleCaseNumberInput":
             var caseNumber = qs("[name=case-number]", this.otherHelpFormEl);
-            var unload = $on(caseNumber, "input", function(event) {
+            unload = $on(caseNumber, "input", function(event) {
                 handler(caseNumber.value);
             }.bind(this));
             this.unloaders.push(unload);
             break;
         case "handleContinueBtnClick":
-            var unload = $on(qs("#other-help form"), "submit", function(event) {
+            unload = $on(qs("#other-help form"), "submit", function(event) {
                 event.preventDefault();
                 var submitBtn = qs("button.button", event.target);
                 var nextScreenId = submitBtn.getAttribute("data-next-screen");
@@ -640,8 +642,8 @@
 
     ReviewView.prototype.render = function() {
         var people = this.model.all().people;
-        var numKids = people.filter(function(person) { return person.ageClass === AgeClass.child; }).length;
-        var numAdults = people.filter(function(person) { return person.ageClass === AgeClass.adult; }).length;
+        var numKids = this.model.kids().length;
+        var numAdults = this.model.adults().length;
         var numPeople = people.length;
 
         this.hhDescriptionEl.innerHTML = this.descriptionTemplate({
@@ -656,7 +658,7 @@
             for (var type in p.incomes) {
                 if (p.incomes.hasOwnProperty(type)) {
                     var income = p.incomes[type];
-                    if (income.amount != 0) {
+                    if (income.amount !== 0) {
                         text.push(income.amount + ' ' + income.freq);
                     }
                 }
@@ -687,7 +689,7 @@
 
         var statesEl = qs("[name=state]", this.formEl);
         states().forEach(function(state) {
-            var option = document.createElement("option")
+            var option = document.createElement("option");
             option.value = state.abbrev;
             option.label = state.abbrev;
             statesEl.appendChild(option);
@@ -740,7 +742,7 @@
             "other-help": OtherHelpView,
             "income": IncomeView,
             "review": ReviewView
-        }
+        };
         this.progress = [
             "get-started",
             "kids",
@@ -784,7 +786,7 @@
                 {event: "handleHasAddressRadioClick", handler: this.handleHasAddressRadioClick.bind(this)},
                 {event: "handleSubmit", handler: this.handleSubmit.bind(this)}
             ]
-        }
+        };
     }
 
     Controller.prototype.on = function(event, handler) {
@@ -897,7 +899,8 @@
 
         console.debug("setting view '%s'", id);
 
-        var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild });
+        // TODO would be great to move this and the next if statement to some isolated biz logic method
+        var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild; });
         if ((id === "adults" || id === "income") && (this.model.get("hasOtherHelp") || allFosterKids)) {
             console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
@@ -912,6 +915,10 @@
             qs(".existing-session").classList.remove("hide");
         } else {
             qs(".existing-session").classList.add("hide");
+        }
+
+        if (options.fromView) {
+            this.markComplete(options.fromView);
         }
 
         this.hideAll();
@@ -939,8 +946,15 @@
         }
     };
 
+    Controller.prototype.markComplete = function(fromView) {
+        var completed = this.model.get("completed");
+        completed[fromView] = true;
+        this.model.set("completed", completed);
+    };
+
     Controller.prototype.setActiveNavTab = function(viewId) {
         var progress = this.progress.indexOf(viewId);
+        var completed = this.model.get("completed");
         qsa(".subnav li").forEach(function(li) {
             var a = qs("a", li);
             var thisViewId = a.hash === "" ? "get-started" : a.hash.slice(1);
@@ -953,6 +967,11 @@
                 li.classList.add("done");
             } else {
                 li.classList.remove("done");
+            }
+            if (thisViewId !== viewId && !completed[thisViewId]) {
+                li.classList.add("disabled");
+            } else {
+                li.classList.remove("disabled");
             }
         }.bind(this));
     };
@@ -1009,8 +1028,14 @@
         initDebugging();
 
         function loadView(event, initial) {
+            var options = {initial: !!initial};
+            if (event) {
+                var a = document.createElement("A");
+                a.href = event.oldURL;
+                options.fromView = a.hash ? a.hash.slice(1) : initialViewId;
+            }
             var id = window.location.hash ? window.location.hash.slice(1) : initialViewId;
-            controller.loadView(id, {initial: !!initial});
+            controller.loadView(id, options);
         }
 
         $on(window, "hashchange", loadView);

@@ -13,3 +13,13 @@
 .existing-session.hide {
     display: none;
 }
+
+.active a,
+.disabled a {
+    pointer-events: none;
+}
+
+.disabled a {
+    background: grey;
+    color: black;
+}

@@ -5,15 +5,13 @@
 
     window.extend = function(dest, src) {
         for (var k in src) if (src.hasOwnProperty(k)) dest[k] = src[k];
-        function Temp() { this.constructor = dest; }
-        dest.prototype = src === null ? Object.create(src) : (Temp.prototype = src.prototype, new Temp());
         return dest;
     };
 
-    LunchUX.Event = function () {}
+    LunchUX.Event = function () {};
 
     LunchUX.Event.prototype.bind = function(type, handler) {
-        var subscribers = (this.subscribers || {})
+        var subscribers = (this.subscribers || {});
         var list = subscribers[type] || [];
         list.push(handler);
         subscribers[type] = list;
@@ -27,4 +25,4 @@
             handler.apply(this, args);
         });
     };
-}())
+}());

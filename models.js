@@ -4,6 +4,7 @@
     window.LunchUX = window.LunchUX || {};
 
     function Person(options) {
+        options = options || {};
         this.id = options.id || nextId();
         this.name = options.name || "";
         this.ageClass = options.ageClass || AgeClass.child;
@@ -14,10 +15,14 @@
         this.isHispanicDeclined = options.isHispanicDeclined;
         this.races = options.races || [];
         this.incomes = options.incomes || {};
-    };
+    }
 
     Person.prototype.valid = function() {
         return this.name !== "";
+    };
+
+    Person.prototype.toString = function() {
+        return this.name;
     };
 
     var AgeClass = {
@@ -63,7 +68,8 @@
             zip: "",
             readNonDiscriminationStatement: false,
             readUseOfInformationStatement: false,
-            signature: ""
+            signature: "",
+            completed: {}
         };
     };
 
@@ -79,7 +85,7 @@
         this.data.people.push(person);
         this.save();
         this.events.notify("addedPerson", person);
-    }
+    };
 
     Model.prototype.deletePerson = function(person) {
         var index;
@@ -133,7 +139,7 @@
         }
 
         this.events.notify("toggleDetailsForm", view, state.show);
-    }
+    };
 
     Model.prototype.startEditing = function(person) {
         this.editingPerson = extend({}, person);

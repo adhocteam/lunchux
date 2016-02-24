@@ -558,10 +558,10 @@ benefits)</li>
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions"><a href="#<%= person.ageClass === AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
+              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
             </div>
             <ul class="summary">
-              <%= person.ageClass === AgeClass.child ? kidSummary(person) : adultSummary(person) %>
+              <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
             </ul>
           </li>
           <% }) %>
