@@ -306,14 +306,19 @@ main {
 }
 
 .button-group {
-
+  @media screen and (min-width: $medium-screen) {
   display: flex;
   justify-content: space-between;
   margin-top:60px;
+}
 
   .button {
-
-    width: 25%; text-align: center;
+    width: 100%;
+    margin: 0 0 1em 0;
+    text-align: center;
+    @media screen and (min-width: $medium-screen) {
+      width: 25%; text-align: center; margin: 0;
+    }
 
   }
  }
