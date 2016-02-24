@@ -433,6 +433,20 @@ h2 {
   padding: 0 0 .25em 0;
   font-weight: 700; }
 
+h3, h4, h5, h6 {
+  color: #444; }
+
+/* =============
+   Panels
+   ============= */
+.panel {
+  background: rgba(0, 0, 0, 0.05);
+  padding: .5em .75em;
+  border-radius: .35em;
+  margin: 0 0 1em 0; }
+  .panel .sign-form {
+    border-top: none; }
+
 /* =============
    HOUSEHOLD INFO
    ============= */
