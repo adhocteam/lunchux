@@ -152,15 +152,16 @@ a { color: #000; }
 
 header {
 
-  background: darken(#63589C, 10);
+  background: darken(#63589C, 10) url(/images/logo.png) 50% 5% no-repeat;
+  background-size: 2.5em;
   color: #fff;
+  padding: 3em 0 0 0;
   border-bottom: 1px solid #ccc;
 
   //all .nav lives in the header
   .nav {
 
     @include outer-container;
-    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
 
@@ -171,11 +172,6 @@ header {
     }
 
     b {
-      border: 3px solid #fff;
-      margin: 0 .1em;
-      border: 3px solid rgba(255,255,255,.5);
-      display: inline-block;
-      padding: .2em;
     }
 
     div {

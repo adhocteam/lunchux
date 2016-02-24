@@ -298,14 +298,15 @@ a {
   content: "🍔 "; }
 
 header {
-  background: #4e467b;
+  background: #4e467b url(/images/logo.png) 50% 5% no-repeat;
+  background-size: 2.5em;
   color: #fff;
+  padding: 3em 0 0 0;
   border-bottom: 1px solid #ccc; }
   header .nav {
     max-width: 68em;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px 30px;
     display: flex;
     justify-content: space-between; }
     header .nav::after {
@@ -315,12 +316,6 @@ header {
     header .nav a {
       text-decoration: none;
       color: #fff; }
-    header .nav b {
-      border: 3px solid #fff;
-      margin: 0 .1em;
-      border: 3px solid rgba(255, 255, 255, 0.5);
-      display: inline-block;
-      padding: .2em; }
     header .nav div {
       flex: 1;
       margin: 0; }
