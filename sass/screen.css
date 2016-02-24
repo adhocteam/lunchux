@@ -382,9 +382,20 @@ header {
           border-top: 0.75em solid #7fb799;
           border-bottom-color: inherit;
           border-left: .75em solid transparent;
-          border-right: .75em solid transparent; } }
+          border-right: .75em solid transparent; }
+        }
       .subnav li.active a {
         color: #fff; }
+
+/* =============
+ Info links
+ ============= */
+
+main a.info-link {
+  border-bottom: 2px solid $primary;
+}
+
+
 
 /* =============
    MAINS
@@ -429,7 +440,36 @@ h2, h3, h4, h5, h6 {
 h2 {
   border-bottom: 1px solid #ddd;
   padding: 0 0 .25em 0;
-  font-weight: 700; }
+  font-weight: 700;
+}
+
+
+h3, h4 {
+  color: #555;
+}
+
+/* =============
+ Panels
+ ============= */
+
+.panel {
+  background: rgba(0,0,0,.05);
+  padding: 1em;
+  margin: 0 0 1em 0;
+  border-radius: .35em;
+  border: 1px solid rgba(0,0,0,.15);
+  h2, h3, h4, h5, h6 {
+    padding: 0; margin: 0; line-height: 1em;
+  }
+
+  &.review {
+    background: green;
+  }
+
+  &.action {
+    background: lighten($blue, 20);
+  }
+}
 
 /* =============
    HOUSEHOLD INFO
@@ -485,7 +525,11 @@ h2 {
 #household-size .form-controls-group {
   display: flex;
   justify-content: space-around;
-  text-align: center; }
+  text-align: center;
+  label {
+    background: rgba(0,0,0,.1);
+  }
+}
 
 [name=num-kids], [name=num-adults] {
   padding: 10px;
@@ -505,7 +549,11 @@ h2 {
     margin-top: 0; }
 
 .normal-label label {
-  font-weight: normal; }
+  font-weight: normal;
+  background: rgba(0,0,0,.05);
+  padding: .35em;
+  border-radius: .35em;
+}
 
 .ssn-form {
   margin-top: 2em; }
@@ -528,9 +576,6 @@ input.ssn {
 
 .inner-section {
   margin-top: 30px;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  padding-top: 30px;
   padding-bottom: 30px; }
 
 .inner-section.last {

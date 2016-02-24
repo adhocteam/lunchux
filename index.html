@@ -26,7 +26,7 @@
               <li><a href="#other-help">Assistance</a></li>
               <li><a href="#adults">Adults</a></li>
               <li><a href="#income">Income</a></li>
-              <li><a href="#review">Verify</a></li>
+              <li><a href="#review">Review</a></li>
             </ul><!---->
             <div class="existing-session hide">
               Welcome back!
@@ -56,7 +56,7 @@
           </li>
           <span class='prog-bar'></span>
           <li class='prog-round'>
-            <a href="#review"><span class='prog-label'>Verify</span></a>
+            <a href="#review"><span class='prog-label'>Review</span></a>
           </li>
         </ul>
 
@@ -222,12 +222,15 @@
                 <h2>Ok, let’s review.</h2>
                 <p>Take a look at the information you entered, and correct any mistakes you see.</p>
 
-                <p class="hh-description"></p>
-
-                <div class="button-group-other">
-                  <a class="button fwd" href="#kids"><span aria-hidden="true">+</span> Add <b>students</b></a>
-                  <a class="button fwd" href="#adults"><span aria-hidden="true">+</span>  Add <b>adults</b></a>
+                <div class="panel review">
+                  <p class="hh-description"></p>
+                  <div class="button-group-other">
+                    <a class="button fwd" href="#kids"><span aria-hidden="true">+</span> Add <b>students</b></a>
+                    <a class="button fwd" href="#adults"><span aria-hidden="true">+</span>  Add <b>adults</b></a>
+                  </div>
                 </div>
+
+
 
                 <ul class="person-list"></ul>
 
@@ -310,20 +313,22 @@
                         </ul>
                     </div>
 
-                    <div class="sign-form inner-section last">
-                        <h2>Sign your application</h2>
-                        <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
-                        <div class="form-controls-group">
-                            <div>
-                                <label>
-                                    Your full name:<br>
-                                    <input type="text" name="signature" placeholder="Your name" required>
-                                </label>
-                            </div>
+                    <div class="panel action">
+                      <div class="sign-form inner-section last">
+                          <h2>Sign and complete your application</h2>
+                          <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
+                          <div class="form-controls-group">
+                              <div>
+                                  <label>
+                                      Your full name:<br>
+                                      <input type="text" name="signature" placeholder="Your name" required>
+                                  </label>
+                              </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
                     <div>
-                        <button class="button fwd submit">Send your application</button>
+                        <button class="button fwd submit">Sign and complete</button>
                     </div>
                 </form>
             </section>
