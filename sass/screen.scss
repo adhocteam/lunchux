@@ -124,7 +124,7 @@ button {
 
 .question-mark-small {
 
-  width:20px;
+  width:15px;
   height:20px;
   background-image: url('/question_mark.svg');
   display:inline-block;
@@ -133,10 +133,10 @@ button {
 
 .question-mark {
 
-  width:30px;
-  height: 30px;
+  width:24px;
+  height: 24px;
   display:inline-block;
-  vertical-align: middle;
+  vertical-align: top;
   margin-right:10px;
   background-image: url('/question_mark.svg');
 }
@@ -176,7 +176,7 @@ header {
 
     div {
 
-      flex: 1; margin: 0;
+      flex: 1; margin: .75em 0 0 1em;
 
     }
 
@@ -641,13 +641,14 @@ input.ssn {
         height:100%;
         position:relative;
         padding:0;
+        margin: 0 auto;
 
         .prog-label {
-
+          font-size: .7em;
           display:none;
           position:absolute;
-          top:20px;
-          left:-4px;
+          border: 1px solid red;
+          padding: .5em 0;
         }
       }
 
@@ -657,12 +658,6 @@ input.ssn {
         border:4px solid $blue;
 
         a {
-
-          .prog-label {
-
-            color:$blue;
-            display:block;
-          }
 
         }
 
