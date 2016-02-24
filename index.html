@@ -17,7 +17,7 @@
         <header>
             <div class="nav">
               <div><a class='faq' href="#faq"><span class='question-mark'></span>FAQ</a></div>
-              <h1><a href="/">LunchUX</a></h1>
+              <h1 role="banner"><a href="/">Got <b>Lunch?</b></a></h1>
               <div id="signout"></div>
             </div>
             <ul class="subnav">
@@ -112,7 +112,7 @@
                     <div class="person invalid">
                         <div class="person-name-bar">
                             <div class="person-name">Add another student</div>
-                            <div class="actions">Add new information</div>
+                            <div class="actions"><span aria-hidden="true">+</span> Add</div>
                         </div>
                     </div>
                 </div>
@@ -467,7 +467,7 @@
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions">Edit these details</div>
+              <div class="actions">Edit</div>
             </div>
           </li>
         </script>
@@ -586,7 +586,7 @@
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
+              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
             </div>
             <ul class="summary">
               <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
@@ -594,6 +594,10 @@
           </li>
           <% }) %>
         </script>
+
+    <footer>
+      <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
 
     </body>
 
