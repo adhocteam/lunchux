@@ -406,13 +406,18 @@ main {
   .screen:last-child {
     margin-right: 0; }
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 60px; }
-  .button-group .button {
-    width: 25%;
-    text-align: center; }
+@media screen and (min-width: 600px) {
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px; } }
+.button-group .button {
+  width: 100%;
+  margin: 0 0 1em 0;
+  text-align: center; }
+  @media screen and (min-width: 600px) {
+    .button-group .button {
+      width: 25%; } }
 
 .no-justify {
   display: list-item; }
@@ -560,14 +565,16 @@ input.ssn {
    FOOTER
    ============= */
 footer {
+  color: #444;
   text-align: center;
-  padding-bottom: 10px;
-  padding-top: 15px;
+  padding: 0 0 1em 0;
   font-size: small;
   background-color: #f4f4f4;
   color: #b1b1b1; }
+  footer p {
+    display: block; }
   footer a {
-    color: #b1b1b1;
+    color: #444;
     text-decoration: underline; }
   footer .question-mark-small {
     margin-right: 7px; }

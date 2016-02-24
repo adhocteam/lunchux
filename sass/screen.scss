@@ -302,14 +302,20 @@ main {
 }
 
 .button-group {
-
+  @media screen and (min-width: $medium-screen) {
   display: flex;
   justify-content: space-between;
   margin-top:60px;
 
-  .button {
+  }
 
-    width: 25%; text-align: center;
+  .button {
+    width: 100%;
+    margin: 0 0 1em 0;
+    text-align: center;
+    @media screen and (min-width: $medium-screen) {
+      width: 25%; 
+    }
 
   }
  }
@@ -543,17 +549,17 @@ input.ssn {
    ============= */
 
    footer {
-
+     color: #444;
      text-align: center;
-     padding-bottom:10px;
-     padding-top:15px;
+     padding: 0 0 1em 0;
+     p {display: block}
      font-size:small;
      background-color: $lightest-grey;
      color:shade($light-gray, 20%);
 
      a {
 
-       color:shade($light-gray, 20%);
+       color:#444;
        text-decoration: underline;
 
      }
