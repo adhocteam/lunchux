@@ -95,7 +95,11 @@
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
-                show ? this.showForm() : this.hideForm();
+                if (show) {
+                    this.showForm();
+                } else {
+                    this.hideForm();
+                }
             }
         }.bind(this));
 
@@ -287,7 +291,11 @@
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
-                show ? this.showForm() : this.hideForm();
+                if (show) {
+                    this.showForm();
+                } else {
+                    this.hideForm();
+                }
             }
         }.bind(this));
 
@@ -461,7 +469,11 @@
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
-                show ? this.showForm() : this.hideForm();
+                if (show) {
+                    this.showForm();
+                } else {
+                    this.hideForm();
+                }
             }
         }.bind(this));
     }
@@ -653,33 +665,10 @@
             pluralize: pluralize
         });
 
-        function incomeText(p) {
-            var text = [];
-            for (var type in p.incomes) {
-                if (p.incomes.hasOwnProperty(type)) {
-                    var income = p.incomes[type];
-                    if (income.amount !== 0) {
-                        text.push(income.amount + ' ' + income.freq);
-                    }
-                }
-            }
-            text = text.join(", ");
-            text = (text ? "income of " + text : "no income");
-            return text;
-        }
-
-        function kidSummary(p) {
-            return this.kidSummaryTemplate({person: p, incomeText: incomeText});
-        }
-
-        function adultSummary(p) {
-            return this.adultSummaryTemplate({person: p, incomeText: incomeText});
-        }
-
         this.personListEl.innerHTML = this.personSummaryTemplate({
             people: people,
-            kidSummary: kidSummary.bind(this),
-            adultSummary: adultSummary.bind(this),
+            kidSummary: this.kidSummary.bind(this),
+            adultSummary: this.adultSummary.bind(this),
         });
 
         this.otherHelpEl.innerHTML = this.model.get("hasOtherHelp") ? "Someone in your household receives SNAP, TANF, or FDPIR." :
@@ -694,6 +683,29 @@
             option.label = state.abbrev;
             statesEl.appendChild(option);
         }.bind(this));
+    };
+
+    ReviewView.prototype.incomeText = function(p) {
+        var text = [];
+        for (var type in p.incomes) {
+            if (p.incomes.hasOwnProperty(type)) {
+                var income = p.incomes[type];
+                if (income.amount !== 0) {
+                    text.push(income.amount + ' ' + income.freq);
+                }
+            }
+        }
+        text = text.join(", ");
+        text = (text ? "income of " + text : "no income");
+        return text;
+    };
+
+    ReviewView.prototype.kidSummary = function(person) {
+        return this.kidSummaryTemplate({person: person, incomeText: this.incomeText});
+    };
+
+    ReviewView.prototype.adultSummary = function(person) {
+        return this.adultSummaryTemplate({person: person, incomeText: this.incomeText});
     };
 
     ReviewView.prototype.bind = function(event, handler) {

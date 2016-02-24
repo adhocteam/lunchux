@@ -35,7 +35,7 @@ describe('Model', function() {
       var store = new InMemoryStore('lunchux-test');
       var model = new Model(store);
       model.addPerson({name: 'New Person', AgeClass: AgeClass.adult});
-      expect(model.data['people'][0]['name']).toEqual('New Person');
+      expect(model.data.people[0].name).toEqual('New Person');
     });
   });
 
@@ -69,7 +69,7 @@ describe('Model', function() {
       var otherPerson = new Person({name: "Editing Person"});
       model.startEditing(otherPerson);
       expect(model.updatePerson(person, {isHispanic: true})).toBe(undefined);
-      expect(model.editingPerson.isHispanic).toBe(undefined)
+      expect(model.editingPerson.isHispanic).toBe(undefined);
       model.updatePerson(otherPerson, {isHispanic: true});
       expect(model.editingPerson.isHispanic).toBe(true);
     });
@@ -109,9 +109,9 @@ describe('Model', function() {
 
     it("should update the person's income if they are being edited", function(){
       model.startEditing(person);
-      expect(model.editingPerson.incomes["salary"]).toBe(undefined);
+      expect(model.editingPerson.incomes.salary).toBe(undefined);
       model.updatePersonIncome(person, "salary", {amount: 100, occurence: "daily"});
-      expect(model.editingPerson.incomes["salary"].amount).toEqual(100);
+      expect(model.editingPerson.incomes.salary.amount).toEqual(100);
     });
   });
 
