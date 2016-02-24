@@ -503,6 +503,14 @@ input.ssn {
   border-bottom: 0;
   margin-top: 0; }
 
+#get-started ul {
+  margin-bottom: 20px; }
+#get-started .styled-list {
+  margin-left: 5%; }
+
+.styled-list {
+  list-style: disc; }
+
 .styled-list-inner {
   margin-left: 5%;
   list-style: circle; }
