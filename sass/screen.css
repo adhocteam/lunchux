@@ -249,6 +249,7 @@ button {
   .fwd:hover {
     background-color: #a3daa3; }
 
+
 .back {
   background-color: #ddd;
   color: #444; }
@@ -263,12 +264,11 @@ button {
   padding: 0.75em 1.5em !important; }
 
 .delete {
-  color: #f05f5c;
-  background: none;
-  font-size: 0.85em;
-  text-decoration: underline; }
+  color: #fff;
+  background: #f05f5c;
+  text-decoration: none; }
   .delete:hover {
-    color: #a84340; }
+    color: darken($red, 10); }
 
 .submit {
   padding: 0.75em 1.5em !important; }

@@ -510,7 +510,7 @@
             <div class="normal-label">
               <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
               <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
-              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
+              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> I’d rather not say</label>
             </div>
             <p>
               <b>Race</b>
@@ -522,10 +522,10 @@
               </label>
               <% }) %>
             </div>
-            <p>Thank you! In just a bit, we'll ask you about <%= name %>'s income.</p>
-            <div class="button-group no-justify">
+            <p>Thank you! In just a bit, we'll ask you about <%= name %>’s income.</p>
+            <div class="button-group justify">
               <button class="button save">Save</button><br>
-              <a class="delete" href="#">Remove</a>
+              <a class="button delete" href="#"><span aria-hidden="true">-</span> Remove</a>
             </div>
           </form>
         </script>

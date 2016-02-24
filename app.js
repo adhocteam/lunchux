@@ -131,7 +131,7 @@
             {label: "Black or African-American", value: "black"},
             {label: "Native Hawaiian or other Pacific Islander", value: "hawaiian"},
             {label: "White", value: "white"},
-            {label: "Decline to answer", value: "declined"}
+            {label: "I'd rather not say", value: "declined"}
         ];
 
         function tribool(prop, test) {
