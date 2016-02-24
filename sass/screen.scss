@@ -6,7 +6,7 @@
 
 //colors are defined in base/_variables.scss
 
-#debug { position: absolute; top: 0; left: 0; padding: 10px; border: 2px $red dotted; }
+#debug { position: fixed; top: bottom; left: 0; padding: 10px; border: 2px $red dotted; }
 
 * { box-sizing: border-box; }
 
@@ -155,7 +155,7 @@ header {
   background: darken(#63589C, 10) url(/images/logo.png) 50% 5% no-repeat;
   background-size: 2.5em;
   color: #fff;
-  padding: 3em 0 0 0;
+  padding: 1em 0 0 0;
   border-bottom: 1px solid #ccc;
 
   //all .nav lives in the header
@@ -187,6 +187,7 @@ header {
       text-align: center;
       line-height: 1em;
       flex: 1; margin: 0;
+      padding: 1.75em 0 .5em 0;
 
     }
 
