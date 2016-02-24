@@ -167,7 +167,7 @@ a {
   text-decoration: none;
   transition: color 150ms ease; }
   a:active, a:focus, a:hover {
-    color: #497da7; }
+    color: #b44745; }
 
 hr {
   border-bottom: 1px solid #ddd;
@@ -211,7 +211,8 @@ body {
   margin-top: 1em;
   margin-bottom: 1em !important;
   border: 2px #f05f5c dotted;
-  padding: 10px; }
+  padding: 10px;
+  display: list-style; }
 
 .current {
   background: papayawhip; }
@@ -326,7 +327,7 @@ header {
       color: #f05f5c;
       vertical-align: text-bottom; }
       header .nav .faq:hover {
-        color: #a84340; }
+        color: #b44745; }
 
 /* ============= 
    SUBNAV
@@ -505,11 +506,10 @@ input.ssn {
 
 #get-started ul {
   margin-bottom: 20px; }
-#get-started .styled-list {
-  margin-left: 5%; }
 
 .styled-list {
-  list-style: disc; }
+  list-style: disc;
+  margin-left: 5%; }
 
 .styled-list-inner {
   margin-left: 5%;

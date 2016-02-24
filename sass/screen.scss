@@ -29,6 +29,7 @@ body {
   margin-bottom:1em !important;
   border: 2px $red dotted;
   padding:10px;
+  display:list-style;
 }
 
 .current { background: papayawhip; }
@@ -193,7 +194,7 @@ header {
       
       &:hover { 
        
-        color: shade($red, 30%);
+        color: shade($red, 25%);
       }
     }
   }
@@ -457,15 +458,12 @@ input.ssn {
     
   }
   
-  .styled-list {
-    
-    margin-left:5%;
-    
-  }
 }
+
 .styled-list {
   
   list-style:disc;
+  margin-left:5%;
 }
 
 .styled-list-inner {
