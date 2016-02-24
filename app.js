@@ -194,7 +194,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".button.delete", "click", function(event) {
+            $delegate(this.el, ".delete", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
@@ -344,7 +344,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".button.delete", "click", function(event) {
+            $delegate(this.el, ".delete", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
