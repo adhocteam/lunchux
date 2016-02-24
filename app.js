@@ -536,7 +536,9 @@
             $delegate(this.el, "input", "input", function(event) {
                 var bits = event.target.name.split(/-/);
                 var type = bits[1];
-                handler(this.person, type, {amount: event.target.value});
+                var amount = parseInt(event.target.value, 10);
+                // TODO handle NaN
+                handler(this.person, type, {amount: amount});
             }.bind(this));
             break;
         case "handleIncomeFrequencyChange":
@@ -691,7 +693,8 @@
             if (p.incomes.hasOwnProperty(type)) {
                 var income = p.incomes[type];
                 if (income.amount !== 0) {
-                    text.push(income.amount + ' ' + income.freq);
+                    var amountString = '$' + income.amount.toLocaleString() + ' ' + income.freq;
+                    text.push(amountString);
                 }
             }
         }
