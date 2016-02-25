@@ -16,7 +16,7 @@
 
         <header>
             <div class="nav">
-              <div><a class='faq' href="#faq"><span class='question-mark'></span>FAQ</a></div>
+              <div><a class='faq' href="#faq"><span class='question-mark'></span>Help</a></div>
               <h1><a href="/">LunchUX</a></h1>
               <div id="signout"></div>
             </div>
@@ -67,16 +67,39 @@
                 <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the <span class='question-mark-small'></span> icon or use the FAQ at the top of the screen.</p>
                 <p>Here's what you'll need to know to apply:</p>
                 
-                  <ul>
-                    <li class='styled-list'>The number of people in your household</li>  
-                    <li class='styled-list'>If anyone receives any benefits, like SNAP, TANF or FDPIR</li>
-                    <li class='styled-list'>How much income each person in your home earns</li>
+                <ul>
+                    <li class='styled-list'>The number of people in your 
+                      
+                      <div class='tooltip-item'>household <span class='question-mark-small'></span>
+                        <div class='tooltip'>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household's income doesn't support them.</div>
+                      </div>
+                      
+                    </li>  
+                    
+                    <li class='styled-list'>If anyone receives any benefits, like 
+                      
+                      <div class='tooltip-item'>
+                        SNAP, TANF or FDPIR <span class='question-mark-small'></span>
+                        <div class='tooltip'>
+                          <ul>
+                          <li>SNAP is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.</li>
+                          <li>TANF is the Temporary Assistance for Needy Families program. If you're enrolled in TANF, you're receiving a cash benefit. You also have a case number that's 10 or 13 digits long.</li>
+                          <li>FDPIR is the Food Distribution Program on Indian Reservations. If you're enrolled in FDPIR, you have a case number and an EBT card.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    
+                    </li>
+                    
+                    <li class='styled-list'>How much 
+                      <div class='tooltip-item'>income <span class='question-mark-small'></span> 
+                        <div class='tooltip'>
+                        Income is money paid to a person from a job, Social Security, annuities, child support, and more. Both children and adults can earn income. See <a href=#faq>Help</a> for a list of more types of income.</div>
+                      </div>
+                    
+                    each person in your home earns</li>
                   </ul>
                 
-                <li class="help"><a href='#faq'><span class='question-mark'></span>Who should you include in your household?</a></li>
-                <li class="help"><a><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</a></li>
-                <li class="help"><a><span class='question-mark'></span>What counts as income?</a></li>
-
                 <h2>Let's get started.</h2>
                 <h3>Are you over the age of 18?</h3>
                 <p>This application has to be signed by a member of the household who is an adult.</p>
@@ -98,19 +121,24 @@
 
             <section class="screen" id="kids">
                 <h2>Let’s talk about kids &amp; students.</h2>
-                <p>This is anyone in your household under the age of 18 (babies, toddlers, and kids), plus anyone over 18 who is enrolled in public or private school.</p>
+                <div>This is anyone in your <div class='tooltip-item'>household <span class='question-mark-small'></span>
+                        <div class='tooltip'>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household's income doesn't support them.</div>
+                      </div>
+                  
+                  under the age of 18 (babies, toddlers, and kids), plus anyone over 18 who is a 
+                  <div class='tooltip-item'>student <span class='question-mark-small'></span>
+                    <div class='tooltip'>A student is anyone who is enrolled in a public or private school at the high school level or below, even if they're over 18.</div>
+                  </div>
+                  in public or private school.</div>
 
-                <p class="help"><span class='question-mark'></span>Who counts as a student?</p>
-                <p class="help"><span class='question-mark'></span>Who do I include in my household?</p>
-
-                <div class="panel info">
+                  <div class="panel info">
 
                     <h3>Add all the kids in your home</h3>
                     <p><b><span class="num-people"></span></b> under 18 in your home</p>
                     <ul class="person-list"></ul>
 
                     <div class="add-person">
-                      <div class="person invalid">
+                      <div class="person add">
                         <div class="person-name-bar">
                           <div class="person-name">Add another student</div>
                           <div class="actions"><span aria-hidden="true">+</span> Add</div>
@@ -129,9 +157,31 @@
             <section class="screen" id="other-help">
                 <h2>Let's talk about other help.</h2>
                 <form class="other-help-form">
-                  <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
-                  <p class="help"><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</p>
-                    <div class="form-controls-group">
+                  <div>Does anyone in your household (including you!) receive 
+                    <div class='tooltip-item'>
+                      SNAP,<span class='question-mark-small'></span>
+                      <div class='tooltip'>
+                        SNAP is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.
+                      </div>
+                    </div> 
+                  
+                    
+                    <div class='tooltip-item'>
+                      TANF,<span class='question-mark-small'></span>
+                      <div class='tooltip'>
+                        TANF is the Temporary Assistance for Needy Families program. If you're enrolled in TANF, you're receiving a cash benefit. You also have a case number that's 10 or 13 digits long.
+                      </div>
+                    </div> or 
+                    
+                    <div class='tooltip-item'>
+                      FDPIR<span class='question-mark-small'></span>
+                      <div class='tooltip'>
+                        FDPIR is the Food Distribution Program on Indian Reservations. If you're enrolled in FDPIR, you have a case number and an EBT card.
+                      </div>
+                    </div>?
+                  </div>
+                   
+                  <div class="form-controls-group">
                         <div>
                             <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
                         </div>
@@ -155,9 +205,10 @@
 
             <section class="screen" id="adults">
                 <h2>Let's talk about the adults.</h2>
-                <p>This is anyone in your household over the age of 18 who is not a student, including you.</p>
-                
-                <p class="help"><span class='question-mark'></span>Who do I include in my household?</p>
+                <div>This is anyone in your <div class='tooltip-item'>household <span class='question-mark-small'></span>
+                        <div class='tooltip'>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household's income doesn't support them.</div>
+                      </div>
+ over the age of 18 who is not a student, including you.</div>
                 
                 <p>You've told us you have <span class="num-people"></span> over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
 
@@ -175,8 +226,13 @@
 
                 <form class="ssn-form">
                   <h3>Social Security</h3>
-                    <p>Do you or anybody in your household have a Social Security Number (SSN)?</p>
-                    <p class="help"><span class='question-mark'></span>Do I have to have a Social Security Number?</p>
+                    <div>Do you or anybody in your household have a 
+                      <div class='tooltip-item'>
+                        Social Security Number (SSN)? <span class='question-mark-small'></span>
+                        <div class='tooltip'>You don't have to have a Social Security Number to qualify for free and reduced price lunch. United States citizenship or immigration status is not a condition of eligibility for free and reduced price benefits.</div>
+                      </div>
+                    </div>
+                    
                     <div class="form-controls-group">
                         <div class='normal-label'>
                             <label>
@@ -207,9 +263,11 @@
             <section class="screen" id="income">
                 <h2>Now let's talk about income.</h2>
                 <p>We need to know about your household's earnings.</p>
-                <p>Income can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Please also list students' income.</p>
-                <p class="help"><span class='question-mark'></span>What counts as income?</p>
-                <p>You've told us you have <span class="num-people"></span> in your household. Let's list each one's income.</p>
+                <p><div class='tooltip-item'>Income <span class='question-mark-small'></span> 
+                        <div class='tooltip'>
+                        Income is money paid to a person from a job, Social Security, annuities, child support, and more. Both children and adults can have income. See <a href=#faq>Help</a> for a list of more types of income.</div>
+                      </div> can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Please also list students' and kids' income.</p>
+                <p>You've told us you have <span class="num-people"></span> in your household. Let's list how much everybody earns.</p>
 
                 <ul class="person-list">
                 </ul>
@@ -341,7 +399,7 @@
             </section>
 
             <section class="screen" id="faq">
-              <h2>FAQ &amp; Definitions</h2>
+              <h2>Help &amp; Definitions</h2>
               <dl>
                   <dt id='faq-over-21'>Why do I have to be over 21?</dt>
                   <dd>The program requires that an adult sign the application, and here, an adult is over 21.</dd>
@@ -366,6 +424,9 @@
             
                   <dt id='faq-homeless'>How do I know if my child qualifies as homeless?</dt>
                   <dd>A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</dd>
+                  
+                  <dt id='faq-runaway'>How do I know if my child qualifies as a runaway?</dt>
+                  <dd>A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.</dd>
             
                   <dt id='faq-snap'>How do I know if I'm enrolled in SNAP?</dt>
                   <dd>SNAP is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.</dd>
@@ -495,8 +556,21 @@
               <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
             </div>
             <div class="normal-label">
-              <p><b>Is <%- name %> considered homeless, a runaway, a migrant, or is <%- name %> enrolled in the Head Start program?</b></p>
-              <p class="help"><span class="question-mark"></span>What do these terms mean?</p>
+              <p><b>Is <%- name %> considered 
+                <div class='tooltip-item'>homeless <span class="question-mark-small"></span>
+                  <div class='tooltip'>A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</div>
+                </div>, a 
+                <div class='tooltip-item'>runaway <span class="question-mark-small"></span>
+                  <div class='tooltip'>A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.</div>
+                </div>, a 
+                <div class='tooltip-item'>migrant <span class="question-mark-small"></span>
+                  <div class='tooltip'>A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).</div>
+                </div>, or is <%- name %> enrolled in the 
+                <div class='tooltip-item'>Head Start <span class="question-mark-small"></span>
+                  <div class='tooltip'>Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.</div>
+                </div> program?</b>
+              </p>
+              
               <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
               <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
             </div>

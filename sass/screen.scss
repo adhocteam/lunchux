@@ -2,7 +2,7 @@
 @import "base/base"; // bitters
 @import "base/_grid-settings";
 @import "neat/neat"; // docs say this comes after bitters
-
+@import "added-refill";
 
 //colors are defined in base/_variables.scss
 
@@ -19,6 +19,7 @@ body {
   -webkit-font-smoothing: antialiased;
   margin: 0 auto;
   background: #fff;
+  -webkit-backface-visibility: hidden;
 
 }
 
