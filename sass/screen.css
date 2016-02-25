@@ -187,17 +187,69 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
+.tooltip-item {
+  display: inline-block;
+  position: relative;
+  color: #f05f5c; }
+  .tooltip-item .question-mark-small {
+    vertical-align: super;
+    width: 12px;
+    height: 12px;
+    margin-left: -2px; }
+  .tooltip-item:focus, .tooltip-item:hover .tooltip {
+    opacity: 1;
+    visibility: visible; }
+  .tooltip-item .tooltip {
+    position: absolute;
+    right: 0;
+    bottom: 2em;
+    left: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    font-weight: normal;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 2px 2px silver;
+    color: #333;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    margin: 0 auto;
+    width: 30em;
+    overflow: auto;
+    opacity: 0;
+    padding: 1em;
+    visibility: hidden;
+    z-index: 630; }
+    .tooltip-item .tooltip p {
+      color: #333;
+      line-height: 1.5;
+      margin: 0; }
+    .tooltip-item .tooltip:after {
+      position: absolute;
+      right: 0;
+      left: 0;
+      border: 8px solid transparent;
+      bottom: -1.3em;
+      color: white;
+      content: '▼';
+      font-size: 1.4em;
+      margin-left: -8px;
+      text-align: center;
+      text-shadow: 0 2px 2px silver; }
+    .tooltip-item .tooltip ul li {
+      list-style: disc;
+      margin-left: 5%;
+      padding-bottom: 1em; }
+      .tooltip-item .tooltip ul li:last-child {
+        padding-bottom: 0; }
+
 #debug {
   position: fixed;
-  bottom: 0;
+  top: bottom;
   left: 0;
   padding: 10px;
-  background: #fff;
-  border: 2px #ccc solid;
-  &:hover {
-    cursor: pointer;
-  }
-}
+  border: 2px #f05f5c dotted; }
 
 * {
   box-sizing: border-box; }
@@ -209,7 +261,8 @@ body {
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0 auto;
-  background: #fff; }
+  background: #fff;
+  -webkit-backface-visibility: hidden; }
 
 .help {
   font-size: smaller;
