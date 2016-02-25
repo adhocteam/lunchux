@@ -1,7 +1,7 @@
 /*
-Error: File to import not found or unreadable: bourbon/bourbon.
+Error: File to import not found or unreadable: base/base.
        Load path: /Users/phiden/Desktop/lunchUX/lunchux/sass
-        on line 1 of sass/screen.scss
+        on line 2 of sass/screen.scss
 
 1: @import "bourbon/bourbon";
 2: @import "base/base"; // bitters
@@ -9,9 +9,10 @@ Error: File to import not found or unreadable: bourbon/bourbon.
 4: @import "neat/neat"; // docs say this comes after bitters
 5: 
 6: 
+7: //colors are defined in base/_variables.scss
 
 Backtrace:
-sass/screen.scss:1
+sass/screen.scss:2
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -42,17 +43,17 @@ sass/screen.scss:1
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:209:in `each'
 /Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:293:in `watch'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin.rb:109:in `method_missing'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:383:in `watch_or_update'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:51:in `process_result'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/exec/base.rb:52:in `parse'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/exec/base.rb:19:in `parse!'
-/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/bin/sass:13:in `<top (required)>'
-/usr/local/bin/sass:23:in `load'
-/usr/local/bin/sass:23:in `<main>'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:471:in `on_file_changed'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/listener.rb:252:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/adapter.rb:254:in `call'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/adapter.rb:254:in `report_changes'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/adapter.rb:323:in `poll_changed_directories'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.21/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
 */
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: bourbon/bourbon.\A        Load path: /Users/phiden/Desktop/lunchUX/lunchux/sass\A         on line 1 of sass/screen.scss\A \A 1: @import \"bourbon/bourbon\";\A 2: @import \"base/base\"; // bitters\A 3: @import \"base/_grid-settings\";\A 4: @import \"neat/neat\"; // docs say this comes after bitters\A 5: \A 6: "; }
+  content: "Error: File to import not found or unreadable: base/base.\A        Load path: /Users/phiden/Desktop/lunchUX/lunchux/sass\A         on line 2 of sass/screen.scss\A \A 1: @import \"bourbon/bourbon\";\A 2: @import \"base/base\"; // bitters\A 3: @import \"base/_grid-settings\";\A 4: @import \"neat/neat\"; // docs say this comes after bitters\A 5: \A 6: \A 7: //colors are defined in base/_variables.scss"; }

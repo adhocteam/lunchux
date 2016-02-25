@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lunch UX</title>
+        <title>Got Lunch?</title>
         <link href="style.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="helpers.js"></script>
@@ -17,7 +17,7 @@
         <header>
             <div class="nav">
               <div><a class='faq' href="#faq"><span class='question-mark'></span>FAQ</a></div>
-              <h1><a href="/">LunchUX</a></h1>
+              <h1 role="banner"><a href="/">Got <b>Lunch?</b></a></h1>
               <div id="signout"></div>
             </div>
             <ul class="subnav">
@@ -26,20 +26,20 @@
               <li><a href="#other-help">Assistance</a></li>
               <li><a href="#adults">Adults</a></li>
               <li><a href="#income">Income</a></li>
-              <li><a href="#review">Verify</a></li>
+              <li><a href="#review">Review</a></li>
             </ul><!---->
             <div class="existing-session hide">
               Welcome back!
             </div>
         </header>
 
-        <ul class='subnav mobile-subnav'>
+        <ul class='subnav mobile-subnav' aria-hidden="true">
           <li class='prog-round done'>
             <a href="#"><span class='prog-label'>Welcome</span></a>
           </li>
           <span class='prog-bar'></span>
           <li class='prog-round'>
-            <a href="#kids"><span class='prog-label'>Kids</span></a>
+            <a href="#kids"><span class='prog-label'>Students</span></a>
           </li>
           <span class='prog-bar'></span>
             <li class='prog-round'>
@@ -49,36 +49,39 @@
           <li class='prog-round'>
             <a href="#adults"><span class='prog-label'>Adults</span></a>
           </li>
-          
+
           <span class='prog-bar'></span>
           <li class='prog-round'>
             <a href="#income"><span class='prog-label'>Income</span></a>
           </li>
           <span class='prog-bar'></span>
           <li class='prog-round'>
-            <a href="#review"><span class='prog-label'>Verify</span></a>
+            <a href="#review"><span class='prog-label'>Review</span></a>
           </li>
         </ul>
 
         <main>
             <section class="screen" id="get-started">
                 <h2>Welcome!</h2>
-                <p>Let's apply for free or reduced-price lunch for your kids.</p>
+                <p>Let’s apply for free or reduced-price lunch for your kids.</p>
                 <p>We'll help you fill out the application and send it off to your school. If you have questions or need help, look for the <span class='question-mark-small'></span> icon or use the FAQ at the top of the screen.</p>
-                <p>Here's what you'll need to know to apply:</p>
-                
-                  <ul>
-                    <li class='styled-list'>The number of people in your household</li>  
-                    <li class='styled-list'>If anyone receives any benefits, like SNAP, TANF or FDPIR</li>
-                    <li class='styled-list'>How much income each person in your home earns</li>
-                  </ul>
-                
+
+                <div class="panel">
+                  <h3>Here’s what you'll need to know to apply:</h3>
+
+                    <ul>
+                      <li class='styled-list'>The number of people in your household</li>
+                      <li class='styled-list'>If anyone receives any benefits, like <abbr>SNAP</abbr>, TANF or <abbr>FDPIR</abbr></li>
+                      <li class='styled-list'>How much income each person in your home earns</li>
+                    </ul>
+                  </div>
+
                 <li class="help"><a href='#faq'><span class='question-mark'></span>Who should you include in your household?</a></li>
-                <li class="help"><a><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</a></li>
+                <li class="help"><a><span class='question-mark'></span>What are <abbr>SNAP</abbr>, TANF, and <abbr>FDPIR</abbr>?</a></li>
                 <li class="help"><a><span class='question-mark'></span>What counts as income?</a></li>
 
-                <h2>Let's get started.</h2>
-                <h3>Are you over the age of 21?</h3>
+                <h2>Let’s get started.</h2>
+                <h3>Are you an adult?</h3>
                 <p>This application has to be signed by a member of the household who is 21 or older.</p>
                 <div class="button-group">
                     <a class="button warning" href="#need-adult">No</a>
@@ -88,7 +91,7 @@
 
             <section class="screen" id="need-adult">
                 <h2>Sorry, you need an adult!</h2>
-                <p>This application has to be completed by someone over the age of 21, even if it's for you.</p>
+                <p>This application has to be completed by someone over the age of 21, even if it’s for you.</p>
                 <p>If you don't have an adult who can do this application on your behalf, please call your school at:</p>
                 <p class="tel">(123) 456-7890</p>
                 <div class="button-group">
@@ -97,14 +100,13 @@
             </section>
 
             <section class="screen" id="kids">
-                <h2>Let's talk about the students.</h2>
-                <p>This is anyone in your household under the age of 18, plus anyone over 18 who is enrolled in public or private school.</p>
-                <p>We're talking babies, toddlers, and kids, whether they're in school or not.</p>
-                
+                <h2>Let’s talk about the students.</h2>
+                <p>This is anyone in your household under the age of 18 (babies, toddlers, and kids), plus anyone over 18 who is enrolled in public or private school.</p>
+
                 <p class="help"><span class='question-mark'></span>Who counts as a student?</p>
                 <p class="help"><span class='question-mark'></span>Who do I include in my household?</p>
-                
-                <p>You've told us you have <span class="num-people"></span> under 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
+
+                <p>You've told us you have <span class="num-people"></span> under 18 in the household. We’re going to collect some information that will help your school determine eligibility for free &amp; reduced lunch.</p>
 
                 <ul class="person-list"></ul>
 
@@ -113,22 +115,22 @@
                     <div class="person invalid">
                         <div class="person-name-bar">
                             <div class="person-name">Add another student</div>
-                            <div class="actions">Add new information</div>
+                            <div class="actions"><span aria-hidden="true">+</span> Add</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="button-group">
-                    <a class="button back" href="#get-started">Go back</a>
+                    <a class="button back" href="#get-started">Back</a>
                     <a class="button fwd" href="#other-help">Continue</a>
                 </div>
             </section>
 
             <section class="screen" id="other-help">
-                <h2>Let's talk about other help.</h2>
+                <h2>Let’s talk about other help.</h2>
                 <form class="other-help-form">
-                  <p>Does anyone in your household (including you!) receive SNAP, TANF, or FDPIR?</p>
-                  <p class="help"><span class='question-mark'></span>What are SNAP, TANF, and FDPIR?</p>
+                  <p>Does anyone in your household (including you!) receive <abbr>SNAP</abbr>, TANF, or <abbr>FDPIR</abbr>?</p>
+                  <p class="help"><span class='question-mark'></span>What are <abbr>SNAP</abbr>, TANF, and <abbr>FDPIR</abbr>?</p>
                     <div class="form-controls-group">
                         <div>
                             <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
@@ -144,7 +146,7 @@
                             <label><input type="radio" name="has-other-help" value="no">No</label>
                         </div>
                         <div class="button-group">
-                            <a class="button back" href="#adults">Go back</a>
+                            <a class="button back" href="#kids">Back</a>
                             <button class="button fwd" data-next-screen="adults">Continue</button>
                         </div>
                     </div>
@@ -152,11 +154,11 @@
             </section>
 
             <section class="screen" id="adults">
-                <h2>Let's talk about the adults.</h2>
+                <h2>Let’s talk about the adults.</h2>
                 <p>This is anyone in your household over the age of 18 who is not a student, including you.</p>
-                
+
                 <p class="help"><span class='question-mark'></span>Who do I include in my household?</p>
-                
+
                 <p>You've told us you have <span class="num-people"></span> over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
 
                 <ul class="person-list"></ul>
@@ -166,7 +168,7 @@
                     <div class="person invalid">
                         <div class="person-name-bar">
                             <div class="person-name">Add another adult</div>
-                            <div class="actions">Add new information</div>
+                            <div class="actions"><span aria-hidden="true">+</span> Add</div>
                         </div>
                     </div>
                 </div>
@@ -196,39 +198,42 @@
 
                     <!-- the continue button breaks if you move this div out of the form -->
                     <div class="button-group">
-                        <a class="button back" href="#kids">Go back</a>
+                        <a class="button back" href="#other-help">Go back</a>
                         <button class="button fwd" data-next-screen="income">Continue</button>
                     </div>
                 </form>
             </section>
 
             <section class="screen" id="income">
-                <h2>Now let's talk about income.</h2>
-                <p>We need to know about your household's earnings.</p>
+                <h2>Now let’s talk about income.</h2>
+                <p>(How much money the people in your home make)</p>
                 <p>Income can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Please also list students' income.</p>
                 <p class="help"><span class='question-mark'></span>What counts as income?</p>
-                <p>You've told us you have <span class="num-people"></span> in your household. Let's list each one's income.</p>
+                <p>You've told us you have <span class="num-people"></span> in your household. Please enter each person’s income.</p>
 
                 <ul class="person-list">
                 </ul>
 
                 <div class="button-group">
-                  <a class="button back" href="#other-help">Go back</a>
+                  <a class="button back" href="#adults">Go back</a>
                   <a class="button fwd" href="#review">Continue</a>
                 </div>
             </section>
 
             <section class="screen" id="review">
 
-                <h2>Ok, let's review.</h2>
+                <h2>Ok, let’s review.</h2>
                 <p>Take a look at the information you entered, and correct any mistakes you see.</p>
 
-                <p class="hh-description"></p>
-
-                <div class="button-group-other">
-                  <a class="button fwd" href="#kids">Add kids</a>
-                  <a class="button fwd" href="#adults">Add adults</a>
+                <div class="panel review">
+                  <p class="hh-description"></p>
+                  <div class="button-group-other">
+                    <a class="button fwd" href="#kids"><span aria-hidden="true">+</span> Add <b>students</b></a>
+                    <a class="button fwd" href="#adults"><span aria-hidden="true">+</span>  Add <b>adults</b></a>
+                  </div>
                 </div>
+
+
 
                 <ul class="person-list"></ul>
 
@@ -266,7 +271,7 @@
                           </div>
                         </div>
 
-                        <p><b>Is there an address we can share?</b> If not, that's ok! It won't affect the application.</p>
+                        <p><b>Is there an address we can share?</b> If not, that’s ok! It won't affect the application.</p>
 
                         <div class="form-controls-group">
                             <div class='normal-label'>
@@ -302,36 +307,38 @@
                         </div>
                     </div>
 
-                    <div class="agreements inner-section">
-                        <h2>Almost done!</h2>
+                    <div class="agreements inner-section last">
+                        <h3>Almost done!</h3>
                         <p>We have to show you some information before you submit this application.</p>
                         <ul>
-                            <li><a class='button info' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
-                            <li><a class='button info' href="#use-of-info-statement">Use of information statement</a></li>
+                            <li><a class='info-link' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
+                            <li><a class='info-link' href="#use-of-info-statement">Use of information statement</a></li>
                         </ul>
                     </div>
 
-                    <div class="sign-form inner-section last">
-                        <h2>Time to sign!</h2>
-                        <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
-                        <div class="form-controls-group">
-                            <div>
-                                <label>
-                                    Type your name:<br>
-                                    <input type="text" name="signature" placeholder="Your name" required>
-                                </label>
-                            </div>
+                    <div class="panel action">
+                      <div class="sign-form">
+                          <h3>Sign and complete your application</h3>
+                          <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
+                          <div class="form-controls-group">
+                              <div>
+                                  <label>
+                                      Your full name:<br>
+                                      <input type="text" name="signature" placeholder="Your name" required>
+                                  </label>
+                              </div>
+                          </div>
                         </div>
-                    </div>
+                      </div>
                     <div>
-                        <button class="button fwd submit">Send your application</button>
+                        <button class="button fwd submit">Sign and complete</button>
                     </div>
                 </form>
             </section>
 
             <section class="screen" id="submitted">
-                <h2>Submitted!</h2>
-                <p>Your application has been submitted! Next, school officials will check your information and let you know about any next steps.</p>
+                <h2>All done!</h2>
+                <p>Your application has been sent! Next, school officials will check your information and let you know about any next steps.</p>
                 <div class="button-group">
                     <a class="button" href="#">Email this application to yourself</a>
                     <a class="button" href="#">Print this application</a>
@@ -343,43 +350,43 @@
               <dl>
                   <dt id='faq-over-21'>Why do I have to be over 21?</dt>
                   <dd>The program requires that an adult sign the application, and here, an adult is over 21.</dd>
-                  
+
                   <dt id='faq-student'>Who counts as a student?</dt>
                   <dd>A student is anyone who is enrolled in a public or private school at the high school level or below, even if they're over 18.</dd>
-            
-                  <dt id='faq-household'>What's a 'household'? Whom do I include?</dt>
-                  <dd>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household's income doesn't support them.</dd>
-            
+
+                  <dt id='faq-household'>What’s a 'household'? Whom do I include?</dt>
+                  <dd>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household’s income doesn't support them.</dd>
+
                   <dt id='faq-ssn'>Do I have to have a Social Security Number (SSN)?</dt>
                   <dd>You don't have to have a Social Security Number to qualify for free and reduced price lunch. United States citizenship or immigration status is not a condition of eligibility for free and reduced price benefits.</dd>
-            
+
                   <dt id='faq-head-start'>What is Head Start?</dt>
                   <dd>Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.</dd>
-            
+
                   <dt id='faq-foster-child'>How do I know if my child is a foster child?</dt>
                   <dd>A foster child is defined as a child who is formally placed in your home by a court, or a State child welfare agency.</dd>
-            
+
                   <dt id='faq-migrant'>How do I know if my child is a migrant?</dt>
                   <dd>A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).</dd>
-            
+
                   <dt id='faq-homeless'>How do I know if my child qualifies as homeless?</dt>
                   <dd>A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</dd>
-            
-                  <dt id='faq-snap'>How do I know if I'm enrolled in SNAP?</dt>
-                  <dd>SNAP is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.</dd>
-            
+
+                  <dt id='faq-snap'>How do I know if I'm enrolled in <abbr>SNAP</abbr>?</dt>
+                  <dd><abbr>SNAP</abbr> is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.</dd>
+
                   <dt id='faq-tanf'>How do I know if I'm enrolled in TANF?</dt>
-                  <dd>TANF is the Temporary Assistance for Needy Families program. If you're enrolled in TANF, you're receiving a cash benefit. You also have a case number that's 10 or 13 digits long.</dd>
-            
-                  <dt id='faq-fdpir'>How do I know if I'm enrolled in FDPIR?</dt>
-                  <dd>FDPIR is the Food Distribution Program on Indian Reservations. If you're enrolled in FDPIR, you have a case number and an EBT card.</dd>
-                  
-                  <dt id='faq-case-number'>Where do I find my case number for SNAP, TANF, or FDPIR?</dt>
-                  <dd>This might depend on what state you're in. Your case number is <b>not</b> the number on your EBT card, but it should be listed on other benefits paperwork. If it's not there, you'll need to call your case worker.</dd>
-                  
+                  <dd>TANF is the Temporary Assistance for Needy Families program. If you're enrolled in TANF, you're receiving a cash benefit. You also have a case number that’s 10 or 13 digits long.</dd>
+
+                  <dt id='faq-<abbr>FDPIR</abbr>'>How do I know if I'm enrolled in <abbr>FDPIR</abbr>?</dt>
+                  <dd><abbr>FDPIR</abbr> is the Food Distribution Program on Indian Reservations. If you're enrolled in <abbr><abbr>FDPIR</abbr></abbr>, you have a case number and an EBT card.</dd>
+
+                  <dt id='faq-case-number'>Where do I find my case number for <abbr>SNAP</abbr>, TANF, or <abbr><abbr>FDPIR</abbr></abbr>?</dt>
+                  <dd>This might depend on what state you're in. Your case number is <b>not</b> the number on your EBT card, but it should be listed on other benefits paperwork. If it’s not there, you'll need to call your case worker.</dd>
+
                   <dt id='faq-income'>What counts as income?</dt>
                   <dd>All kinds of things count as income. Both children and adults can earn income.<br>
-                    
+
                     <span class='bold'>Child Income</span><br>
                     <p>Child income is paid directly to the child, and includes:</p>
                       <ul>
@@ -446,7 +453,7 @@
                 <h2>Use of Information Statement</h2>
                 <p>“The Richard B. Russell National School Lunch Act requires the information on this application. You do not have to give the information, but if you do not submit all needed information, we cannot approve your child for free or reduced price meals. </p>
                 <p><b>You must include the last four digits of the social security number of the adult household member who signs the application. </b></p>
-                <p>The social security number is not required when you apply on behalf of a foster child or you list a Supplemental Nutrition Assistance Program (SNAP), Temporary Assistance for Needy Families (TANF) Program or Food Distribution Program on Indian Reservations (FDPIR) case number or other FDPIR identifier for your child <b>or when you indicate that the adult household member signing the application does not have a social security number.</b></p>
+                <p>The social security number is not required when you apply on behalf of a foster child or you list a Supplemental Nutrition Assistance Program (<abbr>SNAP</abbr>), Temporary Assistance for Needy Families (TANF) Program or Food Distribution Program on Indian Reservations (<abbr>FDPIR</abbr>) case number or other <abbr>FDPIR</abbr> identifier for your child <b>or when you indicate that the adult household member signing the application does not have a social security number.</b></p>
                 <p>We will use your information to determine if your child is eligible for free or reduced price meals, and for administration and enforcement of the lunch and breakfast programs.</p>
                 <p>We may share your eligibility information with education, health, and nutrition programs to help them evaluate, fund, or determine benefits for their programs, auditors for program reviews, and law enforcement officials to help them look into violations of program rules.”</p>
                 <div>
@@ -461,14 +468,14 @@
         </main>
 
         <footer>
-          
+
         </footer>
 
         <script type="text/template" id="person-template">
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions">Edit these details</div>
+              <div class="actions">Edit</div>
             </div>
           </li>
         </script>
@@ -498,12 +505,12 @@
               <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
               <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
             </div>
-            <p><b>We are required to ask for information about your children's race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
+            <p><b>We are required to ask for information about your children’s race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
             <p><b>Ethnicity</b></p>
             <div class="normal-label">
               <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
               <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
-              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
+              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> I’d rather not say</label>
             </div>
             <p>
               <b>Race</b>
@@ -515,10 +522,10 @@
               </label>
               <% }) %>
             </div>
-            <p>Thank you! In just a bit, we'll ask you about <%= name %>'s income.</p>
-            <div class="button-group no-justify">
+            <p>Thank you! In just a bit, we'll ask you about <%= name %>’s income.</p>
+            <div class="button-group justify">
               <button class="button save">Save</button><br>
-              <a class="delete" href="#">Remove</a>
+              <a class="button delete" href="#"><span aria-hidden="true">-</span> Remove</a>
             </div>
           </form>
         </script>
@@ -562,7 +569,7 @@
 
         <script type="text/template" id="review-description-template">
           <p>
-            There are <b><%= pluralize(numKids, "kid") %></b> and
+            There are <b><%= pluralize(numKids, "Students") %></b> and
             <b><%= pluralize(numAdults, "adult") %></b> in your household, for a
             total of
             <b><%= pluralize(numPeople, "person", "people") %></b>.
@@ -587,7 +594,7 @@
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
+              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
             </div>
             <ul class="summary">
               <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
@@ -595,6 +602,10 @@
           </li>
           <% }) %>
         </script>
+
+    <footer aria-role="contentinfo">
+      <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
 
     </body>
 

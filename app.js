@@ -131,7 +131,7 @@
             {label: "Black or African-American", value: "black"},
             {label: "Native Hawaiian or other Pacific Islander", value: "hawaiian"},
             {label: "White", value: "white"},
-            {label: "Decline to answer", value: "declined"}
+            {label: "I'd rather not say", value: "declined"}
         ];
 
         function tribool(prop, test) {
@@ -202,11 +202,15 @@
         }
     };
 
+    KidPersonView.prototype.unload = function() {
+    };
+
     function PeopleListView(options) {
         this.personView = (options.personView || PersonView);
         this.el = null;
         this.model = options.model;
         this.peopleMethod = options.peopleMethod || function() { return this.all().people; };
+        this.childViews = [];
 
         this.events = [
             "toggleDetailsForm",
@@ -218,23 +222,43 @@
             "handleIncomeAmountInput",
             "handleIncomeFrequencyChange"
         ];
+
+        this.model.on("addedPerson", this.addOne.bind(this));
+        this.model.on("deletedPerson", this.deleteOne.bind(this));
     }
+
+    PeopleListView.prototype.addOne = function(person) {
+        var div = document.createElement("div");
+        var personView = new this.personView({person: person, model: this.model, el: div});
+        this.el.appendChild(personView.render().el);
+        this.events.forEach(function(event) {
+            personView.bind(event, function() {
+                if (this[event]) {
+                    this[event].apply(this, Array.prototype.slice.call(arguments));
+                }
+            }.bind(this));
+        }.bind(this));
+        this.childViews.push(personView);
+    };
+
+    PeopleListView.prototype.deleteOne = function(person) {
+        var index, view;
+        for (var i = 0; i < this.childViews.length; i++) {
+            view = this.childViews[i];
+            if (view.person === person) {
+                index = i;
+                break;
+            }
+        }
+        this.el.removeChild(view.el);
+        this.childViews.splice(index, 1);
+        view.unload();
+    };
 
     PeopleListView.prototype.render = function() {
         this.el = document.createElement("div");
         var people = this.peopleMethod.call(this.model);
-        people.forEach(function(person) {
-            var div = document.createElement("div");
-            var personView = new this.personView({person: person, model: this.model, el: div});
-            this.el.appendChild(personView.render().el);
-            this.events.forEach(function(event) {
-                personView.bind(event, function() {
-                    if (this[event]) {
-                        this[event].apply(this, Array.prototype.slice.call(arguments));
-                    }
-                }.bind(this));
-            }.bind(this));
-        }.bind(this));
+        people.forEach(this.addOne.bind(this));
         return this;
     };
 
@@ -253,14 +277,13 @@
         this.listenersToUnload = [];
         this.peopleListView = null;
         this.model = options.model;
-
-//        this.model.on("addedPerson", this.render.bind(this));
     }
 
     KidListView.prototype.bind = function(event, handler) {
         switch (event) {
         case "handleAddPersonClick":
             var unload = $on(qs(".actions", this.addPersonEl), "click", function(event) {
+                // TODO: move details to controller/handler
                 handler({name: "Kid #" + (this.model.kids().length + 1), ageClass: LunchUX.AgeClass.child});
             }.bind(this));
             this.listenersToUnload.push(unload);
@@ -350,6 +373,9 @@
             }.bind(this));
             break;
         }
+    };
+
+    AdultPersonView.prototype.unload = function() {
     };
 
     function AdultListView(options) {
@@ -841,16 +867,10 @@
 
     Controller.prototype.handleDeleteBtnClick = function(person) {
         this.model.deletePerson(person);
-        // TODO this is kind of a hack because event listening is not working
-        // correctly at the moment:
-        window.location.reload();
     };
 
     Controller.prototype.handleAddPersonClick = function(options) {
         this.model.addPerson(options);
-        // TODO this is kind of a hack because event listening is not working
-        // correctly at the moment:
-        window.location.reload();
     };
 
     Controller.prototype.handleLast4SSNInput = function(last4SSN) {
