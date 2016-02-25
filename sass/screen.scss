@@ -41,7 +41,7 @@ button {
   padding: 5px 7px;
 }
 
-.button {
+.button, button.button, a.button {
   display: inline-block;
   text-decoration: none;
   padding: 5px 7px;
@@ -367,11 +367,7 @@ h3, h4, h5, h6 {
 .person-name-bar { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
 
 .person {
-
   margin-bottom:30px;
-
-  .actions:after { content: " >"; color: #ccc; font-weight: 700; }
-  .actions:hover { cursor: pointer; }
 
   &:last-child {
 
@@ -406,9 +402,9 @@ h3, h4, h5, h6 {
 }
 
 .add {
-  
+
   .person-name-bar {
-    
+
     color: $dark-blue;
   }
 }
@@ -439,8 +435,29 @@ h3, h4, h5, h6 {
 .notes { font-size: smaller; }
 
 .details-form {
+  background: rgba(0,0,0,.08);
+  padding: 1em;
+  margin-top: .35em;
+  border-radius: .25em;
+  div {
+    margin-bottom:1em;
+    p {
+      margin-bottom:0;
+    }
+  }
 
-  margin-top:2em;
+  .normal-label label {
+    background: rgba(255,255,255,.25);
+    padding: .25em;
+    border-radius: .25em;
+    &:hover {
+      cursor: pointer;
+      background: rgba(255,255,255,.45);
+      }
+  }
+  .button-group {
+    margin-top:0;
+  }
 
   div {
 
@@ -457,6 +474,19 @@ h3, h4, h5, h6 {
     margin-top:0;
   }
 }
+
+
+.button.remove {
+  color: $red;
+  background: none;
+  margin: 0;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($red, 10);
+  }
+}
+
 
 .normal-label {
 
@@ -551,11 +581,6 @@ input.ssn {
   dt {
 
     margin-top: 1em;
-
-    &:after {
-
-      content: " >"; color: #ccc; font-weight: 700;
-    }
 
   }
 
