@@ -189,10 +189,15 @@ html {
 
 #debug {
   position: fixed;
-  top: bottom;
+  bottom: 0;
   left: 0;
   padding: 10px;
-  border: 2px #f05f5c dotted; }
+  background: #fff;
+  border: 2px #ccc solid;
+  &:hover {
+    cursor: pointer;
+  }
+}
 
 * {
   box-sizing: border-box; }
