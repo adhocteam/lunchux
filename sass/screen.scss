@@ -6,11 +6,11 @@
 
 //colors are defined in base/_variables.scss
 
-#debug { position: fixed; top: bottom; left: 0; padding: 10px; border: 2px $red dotted; }
+#debug { position: fixed; bottom: 0; left: 0; padding: 10px; border: 2px solid #ccc; background: #fff; }
 
 * { box-sizing: border-box; }
 
-html { background: #E1EEE7; }
+html { background: #E1EEE7; width: 100%; }
 
 body {
 
@@ -19,8 +19,15 @@ body {
   -webkit-font-smoothing: antialiased;
   margin: 0 auto;
   background: #fff;
+  width: 100%;
   -webkit-backface-visibility: hidden;
 
+
+}
+
+.outer-container {
+  @include outer-container;
+  overflow: hidden;
 }
 
 .help {
