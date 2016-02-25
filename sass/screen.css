@@ -481,6 +481,9 @@ h3, h4, h5, h6 {
 .invalid .notes {
   color: #f05f5c; }
 
+.add .person-name-bar {
+  color: #1E5A8C; }
+
 .person-name {
   font-weight: 700; }
 
