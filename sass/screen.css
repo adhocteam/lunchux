@@ -279,7 +279,7 @@ body {
 button {
   padding: 5px 7px; }
 
-.button {
+.button, button.button, a.button {
   display: inline-block;
   text-decoration: none;
   padding: 5px 7px;
@@ -521,12 +521,6 @@ h3, h4, h5, h6 {
 
 .person {
   margin-bottom: 30px; }
-  .person .actions:after {
-    content: " >";
-    color: #ccc;
-    font-weight: 700; }
-  .person .actions:hover {
-    cursor: pointer; }
   .person:last-child {
     margin-bottom: 0; }
 
@@ -572,13 +566,37 @@ h3, h4, h5, h6 {
   font-size: smaller; }
 
 .details-form {
-  margin-top: 2em; }
+  background: rgba(0, 0, 0, 0.08);
+  padding: 1em;
+  margin-top: .35em;
+  border-radius: .25em; }
+  .details-form div {
+    margin-bottom: 1em; }
+    .details-form div p {
+      margin-bottom: 0; }
+  .details-form .normal-label label {
+    background: rgba(255, 255, 255, 0.25);
+    padding: .25em;
+    border-radius: .25em; }
+    .details-form .normal-label label:hover {
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.45); }
+  .details-form .button-group {
+    margin-top: 0; }
   .details-form div {
     margin-bottom: 1em; }
     .details-form div p {
       margin-bottom: 0; }
   .details-form .button-group {
     margin-top: 0; }
+
+.button.remove {
+  color: #f05f5c;
+  background: none;
+  margin: 0;
+  text-decoration: none; }
+  .button.remove:hover {
+    color: #ec312d; }
 
 .normal-label label {
   font-weight: normal; }
@@ -630,10 +648,6 @@ input.ssn {
    ============= */
 #faq dt {
   margin-top: 1em; }
-  #faq dt:after {
-    content: " >";
-    color: #ccc;
-    font-weight: 700; }
 
 /* =============
    FOOTER
