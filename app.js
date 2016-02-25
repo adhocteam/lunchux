@@ -527,7 +527,7 @@
             {label: 'pensions, retirement, or any other income', value: 'pensions'}
         ];
 
-        var frequencies = ['', 'daily', 'weekly', 'monthly', 'yearly'];
+        var frequencies = ['pick one','hourly', 'daily', 'weekly', 'bi-weekly', 'monthly', 'bi-monthly', 'yearly'];
 
         function incomeAmount(person, type) {
             return (person.incomes && person.incomes[type]) ? person.incomes[type].amount :
