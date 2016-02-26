@@ -94,13 +94,13 @@
             </div>
             <div class="normal-label">
               <p><b>Is <%- name %> a student?</b></p>
-              <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
               <label><input name="is-student" type="radio" value="yes" <%= tribool(person.isStudent, true) %>> Yes</label>
+              <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
             </div>
             <div class="normal-label">
               <p><b>Is <%- name %> a foster child?</b></p>
-              <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
               <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
+              <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
             </div>
             <div class="normal-label">
               <p><b>Is <%- name %> considered
@@ -117,9 +117,8 @@
                   <div class='tooltip'>Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.</div>
                 </div> program?</b>
               </p>
-
-              <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
               <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
+              <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
             </div>
             <p><b>We are required to ask for information about your children's race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
             <p><b>Ethnicity</b></p>
@@ -207,7 +206,7 @@
 
         <script type="text/template" id="person-summary-template">
           <% people.forEach(function(person) { %>
-          <li class="person valid">
+          <li class="person invalid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
               <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>

@@ -387,6 +387,15 @@ h3, h4, h5, h6 {
 
     color: $green;
 
+    .person-name:before {
+
+      content: '✓' ;
+      border-radius:15px;
+      margin-right:4px;
+      width:20px;
+      height:20px;
+    }
+
     .actions a {
 
       color: $green;
@@ -401,6 +410,19 @@ h3, h4, h5, h6 {
   .person-name-bar,
   .notes {
     color: $red;
+  }
+
+  .person-name-bar {
+
+    .person-name:before {
+
+      content: '𐄂';
+      margin-right:4px;
+      width:20px;
+      height:30px;
+      vertical-align:top;
+
+    }
   }
 
 }
@@ -430,11 +452,29 @@ h3, h4, h5, h6 {
 
 .hide { opacity: 0; display: none; }
 
-.form-controls-group { //margin-bottom: 1em;
+.radio-group { //margin-bottom: 1em;
+  div.radio-selection {
+    margin: .5em 0 1em 0;
+    background: rgba(0,0,0,.05);
+    border-radius: .25em;
+    padding: .25em;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    div {
+      padding: .5em;
+      border-radius: .25em;
+      margin: .2em 1.5em 1em 1.5em;
+      background: #fff;
+    }
+    &:hover {
+      background: rgba(0,0,0,.1);
+      cursor: pointer;
+    }
   }
+}
 
-#household-size .form-controls-group { display: flex; justify-content: space-around; text-align: center; }
-[name=num-kids], [name=num-adults] { padding: 10px; font-size: 20px; text-align: center; }
+#household-size .form-controls-group { display: flex; justify-content: space-around; text-align: left; }
+[name=num-kids], [name=num-adults] { padding: 10px; font-size: 20px; text-align: left; }
 
 .notes { font-size: smaller; }
 
@@ -516,7 +556,6 @@ input.ssn {
 
   width:75px;
   margin-left:3px;
-  text-align: center;
 }
 
 .agreements {

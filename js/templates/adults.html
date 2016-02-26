@@ -57,18 +57,19 @@
     </div>
 
     <div class="form-controls-group">
-      <div class='normal-label'>
-        <label>
-          <input type="radio" name="has-ssn" value="yes" required> Yes
-        </label>
-        <div class="last-4-ssn-control" style="display: none"> <!-- initially hidden, visibility conditional on has-ssn checked -->
+      <div class="radio-group">
+        <div class='radio-selection'>
           <label>
-            <span class='no-bold'>Please enter only the </span>last four digits.<br>
-            <span class='ssn'>XXX - XXX - </span><input class='ssn' type="tel" name="last-4-ssn" size="5" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}">
+            <input type="radio" name="has-ssn" value="yes" required> Yes
           </label>
+          <div class="last-4-ssn-control" style="display: none"> <!-- initially hidden, visibility conditional on has-ssn checked -->
+            <label>
+              <span class='no-bold'>Please enter only the </span>last four digits.<br>
+              <span class='ssn'>XXX - XXX - </span><input class='ssn' type="tel" name="last-4-ssn" size="5" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}">
+            </label>
+          </div>
         </div>
-      </div>
-      <div class='normal-label'>
+      <div class='radio-selection'>
         <label>
           <input type="radio" name="has-ssn" value="no"> No
         </label>
