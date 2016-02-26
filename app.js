@@ -73,6 +73,73 @@
         return _.template(templateEl.innerHTML);
     }
 
+    function GetStartedView(options) {
+        this.el = qs("#get-started");
+        this.unloaders = [];
+
+        var radioBtns = qsa("[name=over-18]", this.el);
+        var continueBtn = qs("form button", this.el);
+        radioBtns.forEach(function(btn) {
+            var unloader = $on(btn, "change", function(event) {
+                if (this.anyChecked()) {
+                    continueBtn.disabled = false;
+                } else {
+                    continueBtn.disabled = true;
+                }
+            }.bind(this));
+            this.unloaders.push(unloader);
+        }.bind(this));
+    }
+
+    function identity(x) { return x; }
+
+    GetStartedView.prototype.anyChecked = function() {
+        var radioBtns = qsa("[name=over-18]", this.el);
+        return radioBtns.map(function(el) { return el.checked; }).filter(identity).length > 0;
+    };
+
+    function getHashFromURL(url) {
+        var a = document.createElement("a");
+        a.href = url;
+        return a.hash;
+    }
+
+    GetStartedView.prototype.bind = function(event, handler) {
+        switch (event) {
+        case "handleContinueBtnClick":
+            var form = qs("form", this.el);
+            var unloader = $on(form, "submit", function(event) {
+                event.preventDefault();
+                var form = event.target;
+                var hash = getHashFromURL(form.action);
+                var nextIfYes = hash.slice(1);
+                var nextScreenId;
+                for (var i = 0; i < form.elements.length; i++) {
+                    var el = form.elements[i];
+                    if (el.type === "radio" && el.name === "over-18") {
+                        if (el.checked) {
+                            nextScreenId = el.value === "yes" ? nextIfYes : el.getAttribute("data-next-screen");
+                            break;
+                        }
+                    }
+                }
+                handler({nextScreenId: nextScreenId});
+            }.bind(this));
+            this.unloaders.push(unloader);
+            break;
+        }
+    };
+
+    GetStartedView.prototype.render = function() {
+        return this;
+    };
+
+    GetStartedView.prototype.unload = function() {
+        this.unloaders.forEach(function(unload) {
+            unload();
+        });
+    };
+
     function PersonView(options) {
         this.el = document.createElement("div");
         this.template = templateFrom("#person-template");
@@ -787,6 +854,7 @@
         this.activeView = null;
         this.events = new LunchUX.Event();
         this.views = {
+            "get-started": GetStartedView,
             "kids": KidListView,
             "adults": AdultListView,
             "other-help": OtherHelpView,
@@ -802,6 +870,9 @@
             "review"
         ];
         this.handlers = {
+            "get-started": [
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
+            ],
             "kids": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
                 {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
