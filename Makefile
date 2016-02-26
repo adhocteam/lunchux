@@ -8,4 +8,8 @@ jshint: $(js_files)
 template_files = $(shell find js/templates -name \*.html)
 
 build/templates.js: $(template_files)
+	mkdir -p build
 	env PYTHONIOENCODING=utf-8 ./tools/compiletemplates.py $^ > $@
+
+clean:
+	-rm -f build/templates.js
