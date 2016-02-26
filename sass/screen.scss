@@ -386,6 +386,15 @@ h3, h4, h5, h6 {
   .person-name-bar {
 
     color: $green;
+    
+    .person-name:before {
+      
+      content: '✓' ;
+      border-radius:15px; 
+      margin-right:4px;
+      width:20px;
+      height:20px;
+    }
 
     .actions a {
 
@@ -401,6 +410,19 @@ h3, h4, h5, h6 {
   .person-name-bar,
   .notes {
     color: $red;
+  }
+  
+  .person-name-bar {
+    
+    .person-name:before {
+      
+      content: '𐄂';
+      margin-right:4px;
+      width:20px;
+      height:30px;
+      vertical-align:top;
+      
+    }
   }
 
 }
