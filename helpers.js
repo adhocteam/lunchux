@@ -25,4 +25,48 @@
             handler.apply(this, args);
         });
     };
+
+    window.qs = function(selector, scope) {
+        return (scope || document).querySelector(selector);
+    };
+
+    window.qsa = function(selector, scope) {
+        return (scope || document).querySelectorAll(selector);
+    };
+
+    window.$on = function(target, type, callback, useCapture) {
+        target.addEventListener(type, callback, !!useCapture);
+        return function() {
+            $off(target, type, callback);
+        };
+    };
+
+    window.$off = function(target, type, callback) {
+        target.removeEventListener(type, callback);
+    };
+
+    window.$delegate = function(target, selector, type, handler) {
+        var useCapture = type === "blur" || type === "focus";
+        var listener = function(event) {
+            var elements = qsa(selector, target);
+            if (Array.prototype.indexOf.call(elements, event.target) >= 0) {
+                handler.call(event.target, event);
+            }
+        };
+        $on(target, type, listener, useCapture);
+        return function() {
+            $off(target, type, listener);
+        };
+    };
+
+    NodeList.prototype.forEach = Array.prototype.forEach;
+    NodeList.prototype.map = Array.prototype.map;
+
+    function empty(el) {
+        while (el.firstChild) {
+            el.removeChild(el.firstChild);
+        }
+    }
+
+    window.empty = empty;
 }());
