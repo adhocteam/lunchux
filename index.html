@@ -166,7 +166,7 @@
             <div>
               <label>
                 From <%= type.label %><br>
-                <input name="income-<%= type.value %>-amount" type="number" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
               </label>
               <select name="income-<%= type.value %>-freq">
                 <% frequencies.map(function(freq) { %>
