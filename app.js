@@ -1055,14 +1055,14 @@
 
         var appContainer = qs("#app");
 
-        var viewToLoad = this.getViewToLoad(id);
-        if (viewToLoad) {
+        var ViewToLoad = this.getViewToLoad(id);
+        if (ViewToLoad) {
             var template = _.template(LunchUX.Templates[id]);
             var div = document.createElement("div");
             div.innerHTML = template();
             empty(appContainer);
             appContainer.appendChild(div);
-            var view = new viewToLoad({model: this.model});
+            var view = new ViewToLoad({model: this.model});
             view.render();
             this.activeView = view;
             if (this.handlers[id]) {
