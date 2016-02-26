@@ -1,0 +1,48 @@
+<section class="screen" id="other-help">
+  <h2>Let's talk about other help.</h2>
+  <form class="other-help-form">
+    <div>Does anyone in your household (including you!) receive 
+      <div class='tooltip-item'>
+        SNAP,<span class='question-mark-small'></span>
+        <div class='tooltip'>
+          SNAP is the Supplemental Nutrition Assistance Program, formerly known as food stamps. If you're enrolled in SNAP, you'll have a plastic EBT card (it looks like a debit card) and a 10- or 13-digit case number.
+        </div>
+      </div> 
+      
+      
+      <div class='tooltip-item'>
+        TANF,<span class='question-mark-small'></span>
+        <div class='tooltip'>
+          TANF is the Temporary Assistance for Needy Families program. If you're enrolled in TANF, you're receiving a cash benefit. You also have a case number that's 10 or 13 digits long.
+        </div>
+      </div> or 
+      
+      <div class='tooltip-item'>
+        FDPIR<span class='question-mark-small'></span>
+        <div class='tooltip'>
+          FDPIR is the Food Distribution Program on Indian Reservations. If you're enrolled in FDPIR, you have a case number and an EBT card.
+        </div>
+      </div>?
+    </div>
+    
+    <div class="form-controls-group">
+      <div>
+        <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
+      </div>
+      <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
+        <label>
+          Please enter just one case number:<br>
+          <p class="help"><span class='question-mark'></span>Where do I find my case number?</p>
+          <input type="text" name="case-number" placeholder="case number">
+        </label>
+      </div>
+      <div>
+        <label><input type="radio" name="has-other-help" value="no">No</label>
+      </div>
+      <div class="button-group">
+        <a class="button back" href="#adults">Go back</a>
+        <button class="button fwd" data-next-screen="adults">Continue</button>
+      </div>
+    </div>
+  </form>
+</section>

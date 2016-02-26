@@ -771,6 +771,15 @@
         });
     };
 
+    function View(options) {
+    }
+
+    View.prototype.render = function() {
+    };
+
+    View.prototype.bind = function() {
+    };
+
     // controller
 
     function Controller(model) {
@@ -915,7 +924,11 @@
     };
 
     Controller.prototype.getViewToLoad = function(id) {
-        return this.views[id];
+        var viewClass = this.views[id];
+        if (!viewClass) {
+            viewClass = View;
+        }
+        return viewClass;
     };
 
     if (!Array.prototype.all) {
@@ -956,9 +969,6 @@
             this.markComplete(options.fromView);
         }
 
-        this.hideAll();
-        qs("#" + id).classList.add("show");
-        qs("#" + id).classList.remove("hide");
         this.setActiveNavTab(id);
 
         if (this.activeView && this.activeView.unload) {
@@ -967,8 +977,15 @@
             this.events.notify("view:unloaded");
         }
 
+        var appContainer = qs("#app");
+
         var viewToLoad = this.getViewToLoad(id);
         if (viewToLoad) {
+            var template = _.template(LunchUX.Templates[id]);
+            var div = document.createElement("div");
+            div.innerHTML = template();
+            empty(appContainer);
+            appContainer.appendChild(div);
             var view = new viewToLoad({model: this.model});
             view.render();
             this.activeView = view;
@@ -1011,13 +1028,6 @@
         }.bind(this));
     };
 
-    Controller.prototype.hideAll = function() {
-        qsa(".screen").forEach(function(el) {
-            el.classList.add("hide");
-            el.classList.remove("show");
-        });
-    };
-
     // the app
 
     function initDebugging() {
@@ -1058,6 +1068,7 @@
         var store = new Store("lunchux");
         var model = this.model = new LunchUX.Model(store);
         var controller = this.controller = new Controller(model);
+
         var initialViewId = "get-started";
 
         initDebugging();

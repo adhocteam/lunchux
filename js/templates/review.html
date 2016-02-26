@@ -1,0 +1,109 @@
+<section class="screen" id="review">
+  <h2>Ok, let's review.</h2>
+  <p>Take a look at the information you entered, and correct any mistakes you see.</p>
+
+  <p class="hh-description"></p>
+
+  <div class="button-group-other">
+    <a class="button fwd" href="#kids">Add students & kids</a>
+    <a class="button fwd" href="#adults">Add adults</a>
+  </div>
+
+  <ul class="person-list"></ul>
+
+  <div class="other-help-summary">
+    <h3>Assistance</h3>
+    <div class="summary"></div>
+
+    <div>
+      <a class="button" href="#other-help">Edit this information</a>
+    </div>
+  </div>
+
+  <div class="ssn-summary">
+    <h3>Social Security</h3>
+    <div class="summary"></div>
+    <div>
+      <a class="button" href="#adults">Edit this information</a>
+    </div>
+  </div>
+
+  <form>
+    <div class="contact-info">
+      <h3>Contact information</h3>
+      <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
+      <div class="form-controls-group">
+        <div>
+          <label>Phone number:<br>
+            <input type="text" name="phone" value="" placeholder="(555) 555-1212">
+          </label>
+        </div>
+        <div>
+          <label>Email address:<br>
+            <input type="email" name="email" value="" placeholder="email@example.com">
+          </label>
+        </div>
+      </div>
+
+      <p><b>Is there an address we can share?</b> If not, that's ok! It won't affect the application.</p>
+
+      <div class="form-controls-group">
+        <div class='normal-label'>
+          <label><input type="radio" name="has-address" value="yes" required> Yes</label>
+        </div>
+        <div class='normal-label'>
+          <label><input type="radio" name="has-address" value="no"> No</label>
+        </div>
+        <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
+          <div>
+            <label>Street address:<br>
+              <input type="text" name="street" value="" placeholder="123 Fake St">
+            </label>
+          </div>
+          <div>
+            <label>City:<br>
+              <input type="text" name="city" value="" placeholder="Anytown">
+            </label>
+          </div>
+          <div>
+            <label>State:<br>
+              <select name="state">
+                <option value=""></option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>ZIP Code:<br>
+              <input type="text" name="zip" value="" placeholder="99999">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="agreements inner-section">
+      <h2>Almost done!</h2>
+      <p>We have to show you some information before you submit this application.</p>
+      <ul>
+        <li><a class='button info' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
+        <li><a class='button info' href="#use-of-info-statement">Use of information statement</a></li>
+      </ul>
+    </div>
+
+    <div class="sign-form inner-section last">
+      <h2>Time to sign!</h2>
+      <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
+      <div class="form-controls-group">
+        <div>
+          <label>
+            Type your name:<br>
+            <input type="text" name="signature" placeholder="Your name" required>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class="button fwd submit">Send your application</button>
+    </div>
+  </form>
+</section>
