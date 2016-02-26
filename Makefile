@@ -1,3 +1,5 @@
+all: build/templates.js
+
 JSHINT=jshint
 
 js_files = $(shell find . -name \*.js ! -path ./node_modules/\*)

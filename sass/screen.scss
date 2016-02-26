@@ -25,13 +25,11 @@ body {
 
 }
 
-.outer-container {
-  @include outer-container;
+.container {
   overflow: hidden;
 }
 
 .help {
-
   font-size: smaller;
   margin-top:1em;
   margin-bottom:1em !important;
@@ -43,7 +41,6 @@ body {
 .current { background: papayawhip; color: #333; }
 
 button {
-
   //padding: 0.75em 1.5em !important;
   padding: 5px 7px;
 }
@@ -64,16 +61,12 @@ button {
 }
 
 .info {
-
   background-color: $blue;
 }
 
 .warning {
-
   background-color: $red;
-
   &:hover {
-
     background-color:tint($red, 40%);
   }
 }
@@ -85,14 +78,19 @@ button {
 
   &:hover {
 
-    background-color:tint($green, 40%);
+    background-color:darken($green, 10);
   }
 }
 
 .back {
-
-  background-color: $light-gray;
-  color:#fff;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  line-height: 1em;
+  font-weight: normal !important;
+  color:#333 !important;
+  &:hover {
+    background: rgba(0,0,0,.1);
+  }
 }
 
 .no-bold {
@@ -305,20 +303,19 @@ main {
 }
 
 .button-group {
-  @media screen and (min-width: $medium-screen) {
+
   display: flex;
   justify-content: space-between;
   margin-top:60px;
 
-  }
 
   .button {
     width: 100%;
     margin: 0 0 1em 0;
     text-align: center;
-    @media screen and (min-width: $medium-screen) {
-      width: 25%;
-    }
+
+      width: 45%;
+
 
   }
  }

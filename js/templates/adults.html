@@ -4,7 +4,7 @@
       <div class='tooltip'>A household is anyone who lives with you, and shares income and expenses. They don't have to be related to you or each other, and they also don't have to have an income of their own. Don't include anyone who lives with you if they do <span class='bold'>not</span> contribute money to the household, or if the household's income doesn't support them.</div>
     </div>
     over the age of 18 who is not a student, including you.</div>
-  
+
   <p>You've told us you have <span class="num-people"></span> over 18 in the household. We're going to collect some information that will help your school determine eligibility for free & reduced lunch.</p>
 
   <ul class="person-list"></ul>
@@ -21,13 +21,13 @@
 
   <form class="ssn-form">
     <h3>Social Security</h3>
-    <div>Do you or anybody in your household have a 
+    <div>Do you or anybody in your household have a
       <div class='tooltip-item'>
         Social Security Number (SSN)? <span class='question-mark-small'></span>
         <div class='tooltip'>You don't have to have a Social Security Number to qualify for free and reduced price lunch. United States citizenship or immigration status is not a condition of eligibility for free and reduced price benefits.</div>
       </div>
     </div>
-    
+
     <div class="form-controls-group">
       <div class='normal-label'>
         <label>
@@ -36,7 +36,7 @@
         <div class="last-4-ssn-control" style="display: none"> <!-- initially hidden, visibility conditional on has-ssn checked -->
           <label>
             <span class='no-bold'>Please enter only the </span>last four digits.<br>
-            <span class='ssn'>XXX - XXX - </span><input class='ssn' type="text" name="last-4-ssn" size="5" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}">
+            <span class='ssn'>XXX - XXX - </span><input class='ssn' type="tel" name="last-4-ssn" size="5" maxlength="4" placeholder="XXXX" pattern="[0-9]{4}">
           </label>
         </div>
       </div>
@@ -49,8 +49,9 @@
 
     <!-- the continue button breaks if you move this div out of the form -->
     <div class="button-group">
-      <a class="button back" href="#kids">Go back</a>
+
       <button class="button fwd" data-next-screen="income">Continue</button>
+      <a class="button back" href="#kids">Back</a>
     </div>
   </form>
 </section>
