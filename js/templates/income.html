@@ -1,10 +1,23 @@
 <section class="screen" id="income">
   <h2>Now let's talk about income.</h2>
   <p>We need to know about your household's earnings.</p>
-  <p><div class='tooltip-item'>Income <span class='question-mark-small'></span> 
-      <div class='tooltip'>
-        Income is money paid to a person from a job, Social Security, annuities, child support, and more. Both children and adults can have income. See <a href=#faq>Help</a> for a list of more types of income.</div>
-    </div> can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Please also list students' and kids' income.</p>
+  
+  <div class="modal">
+    <label for="modal-1">
+      <div class="modal-trigger">Income <span class='question-mark-small'></span></div>
+    </label>
+    <input class="modal-state" id="modal-1" type="checkbox" />
+    <div class="modal-fade-screen">
+      <div class="modal-inner">
+        <div class="modal-close" for="modal-1"></div>
+        <h1>What counts as income?</h1>
+        <p class="modal-intro">Income is money paid to a person from a job, Social Security, annuities, child support, and more. Both children and adults can have income. See <a href=#faq>Help</a> for a list of more types of income.</p>
+        <p class='modal-intro'></p>
+      </div>
+    </div>
+  </div>
+          
+  can come from many different places, including: work, public assistance, alimony, investments, allowances and more. Please also list students' and kids' income.</p>
   <p>You've told us you have <span class="num-people"></span> in your household. Let's list how much everybody earns.</p>
 
   <ul class="person-list">
