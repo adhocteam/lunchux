@@ -26,22 +26,27 @@
     </div>
 
     <div class="form-controls-group">
-      <div>
-        <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
-      </div>
-      <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
-        <label>
-          Please enter just one case number:<br>
-          <p class="help"><span class='question-mark'></span>Where do I find my case number?</p>
-          <input type="text" name="case-number" placeholder="case number">
-        </label>
-      </div>
-      <div>
-        <label><input type="radio" name="has-other-help" value="no">No</label>
+      <div class="radio-group">
+        <div class="radio-selection">
+          <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
+
+          <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
+            <label>
+              Please enter just one case number:<br>
+              <p class="help"><span class='question-mark'></span>Where do I find my case number?</p>
+              <input type="text" name="case-number" placeholder="case number">
+            </label>
+          </div>
+
+        </div>
+
+        <div class="radio-selection">
+          <label><input type="radio" name="has-other-help" value="no">No</label>
+        </div>
       </div>
       <div class="button-group">
         <button class="button fwd" data-next-screen="adults">Continue</button>
-        <a class="button back" href="#adults">Back</a>        
+        <a class="button back" href="#adults">Back</a>
       </div>
     </div>
   </form>

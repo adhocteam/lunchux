@@ -48,36 +48,34 @@
       <p><b>Is there an address we can share?</b> If not, that's ok! It won't affect the application.</p>
 
       <div class="form-controls-group">
-        <div class='normal-label'>
-          <label><input type="radio" name="has-address" value="yes" required> Yes</label>
-        </div>
-        <div class='normal-label'>
-          <label><input type="radio" name="has-address" value="no"> No</label>
-        </div>
-        <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
-          <div>
-            <label>Street address:<br>
-              <input type="text" name="street" value="" placeholder="123 Fake St">
-            </label>
+        <div class="radio-group">
+          <div class='radio-selection'>
+            <label><input type="radio" name="has-address" value="yes" required> Yes</label>
+
+            <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
+                <label>Street address:<br>
+                  <input type="text" name="street" value="" placeholder="123 Fake St">
+                </label>
+                <label>City:<br>
+                  <input type="text" name="city" value="" placeholder="Anytown">
+                </label>
+                <label>State:<br>
+                  <select name="state">
+                    <option value=""></option>
+                  </select>
+                </label>
+                <label>ZIP Code:<br>
+                  <input type="text" name="zip" value="" placeholder="99999">
+                </label>
+            </div>
+
           </div>
-          <div>
-            <label>City:<br>
-              <input type="text" name="city" value="" placeholder="Anytown">
-            </label>
+
+          <div class='radio-selection'>
+            <label><input type="radio" name="has-address" value="no"> No</label>
           </div>
-          <div>
-            <label>State:<br>
-              <select name="state">
-                <option value=""></option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <label>ZIP Code:<br>
-              <input type="text" name="zip" value="" placeholder="99999">
-            </label>
-          </div>
-        </div>
+
+
       </div>
     </div>
 
