@@ -960,7 +960,12 @@
         }
 
         if (options.initial && this.model.hasExistingSession()) {
-            qs(".existing-session").classList.remove("hide");
+            var existingSession = qs(".existing-session");
+            existingSession.classList.remove("hide");
+            var unload = $on(existingSession, "click", function() {
+                existingSession.classList.add("hide");
+                unload();
+            });
         } else {
             qs(".existing-session").classList.add("hide");
         }
