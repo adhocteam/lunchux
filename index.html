@@ -25,7 +25,7 @@
             </div>
             <ul class="subnav">
               <li><a href="#">Welcome</a></li>
-              <li><a href="#kids">Students &amp; Kids</a></li>
+              <li><a href="#kids">Kids</a></li>
               <li><a href="#other-help">Assistance</a></li>
               <li><a href="#adults">Adults</a></li>
               <li><a href="#income">Income</a></li>
@@ -42,7 +42,7 @@
           </li>
           <span class='prog-bar'></span>
           <li class='prog-round'>
-            <a href="#kids"><span class='prog-label'>Students &amp; Kids</span></a>
+            <a href="#kids"><span class='prog-label'>Kids</span></a>
           </li>
           <span class='prog-bar'></span>
             <li class='prog-round'>
@@ -88,7 +88,7 @@
           <form class="details-form" style="display: none">
             <div>
               <label>
-                Name (ex: Student U. Eighteen)<br>
+                Name (ex: John P. Smith)<br>
                 <input name="name" type="text" placeholder="Name" required value="<%- name %>">
               </label>
             </div>
@@ -149,7 +149,7 @@
           <div class="details-form" style="display: none">
             <div>
               <label>
-                Name (ex: Kid U. Eighteen)<br>
+                Name (ex: John P. Smith)<br>
                 <input name="name" type="text" placeholder="Name" value="<%- person.name %>">
               </label>
             </div>
@@ -184,7 +184,7 @@
 
         <script type="text/template" id="review-description-template">
           <p>
-            There are <b><%= pluralize(numKids, "youth") %></b> and
+            There are <b><%= pluralize(numKids, "kid") %></b> and
             <b><%= pluralize(numAdults, "adult") %></b> in your household, for a
             total of
             <b><%= pluralize(numPeople, "person", "people") %></b>.

@@ -322,7 +322,7 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: KidPersonView, model: this.model, peopleMethod: this.model.kids});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
-        this.numPeopleEl.innerHTML = pluralize(this.model.kids().length, "youth");
+        this.numPeopleEl.innerHTML = pluralize(this.model.kids().length, "kid");
     };
 
     KidListView.prototype.unload = function() {
