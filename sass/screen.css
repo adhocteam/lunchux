@@ -337,6 +337,24 @@ body {
   width: 100%;
   -webkit-backface-visibility: hidden; }
 
+.existing-session {
+  text-align: center;
+  font-weight: 700;
+  background: papayawhip;
+  color: #444;
+  padding: 1em; }
+
+.existing-session.hide {
+  display: none; }
+
+.active a,
+.disabled a {
+  pointer-events: none; }
+
+.disabled a {
+  background: grey;
+  color: black; }
+
 .container {
   overflow: hidden; }
 
