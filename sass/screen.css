@@ -617,11 +617,21 @@ h3, h4, h5, h6 {
 .invalid .notes {
   color: #f05f5c; }
 .invalid .person-name-bar .person-name:before {
+  /*content: '𐄂';
+  margin-right:4px;
+  width:20px;
+  height:30px;
+  vertical-align:top;*/ }
+
+#review .invalid .person-name-bar {
+  color: #f05f5c; }
+#review .invalid .person-name-bar .person-name:before {
   content: '𐄂';
   margin-right: 4px;
   width: 20px;
   height: 30px;
-  vertical-align: top; }
+  vertical-align: text-bottom;
+  /**/ }
 
 .add .person-name-bar {
   color: #1E5A8C; }
