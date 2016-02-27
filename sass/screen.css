@@ -659,6 +659,12 @@ h4 {
   opacity: 0;
   display: none; }
 
+ul.review-list {
+  margin: 0 0 1em 0; }
+  ul.review-list li div {
+    margin: 0;
+    padding: 0; }
+
 .radio-group div.radio-selection {
   margin: .5em 0 1em 0;
   background: rgba(0, 0, 0, 0.05);

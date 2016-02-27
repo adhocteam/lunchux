@@ -93,7 +93,7 @@
               </label>
             </div>
 
-            
+
             <div class="normal-label">
 
               <p><b>Is <%- name %> a student?</b></p>
@@ -108,63 +108,71 @@
             </div>
 
             <p><b>Is <%- name %> considered</b></p>
-
-            <div class="modal">
-              <label for="modal-homeless">
-                <div class='modal-trigger'>• homeless <span class="question-mark-small"></span>
-                </div>
-              </label>
-              <input class="modal-state" id="modal-homeless" type="checkbox" />
-
-                <div class="modal-fade-screen">
-                  <div class='modal-inner'>
-                    A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="modal">
-                <label for="modal-runaway">
-                  <div class='modal-trigger'>• a runaway <span class="question-mark-small"></span>
-                  </div>
-                </label>
-                <input class="modal-state" id="modal-runaway" type="checkbox" />
-
-                <div class="modal-fade-screen">
-                  <div class='modal-inner'>
-                    A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.
-                  </div>
-                </div>
-
-
+            
+            <ul class="review-list">
+              <li class="styled-list">
                 <div class="modal">
-                  <label for="modal-migrant">
-                    <div class='modal-trigger'>• a migrant <span class="question-mark-small"></span>
+                  <label for="modal-homeless">
+                    <div class='modal-trigger'>homeless <span class="question-mark-small"></span>
                     </div>
                   </label>
+
+                  <input class="modal-state" id="modal-homeless" type="checkbox" />
+
+                  <div class="modal-fade-screen">
+                    <div class='modal-inner'>
+                      A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="styled-list">
+                <div class="modal">
+                  <label for="modal-runaway">
+                    <div class='modal-trigger'>a runaway <span class="question-mark-small"></span>
+                    </div>
+                  </label>
+                  <input class="modal-state" id="modal-runaway" type="checkbox" />
+
+                  <div class="modal-fade-screen">
+                    <div class='modal-inner'>
+                      A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.
+                    </div>
+                  </div>
+                </li>
+                <li class="styled-list">
+                  <div class="modal">
+                    <label for="modal-migrant">
+                      <div class='modal-trigger'>
+                        a migrant <span class="question-mark-small"></span>
+                      </div>
+                    </label>
                   <input class="modal-state" id="modal-migrant" type="checkbox" />
 
-                  <div class="modal-fade-screen">
-                    <div class='modal-inner'>
-                      A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).
+                    <div class="modal-fade-screen">
+                      <div class='modal-inner'>
+                        A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).
+                      </div>
                     </div>
                   </div>
-                </div>
+                </li>
 
-                <div class="modal">
-                  <label for="modal-headstart">
-                    <div class='modal-trigger'>• enrolled in the head start program?<span class="question-mark-small"></span>
-                    </div>
-                  </label>
-                  <input class="modal-state" id="modal-headstart" type="checkbox" />
+                <li class="styled-list">
+                  <div class="modal">
+                    <label for="modal-headstart">
+                      <div class='modal-trigger'>enrolled in the head start program?<span class="question-mark-small"></span>
+                      </div>
+                    </label>
+                    <input class="modal-state" id="modal-headstart" type="checkbox" />
 
-                  <div class="modal-fade-screen">
-                    <div class='modal-inner'>
-                      Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.
+                    <div class="modal-fade-screen">
+                      <div class='modal-inner'>
+                        Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.
+                      </div>
                     </div>
                   </div>
-                </div>
+                </li>
+              </ul>
 
             <div class="actions">
               <div class="normal-label">
