@@ -12,7 +12,7 @@
         <script src="models.js"></script>
         <script src="modals.js"></script>
         <script src="app.js"></script>
-        
+
     </head>
 
     <body>
@@ -92,44 +92,108 @@
                 <input name="name" type="text" placeholder="Name" required value="<%- name %>">
               </label>
             </div>
+
+
             <div class="normal-label">
+
               <p><b>Is <%- name %> a student?</b></p>
               <label><input name="is-student" type="radio" value="yes" <%= tribool(person.isStudent, true) %>> Yes</label>
               <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
             </div>
+
             <div class="normal-label">
               <p><b>Is <%- name %> a foster child?</b></p>
               <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
               <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
             </div>
-            <div class="normal-label">
-              <p><b>Is <%- name %> considered
-                <div class='tooltip-item'>homeless <span class="question-mark-small"></span>
-                  <div class='tooltip'>A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</div>
-                </div>, a
-                <div class='tooltip-item'>runaway <span class="question-mark-small"></span>
-                  <div class='tooltip'>A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.</div>
-                </div>, a
-                <div class='tooltip-item'>migrant <span class="question-mark-small"></span>
-                  <div class='tooltip'>A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).</div>
-                </div>, or is <%- name %> enrolled in the
-                <div class='tooltip-item'>Head Start <span class="question-mark-small"></span>
-                  <div class='tooltip'>Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.</div>
-                </div> program?</b>
-              </p>
-              <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
-              <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
+
+            <p><b>Is <%- name %> considered</b></p>
+            
+            <ul class="review-list">
+              <li class="styled-list">
+                <div class="modal">
+                  <label for="modal-homeless">
+                    <div class='modal-trigger'>homeless <span class="question-mark-small"></span>
+                    </div>
+                  </label>
+
+                  <input class="modal-state" id="modal-homeless" type="checkbox" />
+
+                  <div class="modal-fade-screen">
+                    <div class='modal-inner'>
+                      A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="styled-list">
+                <div class="modal">
+                  <label for="modal-runaway">
+                    <div class='modal-trigger'>a runaway <span class="question-mark-small"></span>
+                    </div>
+                  </label>
+                  <input class="modal-state" id="modal-runaway" type="checkbox" />
+
+                  <div class="modal-fade-screen">
+                    <div class='modal-inner'>
+                      A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.
+                    </div>
+                  </div>
+                </li>
+                <li class="styled-list">
+                  <div class="modal">
+                    <label for="modal-migrant">
+                      <div class='modal-trigger'>
+                        a migrant <span class="question-mark-small"></span>
+                      </div>
+                    </label>
+                  <input class="modal-state" id="modal-migrant" type="checkbox" />
+
+                    <div class="modal-fade-screen">
+                      <div class='modal-inner'>
+                        A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="styled-list">
+                  <div class="modal">
+                    <label for="modal-headstart">
+                      <div class='modal-trigger'>enrolled in the head start program?<span class="question-mark-small"></span>
+                      </div>
+                    </label>
+                    <input class="modal-state" id="modal-headstart" type="checkbox" />
+
+                    <div class="modal-fade-screen">
+                      <div class='modal-inner'>
+                        Head Start is a federal- or state-funded pre-kindergarten program. To qualify, the state-funded program must have eligibility criteria that is identical or more stringent than the federal Head Start program.
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+
+            <div class="actions">
+              <div class="normal-label">
+                <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
+
+                <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
+              </div>
             </div>
-            <p><b>We are required to ask for information about your children's race and ethnicity.</b><br>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
-            <p><b>Ethnicity</b></p>
+
+            <p><b>We are required to ask for information about your children’s race and ethnicity.</b></p>
+
+            <p>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
+
+            <h4>Ethnicity</h4>
             <div class="normal-label">
               <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
               <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
               <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
             </div>
-            <p>
-              <b>Race</b>
-            </p>
+
+            <h4>Race</h4>
             <div class="normal-label">
               <% races.map(function(r) { %>
               <label>
@@ -137,7 +201,7 @@
               </label>
               <% }) %>
             </div>
-            <p>Thank you! In just a bit, we'll ask you about <%= name %>'s income.</p>
+
             <div class="button-group justify">
               <button class="button save">Save</button>
               <a class="button remove" href="#">Remove</a>
@@ -209,7 +273,7 @@
           <li class="person invalid">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit these details</a></div>
+              <div class="actions edit"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
             </div>
             <ul class="summary">
               <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
