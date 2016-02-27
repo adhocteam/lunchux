@@ -55,35 +55,50 @@
     </div>
 
     <div class="form-controls-group">
-
-      <div>
+      <div class="radio-group">
+        <div class='radio-selection'>
         <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
-      </div>
-      <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
-        <label>
-          Please enter just one
 
-          <div class="modal">
-            <label for="modal-4">
-              <div class="modal-trigger">case number: <span class='question-mark-small'></span></div>
-            </label>
-            <input class="modal-state" id="modal-4" type="checkbox" />
-            <div class="modal-fade-screen">
-              <div class="modal-inner">
-                <div class="modal-close" for="modal-4"></div>
-                <h1>Where do I find my case number?</h1>
-                <p class="modal-intro">This might depend on what state you're in. Your case number is <b>not</b> the number on your EBT card, but it should be listed on other benefits paperwork. If it's not there, you'll need to call your case worker.</p>
+        <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
+            <label>Case Number</label>
+            <input type="text" name="case-number" placeholder="Case Number">
+
+
+          <!-- Modal -->
+
+          <p>
+            Please enter just one
+
+            <div class="modal">
+              <label for="modal-4">
+                <div class="modal-trigger">case number: <span class='question-mark-small'></span></div>
+              </label>
+              <input class="modal-state" id="modal-4" type="checkbox" />
+              <div class="modal-fade-screen">
+                <div class="modal-inner">
+                  <div class="modal-close" for="modal-4"></div>
+                  <h1>Where do I find my case number?</h1>
+                  <p class="modal-intro">This might depend on what state you're in. Your case number is <b>not</b> the number on your EBT card, but it should be listed on other benefits paperwork. If it's not there, you'll need to call your case worker.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <input type="text" name="case-number" placeholder="case number">
-        </label>
+          </p>
+
+          <!--/modal -->
+
+        </div>
+
       </div>
-      <div>
+
+
+      <div class="radio-selection">
         <label><input type="radio" name="has-other-help" value="no">No</label>
-
       </div>
+
+    </div>
+
+
       <div class="button-group">
         <button class="button fwd" data-next-screen="adults">Continue</button>
         <a class="button back" href="#adults">Back</a>

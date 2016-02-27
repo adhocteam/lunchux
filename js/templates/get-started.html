@@ -67,9 +67,16 @@
   <h2>Let’s get started.</h2>
   <h3>Are you over the age of 18?</h3>
   <p>This application has to be signed by a member of the household who is an adult.</p>
+
   <form action="#kids">
-    <label><input type="radio" name="over-18" value="yes" required> Yes</label>
-    <label><input type="radio" name="over-18" value="no" data-next-screen="need-adult"> No</label>
+    <div class="radio-group">
+      <div class='radio-selection'>
+        <label><input type="radio" name="over-18" value="yes" required> Yes</label>
+      </div>
+      <div class='radio-selection'>
+        <label><input type="radio" name="over-18" value="no" data-next-screen="need-adult"> No</label>
+      </div>
+    </div>  
 
     <div class="button-group">
       <button class="button fwd" disabled>Continue</button>

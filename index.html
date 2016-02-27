@@ -92,22 +92,26 @@
                 <input name="name" type="text" placeholder="Name" required value="<%- name %>">
               </label>
             </div>
+
+            
             <div class="normal-label">
+
               <p><b>Is <%- name %> a student?</b></p>
               <label><input name="is-student" type="radio" value="yes" <%= tribool(person.isStudent, true) %>> Yes</label>
               <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
             </div>
+
             <div class="normal-label">
               <p><b>Is <%- name %> a foster child?</b></p>
               <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
               <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
             </div>
 
-            <p><b>Is <%- name %> considered</b>
+            <p><b>Is <%- name %> considered</b></p>
 
             <div class="modal">
               <label for="modal-homeless">
-                <div class='modal-trigger'>homeless <span class="question-mark-small"></span>
+                <div class='modal-trigger'>• homeless <span class="question-mark-small"></span>
                 </div>
               </label>
               <input class="modal-state" id="modal-homeless" type="checkbox" />
@@ -119,12 +123,10 @@
                 </div>
               </div>
 
-              , a
-
 
               <div class="modal">
                 <label for="modal-runaway">
-                  <div class='modal-trigger'>runaway <span class="question-mark-small"></span>
+                  <div class='modal-trigger'>• a runaway <span class="question-mark-small"></span>
                   </div>
                 </label>
                 <input class="modal-state" id="modal-runaway" type="checkbox" />
@@ -133,13 +135,12 @@
                   <div class='modal-inner'>
                     A child is identified as a runaway under the Runaway and Homeless Youth Act, by the local educational liaison, or another person in accordance with guidance issued by FNS.
                   </div>
-                </div>,
+                </div>
 
-                a
 
                 <div class="modal">
                   <label for="modal-migrant">
-                    <div class='modal-trigger'>migrant <span class="question-mark-small"></span>
+                    <div class='modal-trigger'>• a migrant <span class="question-mark-small"></span>
                     </div>
                   </label>
                   <input class="modal-state" id="modal-migrant" type="checkbox" />
@@ -149,15 +150,11 @@
                       A child is a migrant if they've been identified as a migrant by the State or local Migrant Education Program coordinator, the local educational liaison, or another individual identified by the Food and Nutrition Service (FNS).
                     </div>
                   </div>
-
                 </div>
-
-                , or is <%- name %> enrolled in the
-
 
                 <div class="modal">
                   <label for="modal-headstart">
-                    <div class='modal-trigger'>head start program?<span class="question-mark-small"></span>
+                    <div class='modal-trigger'>• enrolled in the head start program?<span class="question-mark-small"></span>
                     </div>
                   </label>
                   <input class="modal-state" id="modal-headstart" type="checkbox" />
@@ -169,26 +166,26 @@
                   </div>
                 </div>
 
-              </p>
+            <div class="actions">
+              <div class="normal-label">
+                <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
 
-              <label><input name="is-homeless" type="radio" value="yes" <%= tribool(person.isHomeless, true) %>> Yes</label>
-              <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
-
+                <label><input name="is-homeless" type="radio" value="no" required <%= tribool(person.isHomeless, false) %>> No</label>
+              </div>
             </div>
 
             <p><b>We are required to ask for information about your children’s race and ethnicity.</b></p>
 
             <p>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
 
-            <h3>Ethnicity</h3>
+            <h4>Ethnicity</h4>
             <div class="normal-label">
               <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
               <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
               <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
             </div>
-            <p>
-              <b>Race</b>
-            </p>
+
+            <h4>Race</h4>
             <div class="normal-label">
               <% races.map(function(r) { %>
               <label>
@@ -196,7 +193,7 @@
               </label>
               <% }) %>
             </div>
-            <p>Thank you! In just a bit, we'll ask you about <%= name %>'s income.</p>
+
             <div class="button-group justify">
               <button class="button save">Save</button>
               <a class="button remove" href="#">Remove</a>
