@@ -1,0 +1,10 @@
+require 'rspec'
+require 'capybara'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+require 'capybara/dsl'
+require 'childprocess'
+require 'byebug'
+
+require 'config'
+require 'utils'
