@@ -269,29 +269,29 @@
         </script>
 
         <script type="text/template" id="kid-summary-template">
-          
-          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b> person.name is:</b>" %> 
-          
+
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %>
+
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
             <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
             <%= person.isHomeless ? "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" : "" %>
-            
+
             <!-- true : false -->
           </div>
-          
+
           <div class='student-summary'><b><%= person.name %> is not:</b>
-          
+
             <%= person.isStudent ? "" : "<li class='styled-list'>a student</li>" %>
             <%= person.isFosterChild ? "" : "<li class='styled-list'>a foster child</li>" %>
             <%= person.isHomeless ? "" : "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" %>
           </div>
-          
+
           <div><b><%= person.name %>:</b>
             <li class='styled-list'>has <%= incomeText(person) %>.</li>
           </div>
 
         </script>
-        
+
         <script type="text/template" id="adult-summary-template">
           <li class='styled-list'><%= person.name %> is an adult member of your household.</li>
           <li class='styled-list'><%= person.name %> has <%= incomeText(person) %>.</li>
