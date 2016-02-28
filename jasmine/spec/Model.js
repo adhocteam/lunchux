@@ -68,10 +68,10 @@ describe('Model', function() {
     it("should allow for updating a person only if they are being edited", function(){
       var otherPerson = new Person({name: "Editing Person"});
       model.startEditing(otherPerson);
-      expect(model.updatePerson(person, {isHispanic: true})).toBe(undefined);
-      expect(model.editingPerson.isHispanic).toBe(undefined);
-      model.updatePerson(otherPerson, {isHispanic: true});
-      expect(model.editingPerson.isHispanic).toBe(true);
+      expect(model.updatePerson(person, {isStudent: true})).toBe(undefined);
+      expect(model.editingPerson.isStudent).toBe(undefined);
+      model.updatePerson(otherPerson, {isStudent: true});
+      expect(model.editingPerson.isStudent).toBe(true);
     });
 
     it("should allow for saving a person that is being edited, which stops editing the person", function(){

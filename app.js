@@ -150,15 +150,6 @@
         this.el.appendChild(personView.render().el);
         var li = qs("li", this.el);
 
-        var races = [
-            {label: "American Indian or Alaskan Native", value: "american-indian"},
-            {label: "Asian", value: "asian"},
-            {label: "Black or African-American", value: "black"},
-            {label: "Native Hawaiian or other Pacific Islander", value: "hawaiian"},
-            {label: "White", value: "white"},
-            {label: "I'd rather not say", value: "declined"}
-        ];
-
         function tribool(prop, test) {
             if (prop === undefined || prop === null) {
                 return "";
@@ -168,7 +159,7 @@
 
         var form = document.createElement("div");
         li.appendChild(form);
-        form.innerHTML = this.template({person: person, races: races, tribool: tribool});
+        form.innerHTML = this.template({person: person, tribool: tribool});
 
         return this;
     };
@@ -188,17 +179,6 @@
         case "handleBooleanRadioClick":
             $delegate(this.el, "[type=radio]", "click", function(event) {
                 var input = event.target;
-                if (input.name === "is-hispanic") {
-                    if (input.value === "declined" && input.checked) {
-                        handler(this.person, "is-hispanic", undefined);
-                        handler(this.person, "is-hispanic-declined", true);
-                        return;
-                    } else {
-                        handler(this.person, "is-hispanic-declined", undefined);
-                        handler(this.person, "is-hispanic", input.value === "yes" && input.checked);
-                        return;
-                    }
-                }
                 var checked = input.value === "yes" && input.checked;
                 handler(this.person, input.name, checked);
             }.bind(this));
@@ -691,7 +671,6 @@
         this.contactInfoEl = qs("#review .contact-info");
         this.otherHelpEl = qs("#review .other-help-summary .summary");
         this.ssnEl = qs("#review .ssn-summary .summary");
-        this.formEl = qs("#review form");
         this.model = options.model;
         this.unloaders = [];
 
@@ -699,10 +678,6 @@
         this.kidSummaryTemplate = templateFrom('#kid-summary-template');
         this.adultSummaryTemplate = templateFrom('#adult-summary-template');
         this.personSummaryTemplate = templateFrom('#person-summary-template');
-
-        this.model.on("updated:hasAddress", function() {
-            qs(".address", this.contactInfoEl).style.display = this.model.get("hasAddress") ? "block" : "none";
-        }.bind(this));
     }
 
     ReviewView.prototype.render = function() {
@@ -728,14 +703,6 @@
             "Nobody in your household receives other assistance.";
 
         this.ssnEl.innerHTML = this.model.get("hasSSN") ? '<p>You told us the last four digits of your SSN are:</p><div class="ssn">XXX-XXX-' + this.model.get("last4SSN") + '</div>' : "Nobody in your household has a Social Security number.";
-
-        var statesEl = qs("[name=state]", this.formEl);
-        states().forEach(function(state) {
-            var option = document.createElement("option");
-            option.value = state.abbrev;
-            option.label = state.abbrev;
-            statesEl.appendChild(option);
-        }.bind(this));
     };
 
     ReviewView.prototype.incomeText = function(p) {
@@ -764,6 +731,32 @@
 
     ReviewView.prototype.bind = function(event, handler) {
         switch (event) {
+        }
+    };
+
+    ReviewView.prototype.unload = function() {
+        this.unloaders.forEach(function(unload) {
+            unload();
+        });
+    };
+
+    function ContactAndSignView(options) {
+        this.el = qs("#contact");
+        this.formEl = qs("form", this.el);
+        this.model = options.model;
+        this.unloaders = [];
+
+        this.model.on("updated:hasAddress", function() {
+            qs(".address", this.contactInfoEl).style.display = this.model.get("hasAddress") ? "block" : "none";
+        }.bind(this));
+    }
+
+    function dashToCamel(name) {
+        return name.replace(/-[a-z]/g, function(m) { return m.slice(1).toUpperCase(); });
+    }
+
+    ContactAndSignView.prototype.bind = function(event, handler) {
+        switch (event) {
         case "handleHasAddressRadioClick":
             qsa("[name=has-address]", this.contactInfoEl).forEach(function(el) {
                 var unloader = $on(el, "click", function(event) {
@@ -778,11 +771,36 @@
                 if (window.confirm("Are you sure you want to submit your application?")) {
                     var form = event.target;
                     var elements = Array.prototype.slice.call(form);
-                    var values = elements.filter(function(el) {
-                        return el.name !== "";
-                    }).map(function(el) {
-                        return {name: el.name, value: el.value};
-                    });
+                    var values = [];
+                    var races = [];
+                    for (var i = 0; i < elements.length; i++) {
+                        var el = elements[i];
+                        if (el.name === "") {
+                            continue;
+                        }
+                        var name = dashToCamel(el.name)
+                        switch (el.name) {
+                        case "is-hispanic":
+                            if (el.checked) {
+                                if (el.value === "declined") {
+                                    values.push({name: "isHispanicDeclined", value: true});
+                                    values.push({name: "isHispanic", value: undefined});
+                                } else {
+                                    values.push({name: "isHispanicDeclined", value: undefined});
+                                    values.push({name: "isHispanic", value: el.value === "yes"});
+                                }
+                            }
+                            break;
+                        case "race":
+                            if (el.checked) {
+                                races.push(el.value);
+                            }
+                            break;
+                        default:
+                            values.push({name: name, value: el.value});
+                        }
+                    }
+                    values.push({name: "races", value: races});
                     handler(values);
                 }
             }.bind(this));
@@ -790,7 +808,28 @@
         }
     };
 
-    ReviewView.prototype.unload = function() {
+    ContactAndSignView.prototype.render = function() {
+        var races = [
+            {label: "American Indian or Alaskan Native", value: "american-indian"},
+            {label: "Asian", value: "asian"},
+            {label: "Black or African-American", value: "black"},
+            {label: "Native Hawaiian or other Pacific Islander", value: "hawaiian"},
+            {label: "White", value: "white"},
+            {label: "I'd rather not say", value: "declined"}
+        ];
+
+        var statesEl = qs("[name=state]", this.formEl);
+        states().forEach(function(state) {
+            var option = document.createElement("option");
+            option.value = state.abbrev;
+            option.label = state.abbrev;
+            statesEl.appendChild(option);
+        }.bind(this));
+
+        return this;
+    };
+
+    ContactAndSignView.prototype.unload = function() {
         this.unloaders.forEach(function(unload) {
             unload();
         });
@@ -817,7 +856,8 @@
             "adults": AdultListView,
             "other-help": OtherHelpView,
             "income": IncomeView,
-            "review": ReviewView
+            "review": ReviewView,
+            "contact": ContactAndSignView
         };
         this.progress = [
             "get-started",
@@ -825,7 +865,8 @@
             "other-help",
             "adults",
             "income",
-            "review"
+            "review",
+            "contact"
         ];
         this.handlers = {
             "get-started": [
@@ -861,7 +902,8 @@
                 {event: "handleIncomeFrequencyChange", handler: this.handleIncomeUpdate.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)}
             ],
-            "review": [
+            "review": [],
+            "contact": [
                 {event: "handleHasAddressRadioClick", handler: this.handleHasAddressRadioClick.bind(this)},
                 {event: "handleSubmit", handler: this.handleSubmit.bind(this)}
             ]
@@ -884,9 +926,7 @@
         var propNameMap = {
             "is-student": "isStudent",
             "is-homeless": "isHomeless",
-            "is-foster-child": "isFosterChild",
-            "is-hispanic": "isHispanic",
-            "is-hispanic-declined": "isHispanicDeclined"
+            "is-foster-child": "isFosterChild"
         };
         var propName = propNameMap[name];
         var options = {};
