@@ -130,7 +130,7 @@
         }.bind(this));
 
         this.model.on("updatedPerson", function(options) {
-            if (options.current.id === this.person.id) {
+            if (options.person.id === this.person.id) {
                 this.render();
             }
         }.bind(this));
@@ -165,6 +165,64 @@
         return this;
     };
 
+    function serializeForm(form) {
+        var data = [];
+        var checkboxes = {};
+        for (var i = 0; i < form.elements.length; i++) {
+            var el = form.elements[i];
+            if (el.name === "") {
+                continue;
+            }
+            switch (el.type) {
+            case "text":
+            case "number":
+            case "tel":
+            case "email":
+                data.push({name: el.name, value: el.value});
+                break;
+            case "radio":
+                if (el.checked) {
+                    data.push({name: el.name, value: el.value});
+                }
+                break;
+            case "checkbox":
+                if (el.checked) {
+                    var values = checkboxes[el.name] || [];
+                    values.push(el.value);
+                    checkboxes[el.name] = values;
+                }
+                break;
+            default:
+                throw new Error("got unexpected form element type " + type);
+            }
+        }
+        for (var key in checkboxes) {
+            if (checkboxes.hasOwnProperty(key)) {
+                var values = checkboxes[key];
+                data.push({name: key, value: values});
+            }
+        }
+        return data;
+    }
+
+    var booleans = [
+        "isStudent",
+        "isHomeless",
+        "isFosterChild"
+    ];
+
+    function updateFromForm(obj, params) {
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i];
+            var prop = dashToCamel(param.name);
+            if (booleans.indexOf(prop) >= 0) {
+                obj[prop] = param.value === "yes";
+            } else {
+                obj[prop] = param.value;
+            }
+        }
+    }
+
     KidPersonView.prototype.bind = function(event, handler) {
         switch (event) {
         case "toggleDetailsForm":
@@ -172,31 +230,13 @@
                 handler(this);
             }.bind(this));
             break;
-        case "handleNameInput":
-            $delegate(this.el, "[name=name]", "input", function(event) {
-                handler(this.person, event.target.value);
-            }.bind(this));
-            break;
-        case "handleBooleanRadioClick":
-            $delegate(this.el, "[type=radio]", "click", function(event) {
-                var input = event.target;
-                var checked = input.value === "yes" && input.checked;
-                handler(this.person, input.name, checked);
-            }.bind(this));
-            break;
-        case "handleRaceCheckboxClick":
-            $delegate(this.el, "[name=race]", "click", function(event) {
-                var checked = qsa("[name=race]:checked", this.el);
-                var races = checked.map(function(checkbox) {
-                    return checkbox.value;
-                });
-                handler(this.person, races);
-            }.bind(this));
-            break;
         case "handleSaveBtnClick":
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
-                handler(this, this.person);
+                var data = serializeForm(event.target);
+                var person = this.person;
+                updateFromForm(person, data);
+                handler({view: this, person: person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
@@ -220,9 +260,6 @@
 
         this.events = [
             "toggleDetailsForm",
-            "handleNameInput",
-            "handleBooleanRadioClick",
-            "handleRaceCheckboxClick",
             "handleSaveBtnClick",
             "handleDeleteBtnClick",
             "handleIncomeAmountInput",
@@ -233,7 +270,7 @@
         this.model.on("deletedPerson", this.deleteOne.bind(this));
     }
 
-    PeopleListView.prototype.addOne = function(person) {
+    PeopleListView.prototype.addOne = function(person, options) {
         var div = document.createElement("div");
         var personView = new this.personView({person: person, model: this.model, el: div});
         this.el.appendChild(personView.render().el);
@@ -246,7 +283,8 @@
         }.bind(this));
         this.childViews.push(personView);
 
-        if (person.name === "") {
+        options = options || {};
+        if (options.expand) {
             this.model.toggleDetailsForm(personView);
         }
     };
@@ -268,7 +306,15 @@
     PeopleListView.prototype.render = function() {
         this.el = document.createElement("div");
         var people = this.peopleMethod.call(this.model);
-        people.forEach(this.addOne.bind(this));
+        var expandedFirst = false;
+        people.forEach(function(person) {
+            var options = {expand: false};
+            if (person.name === "" && !expandedFirst) {
+                options.expand = true;
+                expandedFirst = true;
+            }
+            this.addOne(person, options);
+        }.bind(this));
         return this;
     };
 
@@ -339,7 +385,7 @@
         }.bind(this));
 
         this.model.on("updatedPerson", function(options) {
-            if (options.current.id === this.person.id) {
+            if (options.person.id === this.person.id) {
                 this.render();
             }
         }.bind(this));
@@ -372,14 +418,13 @@
                 handler(this);
             }.bind(this));
             break;
-        case "handleNameInput":
-            $delegate(this.el, "[name=name]", "input", function(event) {
-                handler(this.person, event.target.value);
-            }.bind(this));
-            break;
         case "handleSaveBtnClick":
-            $delegate(this.el, "button.save", "click", function(event) {
-                handler(this, this.person);
+            $delegate(this.el, "form", "submit", function(event) {
+                event.preventDefault();
+                var data = serializeForm(event.target);
+                var person = this.person;
+                updateFromForm(person, data);
+                handler({view: this, person: person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
@@ -586,6 +631,7 @@
         this.model = options.model;
         this.person = options.person;
         this.template = templateFrom("#income-person-form-template");
+        this.events = new LunchUX.Event();
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
@@ -616,6 +662,12 @@
         qs(".details-form", this.el).style.display = "none";
     };
 
+    var incomeTypes = [
+        {label: 'work', value: 'work'},
+        {label: 'assistance programs, alimony, or child support', value: 'assistance'},
+        {label: 'pensions, retirement, or any other income', value: 'pensions'}
+    ];
+
     IncomePersonView.prototype.render = function() {
         var person = this.person;
         var personView = new PersonView({person: person, model: this.model});
@@ -624,12 +676,6 @@
         var li = qs("li", this.el);
         var form = document.createElement("div");
         li.appendChild(form);
-
-        var incomeTypes = [
-            {label: 'work', value: 'work'},
-            {label: 'assistance programs, alimony, or child support', value: 'assistance'},
-            {label: 'pensions, retirement, or any other income', value: 'pensions'}
-        ];
 
         var frequencies = ['pick one','hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
 
@@ -643,8 +689,7 @@
 
         form.innerHTML = this.template({
             person: person,
-            incomeTypes:
-            incomeTypes,
+            incomeTypes: incomeTypes,
             frequencies: frequencies,
             incomeAmount: incomeAmount,
             incomeFrequency: incomeFrequency
@@ -660,46 +705,154 @@
                 handler(this);
             }.bind(this));
             break;
-        case "handleIncomeAmountInput":
-            $delegate(this.el, "input", "input", function(event) {
-                var bits = event.target.name.split(/-/);
-                var type = bits[1];
-                var amount = parseInt(event.target.value, 10);
-                // TODO handle NaN
-                handler(this.person, type, {amount: amount});
-            }.bind(this));
-            break;
-        case "handleIncomeFrequencyChange":
-            $delegate(this.el, "select", "change", function(event) {
-                var bits = event.target.name.split(/-/);
-                var type = bits[1];
-                handler(this.person, type, {freq: event.target.value});
-            }.bind(this));
-            break;
         case "handleSaveBtnClick":
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
-                handler(this, this.person);
+                var form = event.target;
+                var incomes = {};
+                incomeTypes.forEach(function(type) {
+                    var type = type.value;
+                    var hasIncome = qs("[name=has-income-"+type+"]:checked", form).value === "yes";
+                    if (!hasIncome) {
+                        incomes[type] = {
+                            amount: 0,
+                            freq: "",
+                            answered: true
+                        }
+                    } else {
+                        var amount = parseInt(qs("[name=income-"+type+"-amount]", form).value, 10);
+                        var freq = qs("[name=income-"+type+"-freq]", form).value;
+                        incomes[type] = {
+                            amount: amount,
+                            freq: freq,
+                            answered: true
+                        }
+                    }
+                }.bind(this));
+                var person = this.person;
+                person.incomes = incomes;
+                handler({view: this, person: person});
+                this.events.notify("saved", {view: this});
             }.bind(this));
             break;
         }
     };
 
+    function IncomeListView(options) {
+        this.el = null;
+        this.model = options.model;
+        this.childViews = [];
+        this.events = new LunchUX.Event();
+
+        this.eventTypes = [
+            "toggleDetailsForm",
+            "handleSaveBtnClick"
+        ];
+    }
+
+    IncomeListView.prototype.addOne = function(person) {
+        var div = document.createElement("div");
+        var childView = new IncomePersonView({person: person, model: this.model, el: div});
+        this.el.appendChild(childView.render().el);
+        this.eventTypes.forEach(function(event) {
+            childView.bind(event, function() {
+                if (this[event]) {
+                    this[event].apply(this, Array.prototype.slice.call(arguments));
+                }
+            }.bind(this));
+        }.bind(this));
+        childView.events.bind("saved", function(options) {
+            this.expandNextUnanswered();
+            this.events.notify("saved");
+        }.bind(this));
+        this.childViews.push(childView);
+    };
+
+    IncomeListView.prototype.render = function() {
+        this.el = document.createElement("div");
+        var people = this.model.sortedHousehold();
+        var expandedFirst = false;
+        people.forEach(this.addOne.bind(this));
+        this.expandNextUnanswered();
+        return this;
+    };
+
+    IncomeListView.prototype.expandNextUnanswered = function() {
+        for (var i = 0; i < this.childViews.length; i++) {
+            var view = this.childViews[i];
+            var person = view.person;
+            if (!hasAnsweredIncome(person)) {
+                this.model.toggleDetailsForm(view);
+                break;
+            }
+        }
+    };
+
+    function hasAnsweredIncome(person) {
+        var incomes = person.incomes || {};
+        for (var i = 0; i < incomeTypes.length; i++) {
+            var type = incomeTypes[i].value;
+            if (!(type in incomes) ||
+                (incomes[type].amount < 0 || (income[type] > 0 && incomes[type].freq === ""))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    IncomeListView.prototype.bind = function(event, handler) {
+        if (this.eventTypes.indexOf(event) === -1) {
+            throw new Error("tried to bind an unknown event for this view: '" + event + "'");
+        }
+        this[event] = handler;
+    };
+
     function IncomeView(options) {
+        this.el = qs("#income");
         this.listEl = qs("#income .person-list");
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
-        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView, peopleMethod: this.model.sortedHousehold});
+        this.listView = new IncomeListView({el: this.listEl, model: this.model});
+
+        this.listView.events.bind("saved", this.renderContinueBtn.bind(this));
     }
 
     IncomeView.prototype.render = function() {
         empty(this.listEl);
-        this.listEl.appendChild(this.peopleListView.render().el);
+        this.listEl.appendChild(this.listView.render().el);
         this.numPeopleEl.innerHTML = pluralize(this.model.all().people.length, "person", "people");
+        this.renderContinueBtn();
+    };
+
+    IncomeView.prototype.renderContinueBtn = function() {
+        var continueBtn = qs(".income-form button", this.el);
+        if (!this.isValid()) {
+            continueBtn.disabled = true;
+        } else {
+            continueBtn.disabled = false;
+        }
+    };
+
+    IncomeView.prototype.isValid = function() {
+        return this.listView.childViews.all(function(view) {
+            return hasAnsweredIncome(view.person);
+        });
     };
 
     IncomeView.prototype.bind = function(event, handler) {
-        this.peopleListView.bind(event, handler);
+        switch (event) {
+        case "handleContinueBtnClick":
+            $delegate(this.el, "form.income-form", "submit", function(event) {
+                event.preventDefault();
+                var form = event.target;
+                var hash = getHashFromURL(form.action);
+                var nextScreenId = hash.slice(1);
+                handler({nextScreenId: nextScreenId});
+            }.bind(this));
+            break;
+        default:
+            this.listView.bind(event, handler);
+        }
     };
 
     function pluralize(number, singular, plural) {
@@ -866,6 +1019,7 @@
             var unloader = $on(this.formEl, "submit", function(event) {
                 event.preventDefault();
                 if (window.confirm("Are you sure you want to submit your application?")) {
+                    // TODO: change this to use serializeForm + updateFromForm
                     var form = event.target;
                     var elements = Array.prototype.slice.call(form);
                     var values = [];
@@ -971,16 +1125,12 @@
             ],
             "kids": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
-                {event: "handleBooleanRadioClick", handler: this.handleBooleanRadioClick.bind(this)},
-                {event: "handleRaceCheckboxClick", handler: this.handleRaceCheckboxClick.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)}
             ],
             "adults": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
@@ -991,9 +1141,8 @@
             ],
             "income": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleIncomeAmountInput", handler: this.handleIncomeUpdate.bind(this)},
-                {event: "handleIncomeFrequencyChange", handler: this.handleIncomeUpdate.bind(this)},
-                {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)}
+                {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "review": [],
             "contact": [
@@ -1011,29 +1160,9 @@
         this.model.toggleDetailsForm(view);
     };
 
-    Controller.prototype.handleNameInput = function(person, name) {
-        this.model.updatePerson(person, {name: name});
-    };
-
-    Controller.prototype.handleBooleanRadioClick = function(person, name, checked) {
-        var propNameMap = {
-            "is-student": "isStudent",
-            "is-homeless": "isHomeless",
-            "is-foster-child": "isFosterChild"
-        };
-        var propName = propNameMap[name];
-        var options = {};
-        options[propName] = checked;
-        this.model.updatePerson(person, options);
-    };
-
-    Controller.prototype.handleRaceCheckboxClick = function(person, races) {
-        this.model.updatePerson(person, {races: races});
-    };
-
-    Controller.prototype.handleSaveBtnClick = function(view, person) {
-        this.model.savePerson(person);
-        this.model.toggleDetailsForm(view);
+    Controller.prototype.handleSaveBtnClick = function(options) {
+        this.model.savePerson(options.person);
+        this.model.toggleDetailsForm(options.view);
     };
 
     Controller.prototype.handleDeleteBtnClick = function(person) {
@@ -1051,10 +1180,6 @@
             }.bind(this));
         }
         this.setView(options.nextScreenId);
-    };
-
-    Controller.prototype.handleIncomeUpdate = function(person, type, options) {
-        this.model.updatePersonIncome(person, type, options);
     };
 
     Controller.prototype.handleHasAddressRadioClick = function(hasAddress) {
@@ -1196,16 +1321,12 @@
                 return {view: state.view.person.id, show: state.show};
             });
             var extra = JSON.stringify({
-                editingPerson: model.editingPerson,
                 formDisplay: formDisplay
             }, null, 4);
             qs("#debug pre").innerText = "extra:\n" + extra + "\n\nmodel:\n" + store;
         }
 
         model.on("saved", updateDebugWindow);
-        model.on("startEditing", updateDebugWindow);
-        model.on("stopEditing", updateDebugWindow);
-        model.on("editedPerson", updateDebugWindow);
         controller.on("view:unloaded", updateDebugWindow);
         controller.on("view:loaded", updateDebugWindow);
         updateDebugWindow();
