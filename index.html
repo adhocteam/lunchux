@@ -267,17 +267,32 @@
         </script>
 
         <script type="text/template" id="kid-summary-template">
-          <li><%= person.name %> <%= person.isStudent ? "is" : "is not" %> a student.</li>
-          <li><%= person.name %> <%= person.isFosterChild ? "is" : "is not" %> a foster child.</li>
-          <li><%= person.name %> <%= person.isHomeless ? "is" : "is not" %> considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>
-          <li><%= person.name %> has <%= incomeText(person) %>.</li>
-
+          
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b> person.name is:</b>" %> 
+          
+            <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
+            <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
+            <%= person.isHomeless ? "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" : "" %>
+            
+            <!-- true : false -->
+          </div>
+          
+          <div class='student-summary'><b><%= person.name %> is not:</b>
+          
+            <%= person.isStudent ? "" : "<li class='styled-list'>a student</li>" %>
+            <%= person.isFosterChild ? "" : "<li class='styled-list'>a foster child</li>" %>
+            <%= person.isHomeless ? "" : "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" %>
+          </div>
+          
+          <div><b><%= person.name %>:</b>
+            <li class='styled-list'>has <%= incomeText(person) %>.</li>
+          </div>
 
         </script>
-
+        
         <script type="text/template" id="adult-summary-template">
-          <li><%= person.name %> is an adult member of your household.</li>
-          <li><%= person.name %> has <%= incomeText(person) %>.</li>
+          <li class='styled-list'><%= person.name %> is an adult member of your household.</li>
+          <li class='styled-list'><%= person.name %> has <%= incomeText(person) %>.</li>
         </script>
 
         <script type="text/template" id="person-summary-template">
