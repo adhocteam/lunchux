@@ -25,8 +25,8 @@ describe('Model', function() {
           expect(model.get('people').length).toEqual(2);
           expect(model.kids().length).toEqual(1);
           expect(model.adults().length).toEqual(1);
-          expect(model.kids()[0].name).toEqual('Kid #1');
-          expect(model.adults()[0].name).toEqual('Adult #1');
+          expect(model.kids()[0].name).toEqual('');
+          expect(model.adults()[0].name).toEqual('');
       });
   });
 
