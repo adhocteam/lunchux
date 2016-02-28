@@ -507,7 +507,16 @@
                 }
             }
         }.bind(this));
+
+        $delegate(this.el, "form [type=radio]", "change", function(event) {
+            this.toggleIncomeType(event.target);
+        }.bind(this));
     }
+
+    IncomePersonView.prototype.toggleIncomeType = function(el) {
+        var incomeTypeForm = qs(".income-control", this.el);
+        incomeTypeForm.style.display = el.value === "yes" && el.checked ? "block" : "none";
+    };
 
     IncomePersonView.prototype.showForm = function() {
         qs(".details-form", this.el).style.display = "block";
@@ -535,13 +544,11 @@
         var frequencies = ['pick one','hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
 
         function incomeAmount(person, type) {
-            return (person.incomes && person.incomes[type]) ? person.incomes[type].amount :
-                "";
+            return person.incomes && person.incomes[type] ? person.incomes[type].amount : 0;
         }
 
         function incomeFrequency(person, type) {
-            return (person.incomes && person.incomes[type]) ? person.incomes[type].freq :
-                "";
+            return person.incomes && person.incomes[type] ? person.incomes[type].freq : "";
         }
 
         form.innerHTML = this.template({
