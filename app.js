@@ -528,7 +528,8 @@
     }
 
     IncomePersonView.prototype.toggleIncomeType = function(el) {
-        var incomeTypeForm = qs(".income-control", this.el);
+        var incomeType = el.getAttribute("data-income-type");
+        var incomeTypeForm = qs(".income-" + incomeType + " .income-control", this.el);
         incomeTypeForm.style.display = el.value === "yes" && el.checked ? "block" : "none";
     };
 

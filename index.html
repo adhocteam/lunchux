@@ -223,30 +223,32 @@
             <p><b>How much does <%= person.name %> contribute in income, and how often?</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
-              From <%= type.label %><br>
-              <div class="radio-selection">
-                <label>
-                  <input type="radio" name="has-income-<%= type.value %>" value="yes" required> Yes
-                </label>
-                <div class="income-control" style="display: none">
+              <div class="income-<%= type.value %>">
+                From <%= type.label %><br>
+                <div class="radio-selection">
                   <label>
-                    Amount ($)<br>
-                    <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                    <input type="radio" name="has-income-<%= type.value %>" value="yes" data-income-type="<%= type.value %>" required> Yes
                   </label>
+                  <div class="income-control" style="display: none">
+                    <label>
+                      Amount ($)<br>
+                      <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                    </label>
+                    <label>
+                      How often
+                      <select name="income-<%= type.value %>-freq">
+                        <% frequencies.map(function(freq) { %>
+                        <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
+                        <% }) %>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="radio-selection">
                   <label>
-                    How often
-                    <select name="income-<%= type.value %>-freq">
-                      <% frequencies.map(function(freq) { %>
-                      <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
-                      <% }) %>
-                    </select>
+                    <input type="radio" name="has-income-<%= type.value %>" value="no" data-income-type="<%= type.value %>"> No
                   </label>
                 </div>
-              </div>
-              <div class="radio-selection">
-                <label>
-                  <input type="radio" name="has-income-<%= type.value %>" value="no"> No
-                </label>
               </div>
               <% }) %>
             </div>
