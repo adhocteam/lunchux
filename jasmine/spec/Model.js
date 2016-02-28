@@ -129,4 +129,29 @@ describe('Model', function() {
             expect(newModel.hasExistingSession()).toBe(true);
         });
     });
+
+    describe("sortedHousehold", function() {
+        var store = new InMemoryStore("lunchux-test");
+        var model = new Model(store);
+
+        var kid1 = new Person({name: "Kid 1", ageClass: AgeClass.child});
+        var kid2 = new Person({name: "Kid 2", ageClass: AgeClass.child});
+        var adult1 = new Person({name: "Adult 1", ageClass: AgeClass.adult});
+        var adult2 = new Person({name: "Adult 2", ageClass: AgeClass.adult});
+        var kid3 = new Person({name: "Kid 3", ageClass: AgeClass.child});
+
+        var addOrder = [kid1, adult1, kid2, adult2, kid3];
+        var sortOrder = [kid1, kid2, kid3, adult1, adult2];
+
+        addOrder.forEach(function(p) {
+            model.addPerson(p);
+        });
+
+        it("should be sorted kids first then adults", function() {
+            var household = model.sortedHousehold();
+            for (var i = 0; i < sortOrder.length; i++) {
+                expect(household[i]).toBe(sortOrder[i]);
+            }
+        });
+    });
 });

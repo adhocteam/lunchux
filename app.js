@@ -106,7 +106,8 @@
     }
 
     PersonView.prototype.render = function() {
-        this.el.innerHTML = this.template({person: this.person});
+        var displayName = this.person.name ? this.person.name : this.person.ageClass === LunchUX.AgeClass.child ? "Kid (needs name!)" : "Adult (needs name!)";
+        this.el.innerHTML = this.template({person: this.person, displayName: displayName});
         return this;
     };
 
@@ -199,7 +200,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".delete", "click", function(event) {
+            $delegate(this.el, ".remove", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
@@ -269,8 +270,7 @@
 
     PeopleListView.prototype.bind = function(event, handler) {
         if (this.events.indexOf(event) === -1) {
-            console.error("tried to bind an unknown event for this view: '%s'", event);
-            return;
+            throw new Error("tried to bind an unknown event for this view: '" + event + "'");
         }
         this[event] = handler;
     };
@@ -282,6 +282,9 @@
         this.listenersToUnload = [];
         this.peopleListView = null;
         this.model = options.model;
+
+        this.model.on("addedPerson", this.setNumPeople.bind(this));
+        this.model.on("deletedPerson", this.setNumPeople.bind(this));
     }
 
     KidListView.prototype.bind = function(event, handler) {
@@ -289,7 +292,7 @@
         case "handleAddPersonClick":
             var unload = $on(qs(".actions", this.addPersonEl), "click", function(event) {
                 // TODO: move details to controller/handler
-                handler({name: "Kid #" + (this.model.kids().length + 1), ageClass: LunchUX.AgeClass.child});
+                handler({ageClass: LunchUX.AgeClass.child});
             }.bind(this));
             this.listenersToUnload.push(unload);
             break;
@@ -302,6 +305,10 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: KidPersonView, model: this.model, peopleMethod: this.model.kids});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
+        this.setNumPeople();
+    };
+
+    KidListView.prototype.setNumPeople = function() {
         this.numPeopleEl.innerHTML = pluralize(this.model.kids().length, "kid");
     };
 
@@ -372,7 +379,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".delete", "click", function(event) {
+            $delegate(this.el, ".remove", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
@@ -390,15 +397,22 @@
         this.peopleListView = null;
         this.model = options.model;
         this.unloaders = [];
+
         this.model.on("updated:hasSSN", function() {
             qs(".last-4-ssn-control", this.ssnFormEl).style.display = this.model.get("hasSSN") ? "block" : "none";
         }.bind(this));
+        this.model.on("addedPerson", this.setNumPeople.bind(this));
+        this.model.on("deletedPerson", this.setNumPeople.bind(this));
     }
 
     AdultListView.prototype.render = function() {
         var peopleListView = this.peopleListView = new PeopleListView({personView: AdultPersonView, model: this.model, peopleMethod: this.model.adults});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
+        this.setNumPeople();
+    };
+
+    AdultListView.prototype.setNumPeople = function() {
         this.numPeopleEl.innerHTML = pluralize(this.model.adults().length, "adult");
     };
 
@@ -507,7 +521,16 @@
                 }
             }
         }.bind(this));
+
+        $delegate(this.el, "form [type=radio]", "change", function(event) {
+            this.toggleIncomeType(event.target);
+        }.bind(this));
     }
+
+    IncomePersonView.prototype.toggleIncomeType = function(el) {
+        var incomeTypeForm = qs(".income-control", this.el);
+        incomeTypeForm.style.display = el.value === "yes" && el.checked ? "block" : "none";
+    };
 
     IncomePersonView.prototype.showForm = function() {
         qs(".details-form", this.el).style.display = "block";
@@ -535,13 +558,11 @@
         var frequencies = ['pick one','hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
 
         function incomeAmount(person, type) {
-            return (person.incomes && person.incomes[type]) ? person.incomes[type].amount :
-                "";
+            return person.incomes && person.incomes[type] ? person.incomes[type].amount : 0;
         }
 
         function incomeFrequency(person, type) {
-            return (person.incomes && person.incomes[type]) ? person.incomes[type].freq :
-                "";
+            return person.incomes && person.incomes[type] ? person.incomes[type].freq : "";
         }
 
         form.innerHTML = this.template({
@@ -592,7 +613,7 @@
         this.listEl = qs("#income .person-list");
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
-        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView});
+        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView, peopleMethod: this.model.sortedHousehold});
     }
 
     IncomeView.prototype.render = function() {
@@ -983,7 +1004,10 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
-        // TODO: send model values to server
+        var xhttp = new XMLHttpRequest()
+        xhttp.open("POST", submitURL, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("data=" + JSON.stringify(this.model.data));
         this.model.clear();
         this.setView("submitted");
     };
@@ -1014,12 +1038,12 @@
     Controller.prototype.loadView = function(id, options) {
         options = options || {};
 
-        console.debug("setting view '%s'", id);
+        //console.debug("setting view '%s'", id);
 
         // TODO would be great to move this and the next if statement to some isolated biz logic method
         var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild; });
         if ((id === "adults" || id === "income") && (this.model.get("hasOtherHelp") || allFosterKids)) {
-            console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
+            //console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
             return;
         }
@@ -1145,7 +1169,7 @@
 
         var initialViewId = "get-started";
 
-        initDebugging();
+        //initDebugging();
 
         function loadView(event, initial) {
             var options = {initial: !!initial};

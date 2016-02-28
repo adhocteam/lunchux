@@ -75,14 +75,18 @@
 
     Model.prototype.setInitialHousehold = function() {
         this.data.people = [];
-        this.data.people.push(new Person({name: "Kid #1", ageClass: AgeClass.child}));
-        this.data.people.push(new Person({name: "Adult #1", ageClass: AgeClass.adult}));
+        this.data.people.push(new Person({ageClass: AgeClass.child}));
+        this.data.people.push(new Person({ageClass: AgeClass.adult}));
         this.save();
     };
 
     Model.prototype.addPerson = function(options) {
-        var person = new Person(options);
-        this.data.people.push(person);
+        if (options instanceof Person) {
+            this.data.people.push(options);
+        } else {
+            var person = new Person(options);
+            this.data.people.push(person);
+        }
         this.save();
         this.events.notify("addedPerson", person);
     };
@@ -164,6 +168,19 @@
 
     Model.prototype.adults = function() {
         return this.all().people.filter(function(person) { return person.ageClass === AgeClass.adult; });
+    };
+
+    Model.prototype.sortedHousehold = function() {
+        var household = this.all().people;
+        household.sort(function(a, b) {
+            if (a.ageClass === b.ageClass) {
+                var x = a.id;
+                var y = b.id;
+                return x < y ? -1 : x > y ? 1 : 0;
+            }
+            return a.ageClass - b.ageClass;
+        });
+        return household;
     };
 
     Model.prototype.on = function(type, handler) {
