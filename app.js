@@ -742,8 +742,9 @@
         this.el = null;
         this.model = options.model;
         this.childViews = [];
+        this.events = new LunchUX.Event();
 
-        this.events = [
+        this.eventTypes = [
             "toggleDetailsForm",
             "handleSaveBtnClick"
         ];
@@ -753,7 +754,7 @@
         var div = document.createElement("div");
         var childView = new IncomePersonView({person: person, model: this.model, el: div});
         this.el.appendChild(childView.render().el);
-        this.events.forEach(function(event) {
+        this.eventTypes.forEach(function(event) {
             childView.bind(event, function() {
                 if (this[event]) {
                     this[event].apply(this, Array.prototype.slice.call(arguments));
@@ -762,6 +763,7 @@
         }.bind(this));
         childView.events.bind("saved", function(options) {
             this.expandNextUnanswered();
+            this.events.notify("saved");
         }.bind(this));
         this.childViews.push(childView);
     };
@@ -799,7 +801,7 @@
     }
 
     IncomeListView.prototype.bind = function(event, handler) {
-        if (this.events.indexOf(event) === -1) {
+        if (this.eventTypes.indexOf(event) === -1) {
             throw new Error("tried to bind an unknown event for this view: '" + event + "'");
         }
         this[event] = handler;
@@ -811,12 +813,30 @@
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
         this.listView = new IncomeListView({el: this.listEl, model: this.model});
+
+        this.listView.events.bind("saved", this.renderContinueBtn.bind(this));
     }
 
     IncomeView.prototype.render = function() {
         empty(this.listEl);
         this.listEl.appendChild(this.listView.render().el);
         this.numPeopleEl.innerHTML = pluralize(this.model.all().people.length, "person", "people");
+        this.renderContinueBtn();
+    };
+
+    IncomeView.prototype.renderContinueBtn = function() {
+        var continueBtn = qs(".income-form button", this.el);
+        if (!this.isValid()) {
+            continueBtn.disabled = true;
+        } else {
+            continueBtn.disabled = false;
+        }
+    };
+
+    IncomeView.prototype.isValid = function() {
+        return this.listView.childViews.all(function(view) {
+            return hasAnsweredIncome(view.person);
+        });
     };
 
     IncomeView.prototype.bind = function(event, handler) {
