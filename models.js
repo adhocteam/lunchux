@@ -110,7 +110,7 @@
         this.formDisplay = [];
     };
 
-    Model.prototype.toggleDetailsForm = function(view) {
+    Model.prototype.toggleDetailsForm = function(view, skipToggleEditing) {
         var state;
         var found = false;
 
@@ -135,9 +135,13 @@
                     this.events.notify("toggleDetailsForm", s.view, false);
                 }
             }.bind(this));
-            this.startEditing(view.person);
+            if (!skipToggleEditing) {
+                this.startEditing(view.person);
+            }
         } else {
-            this.stopEditing();
+            if (!skipToggleEditing) {
+                this.stopEditing();
+            }
         }
 
         this.events.notify("toggleDetailsForm", view, state.show);
@@ -231,19 +235,6 @@
         this.data[prop] = value;
         this.save();
         this.events.notify("updated:" + prop);
-    };
-
-    Model.prototype.updatePersonIncome = function(person, type, options) {
-        if (!this.personIsBeingEdited(person)) {
-            console.error("view state out of sync -- expected editingPerson id (%d) to match update id (%d)", person.id, this.editingPerson.id);
-            return;
-        }
-        var incomes = this.editingPerson.incomes || {};
-        var income = incomes[type] || {};
-        extend(income, options);
-        incomes[type] = income;
-        this.editingPerson.incomes = incomes;
-        this.events.notify("editedPerson");
     };
 
     Model.prototype.hasExistingSession = function() {

@@ -196,7 +196,7 @@
         case "handleSaveBtnClick":
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
-                handler(this, this.person);
+                handler({view: this, person: this.person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
@@ -388,7 +388,7 @@
             break;
         case "handleSaveBtnClick":
             $delegate(this.el, "button.save", "click", function(event) {
-                handler(this, this.person);
+                handler({view: this, person: this.person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
@@ -669,27 +669,33 @@
                 handler(this);
             }.bind(this));
             break;
-        case "handleIncomeAmountInput":
-            $delegate(this.el, "input", "input", function(event) {
-                var bits = event.target.name.split(/-/);
-                var type = bits[1];
-                var amount = parseInt(event.target.value, 10);
-                // TODO handle NaN
-                handler(this.person, type, {amount: amount});
-            }.bind(this));
-            break;
-        case "handleIncomeFrequencyChange":
-            $delegate(this.el, "select", "change", function(event) {
-                var bits = event.target.name.split(/-/);
-                var type = bits[1];
-                handler(this.person, type, {freq: event.target.value});
-            }.bind(this));
-            break;
         case "handleSaveBtnClick":
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
-                handler(this, this.person);
-                this.events.notify("saved", {view: this, person: this.person});
+                var form = event.target;
+                var incomes = {};
+                incomeTypes.forEach(function(type) {
+                    var type = type.value;
+                    var hasIncome = qs("[name=has-income-"+type+"]:checked", form).value === "yes";
+                    if (!hasIncome) {
+                        incomes[type] = {
+                            amount: 0,
+                            freq: "",
+                            answered: true
+                        }
+                    } else {
+                        var amount = parseInt(qs("[name=income-"+type+"-amount]", form).value, 10);
+                        var freq = qs("[name=income-"+type+"-freq]", form).value;
+                        incomes[type] = {
+                            amount: amount,
+                            freq: freq,
+                            answered: true
+                        }
+                    }
+                }.bind(this));
+                var person = this.person;
+                person.incomes = incomes;
+                handler({view: this, person: person, skipToggleEditing: true});
             }.bind(this));
             break;
         }
@@ -702,9 +708,7 @@
 
         this.events = [
             "toggleDetailsForm",
-            "handleSaveBtnClick",
-            "handleIncomeAmountInput",
-            "handleIncomeFrequencyChange"
+            "handleSaveBtnClick"
         ];
     }
 
@@ -1070,8 +1074,6 @@
             ],
             "income": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleIncomeAmountInput", handler: this.handleIncomeUpdate.bind(this)},
-                {event: "handleIncomeFrequencyChange", handler: this.handleIncomeUpdate.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)}
             ],
             "review": [],
@@ -1110,9 +1112,9 @@
         this.model.updatePerson(person, {races: races});
     };
 
-    Controller.prototype.handleSaveBtnClick = function(view, person) {
-        this.model.savePerson(person);
-        this.model.toggleDetailsForm(view);
+    Controller.prototype.handleSaveBtnClick = function(options) {
+        this.model.savePerson(options.person);
+        this.model.toggleDetailsForm(options.view, options.skipToggleEditing);
     };
 
     Controller.prototype.handleDeleteBtnClick = function(person) {
@@ -1130,10 +1132,6 @@
             }.bind(this));
         }
         this.setView(options.nextScreenId);
-    };
-
-    Controller.prototype.handleIncomeUpdate = function(person, type, options) {
-        this.model.updatePersonIncome(person, type, options);
     };
 
     Controller.prototype.handleHasAddressRadioClick = function(hasAddress) {
