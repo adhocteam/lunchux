@@ -694,21 +694,75 @@
         }
     };
 
+    function IncomeListView(options) {
+        this.el = null;
+        this.model = options.model;
+        this.childViews = [];
+
+        this.events = [
+            "toggleDetailsForm",
+            "handleSaveBtnClick",
+            "handleIncomeAmountInput",
+            "handleIncomeFrequencyChange"
+        ];
+    }
+
+    IncomeListView.prototype.addOne = function(person, options) {
+        var div = document.createElement("div");
+        var childView = new IncomePersonView({person: person, model: this.model, el: div});
+        this.el.appendChild(childView.render().el);
+        this.events.forEach(function(event) {
+            childView.bind(event, function() {
+                if (this[event]) {
+                    this[event].apply(this, Array.prototype.slice.call(arguments));
+                }
+            }.bind(this));
+        }.bind(this));
+        this.childViews.push(childView);
+
+        options = options || {};
+        if (options.expand) {
+            this.model.toggleDetailsForm(childView);
+        }
+    };
+
+    IncomeListView.prototype.render = function() {
+        this.el = document.createElement("div");
+        var people = this.model.sortedHousehold();
+        var expandedFirst = false;
+        people.forEach(function(person) {
+            var options = {expand: false};
+            if (person.name === "" && !expandedFirst) {
+                options.expand = true;
+                expandedFirst = true;
+            }
+            this.addOne(person, options);
+        }.bind(this));
+        return this;
+    };
+
+    IncomeListView.prototype.bind = function(event, handler) {
+        if (this.events.indexOf(event) === -1) {
+            throw new Error("tried to bind an unknown event for this view: '" + event + "'");
+        }
+        this[event] = handler;
+    };
+
     function IncomeView(options) {
         this.listEl = qs("#income .person-list");
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
-        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView, peopleMethod: this.model.sortedHousehold});
+        this.listView = new IncomeListView({el: this.listEl, model: this.model});
     }
 
     IncomeView.prototype.render = function() {
         empty(this.listEl);
-        this.listEl.appendChild(this.peopleListView.render().el);
+        this.listEl.appendChild(this.listView.render().el);
         this.numPeopleEl.innerHTML = pluralize(this.model.all().people.length, "person", "people");
     };
 
     IncomeView.prototype.bind = function(event, handler) {
-        this.peopleListView.bind(event, handler);
+        this.listView.bind(event, handler);
     };
 
     function pluralize(number, singular, plural) {
