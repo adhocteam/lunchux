@@ -1272,6 +1272,8 @@
             appContainer.appendChild(div);
             var view = new ViewToLoad({model: this.model, template: template, el: div});
             view.render();
+            var nav = qs("header .nav")
+            window.scroll(0, nav.offsetTop + nav.clientHeight);
             this.activeView = view;
             if (this.handlers[id]) {
                 this.handlers[id].forEach(function(handler) {
