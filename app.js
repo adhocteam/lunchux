@@ -466,7 +466,7 @@
         switch (event) {
         case "handleAddPersonClick":
             unloader = $on(qs("#adults .add-person .actions"), "click", function(event) {
-                handler({name: "Adult #" + (this.model.adults().length + 1), ageClass: LunchUX.AgeClass.adult});
+                handler({ageClass: LunchUX.AgeClass.adult});
             }.bind(this));
             this.unloaders.push(unloader);
             break;
