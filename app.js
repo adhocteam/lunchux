@@ -1004,7 +1004,10 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
-        // TODO: send model values to server
+        var xhttp = new XMLHttpRequest()
+        xhttp.open("POST", submitURL, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("data=" + JSON.stringify(this.model.data));
         this.model.clear();
         this.setView("submitted");
     };
