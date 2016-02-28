@@ -29,7 +29,8 @@
               <li><a href="#other-help">Assistance</a></li>
               <li><a href="#adults">Adults</a></li>
               <li><a href="#income">Income</a></li>
-              <li><a href="#review">Verify</a></li>
+              <li><a href="#review">Review</a></li>
+              <li><a href="#contact">Contact &amp; Sign</a></li>
             </ul>
             <div class="existing-session hide">
               Welcome back!
@@ -60,6 +61,16 @@
           <span class='prog-bar'></span>
           <li class='prog-round'>
             <a href="#review"><span class='prog-label'>Verify</span></a>
+          </li>
+          
+          <span class='prog-bar'></span>
+          <li class='prog-round'>
+            <a href="#review"><span class='prog-label'>Review</span></a>
+          </li>
+          
+          <span class='prog-bar'></span>
+          <li class='prog-round'>
+            <a href="#contact"><span class='prog-label'>Contact &amp; Sign</span></a>
           </li>
         </ul>
 
@@ -182,26 +193,6 @@
               </div>
             </div>
 
-            <p><b>We are required to ask for information about your children’s race and ethnicity.</b></p>
-
-            <p>This information is important and helps to make sure we are fully serving our community. Responding to this section is optional and does not affect your children’s eligibility for free or reduced price meals.</p>
-
-            <h4>Ethnicity</h4>
-            <div class="normal-label">
-              <label><input name="is-hispanic" type="radio" value="yes" required <%= tribool(person.isHispanic, true) %>> Hispanic or Latino</label>
-              <label><input name="is-hispanic" type="radio" value="no" <%= tribool(person.isHispanic, false) %>> Not Hispanic nor Latino</label>
-              <label><input name="is-hispanic" type="radio" value="declined" <%= tribool(person.isHispanicDeclined, true) %>> Decline to answer</label>
-            </div>
-
-            <h4>Race</h4>
-            <div class="normal-label">
-              <% races.map(function(r) { %>
-              <label>
-                <input type="checkbox" name="race" value="<%= r.value %>" <%= (person.races.indexOf(r.value) >= 0 ? "checked" : "") %>> <%= r.label %>
-              </label>
-              <% }) %>
-            </div>
-
             <div class="button-group justify">
               <button class="button save">Save</button>
               <a class="button remove" href="#">Remove</a>
@@ -277,6 +268,7 @@
           <div><b><%= person.name %>:</b>
             <li class='styled-list'>has <%= incomeText(person) %>.</li>
           </div>
+
         </script>
         
         <script type="text/template" id="adult-summary-template">

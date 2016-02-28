@@ -11,9 +11,6 @@
         this.isStudent = options.isStudent;
         this.isFosterChild = options.isFosterChild;
         this.isHomeless = options.isHomeless;
-        this.isHispanic = options.isHispanic;
-        this.isHispanicDeclined = options.isHispanicDeclined;
-        this.races = options.races || [];
         this.incomes = options.incomes || {};
     }
 
@@ -69,7 +66,10 @@
             readNonDiscriminationStatement: false,
             readUseOfInformationStatement: false,
             signature: "",
-            completed: {}
+            completed: {},
+            isHispanic: undefined,
+            isHispanicDeclined: undefined,
+            races: []
         };
     };
 

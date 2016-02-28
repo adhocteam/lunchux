@@ -27,81 +27,10 @@
       <a class="button" href="#adults">Edit</a>
     </div>
   </div>
-
-  <form>
-    <div class="contact-info">
-      <h3>Contact information</h3>
-      <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
-      <div class="form-controls-group">
-        <div>
-          <label for="phone-number">Phone number:
-            <input type="tel" name="phone" id="phone-number" value="" placeholder="(555) 555-1212">
-          </label>
-        </div>
-        <div>
-          <label for="email-address">Email address:
-            <input type="email" name="email" value="" id="email-address" placeholder="email@example.com">
-          </label>
-        </div>
-      </div>
-
-      <p><b>Is there an address we can share?</b> If not, that’s ok! It won’t affect the application.</p>
-
-      <div class="form-controls-group">
-        <div class="radio-group">
-          <div class='radio-selection'>
-            <label><input type="radio" name="has-address" value="yes" required> Yes</label>
-
-            <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
-                <label>Street address:<br>
-                  <input type="text" name="street" value="" placeholder="123 Fake St">
-                </label>
-                <label>City:<br>
-                  <input type="text" name="city" value="" placeholder="Anytown">
-                </label>
-                <label>State:<br>
-                  <select name="state">
-                    <option value=""></option>
-                  </select>
-                </label>
-                <label>ZIP Code:<br>
-                  <input type="text" name="zip" value="" placeholder="99999">
-                </label>
-            </div>
-
-          </div>
-
-          <div class='radio-selection'>
-            <label><input type="radio" name="has-address" value="no"> No</label>
-          </div>
-
-
-      </div>
-    </div>
-
-    <div class="agreements inner-section">
-      <h2>Almost done!</h2>
-      <p>We have to show you some information before you submit this application.</p>
-      <ul>
-        <li><a class='button info' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
-        <li><a class='button info' href="#use-of-info-statement">Use of information statement</a></li>
-      </ul>
-    </div>
-
-    <div class="sign-form inner-section last">
-      <h2>Time to sign!</h2>
-      <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
-      <div class="form-controls-group">
-        <div>
-          <label>
-            Type your name:<br>
-            <input type="text" name="signature" placeholder="Your name" required>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div>
-      <button class="button fwd submit">Send your application</button>
-    </div>
-  </form>
+  
+  <div class="button-group">
+    <a class="button fwd" href="#contact">Continue</a>
+    <a class="button back" href="#income">Back</a>
+  </div>
+      
 </section>
