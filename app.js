@@ -282,6 +282,9 @@
         this.listenersToUnload = [];
         this.peopleListView = null;
         this.model = options.model;
+
+        this.model.on("addedPerson", this.setNumPeople.bind(this));
+        this.model.on("deletedPerson", this.setNumPeople.bind(this));
     }
 
     KidListView.prototype.bind = function(event, handler) {
@@ -302,6 +305,10 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: KidPersonView, model: this.model, peopleMethod: this.model.kids});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
+        this.setNumPeople();
+    };
+
+    KidListView.prototype.setNumPeople = function() {
         this.numPeopleEl.innerHTML = pluralize(this.model.kids().length, "kid");
     };
 
@@ -390,15 +397,22 @@
         this.peopleListView = null;
         this.model = options.model;
         this.unloaders = [];
+
         this.model.on("updated:hasSSN", function() {
             qs(".last-4-ssn-control", this.ssnFormEl).style.display = this.model.get("hasSSN") ? "block" : "none";
         }.bind(this));
+        this.model.on("addedPerson", this.setNumPeople.bind(this));
+        this.model.on("deletedPerson", this.setNumPeople.bind(this));
     }
 
     AdultListView.prototype.render = function() {
         var peopleListView = this.peopleListView = new PeopleListView({personView: AdultPersonView, model: this.model, peopleMethod: this.model.adults});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
+        this.setNumPeople();
+    };
+
+    AdultListView.prototype.setNumPeople = function() {
         this.numPeopleEl.innerHTML = pluralize(this.model.adults().length, "adult");
     };
 
