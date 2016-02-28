@@ -1061,12 +1061,16 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
-        var xhttp = new XMLHttpRequest()
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (xhttp.readyState == 4 && xhttp.status == 200) {
+            this.model.clear();
+            this.setView("submitted");
+          }
+        }.bind(this);
         xhttp.open("POST", submitURL, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("data=" + JSON.stringify(this.model.data));
-        this.model.clear();
-        this.setView("submitted");
     };
 
     Controller.prototype.setView = function(id) {
