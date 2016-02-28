@@ -985,6 +985,7 @@
             var unloader = $on(this.formEl, "submit", function(event) {
                 event.preventDefault();
                 if (window.confirm("Are you sure you want to submit your application?")) {
+                    // TODO: change this to use serializeForm + updateFromForm
                     var form = event.target;
                     var elements = Array.prototype.slice.call(form);
                     var values = [];
