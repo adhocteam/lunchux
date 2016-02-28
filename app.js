@@ -269,8 +269,7 @@
 
     PeopleListView.prototype.bind = function(event, handler) {
         if (this.events.indexOf(event) === -1) {
-            console.error("tried to bind an unknown event for this view: '%s'", event);
-            return;
+            throw new Error("tried to bind an unknown event for this view: '" + event + "'");
         }
         this[event] = handler;
     };
@@ -1014,12 +1013,12 @@
     Controller.prototype.loadView = function(id, options) {
         options = options || {};
 
-        console.debug("setting view '%s'", id);
+        //console.debug("setting view '%s'", id);
 
         // TODO would be great to move this and the next if statement to some isolated biz logic method
         var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild; });
         if ((id === "adults" || id === "income") && (this.model.get("hasOtherHelp") || allFosterKids)) {
-            console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
+            //console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
             return;
         }
