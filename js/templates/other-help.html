@@ -59,16 +59,14 @@
         <div class='radio-selection'>
         <label><input type="radio" name="has-other-help" value="yes" required>Yes</label>
 
-        <div class="case-number-control" style="display: none"> <!-- initially hidden, visibility conditional on has-other-help checked -->
-            <label>Case Number</label>
-            <input type="text" name="case-number" placeholder="Case Number">
-
+        <!-- initially hidden, visibility conditional on has-other-help checked -->
+        <div class="case-number-control" style="display: none"> 
+          <label>Case Number</label>
+          <input type="text" name="case-number" placeholder="Case Number">
 
           <!-- Modal -->
 
-          <p>
-            Please enter just one
-
+          <div id='case-entry'>Please enter just one
             <div class="modal">
               <label for="modal-4">
                 <div class="modal-trigger">case number: <span class='question-mark-small'></span></div>
@@ -83,13 +81,14 @@
               </div>
             </div>
 
-          </p>
+          </div>
 
           <!--/modal -->
 
         </div>
 
       </div>
+    </div>
 
 
       <div class="radio-selection">
