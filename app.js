@@ -106,7 +106,8 @@
     }
 
     PersonView.prototype.render = function() {
-        this.el.innerHTML = this.template({person: this.person});
+        var displayName = this.person.name ? this.person.name : this.person.ageClass === LunchUX.AgeClass.child ? "Kid (needs name!)" : "Adult (needs name!)";
+        this.el.innerHTML = this.template({person: this.person, displayName: displayName});
         return this;
     };
 
@@ -288,7 +289,7 @@
         case "handleAddPersonClick":
             var unload = $on(qs(".actions", this.addPersonEl), "click", function(event) {
                 // TODO: move details to controller/handler
-                handler({name: "Kid #" + (this.model.kids().length + 1), ageClass: LunchUX.AgeClass.child});
+                handler({ageClass: LunchUX.AgeClass.child});
             }.bind(this));
             this.listenersToUnload.push(unload);
             break;

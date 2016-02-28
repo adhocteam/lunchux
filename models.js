@@ -75,8 +75,8 @@
 
     Model.prototype.setInitialHousehold = function() {
         this.data.people = [];
-        this.data.people.push(new Person({name: "Kid #1", ageClass: AgeClass.child}));
-        this.data.people.push(new Person({name: "Adult #1", ageClass: AgeClass.adult}));
+        this.data.people.push(new Person({ageClass: AgeClass.child}));
+        this.data.people.push(new Person({ageClass: AgeClass.adult}));
         this.save();
     };
 

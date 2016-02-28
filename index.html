@@ -90,7 +90,7 @@
         <script type="text/template" id="person-template">
           <li class="person valid">
             <div class="person-name-bar">
-              <div class="person-name"><%= person.name %></div>
+              <div class="person-name"><%= displayName %></div>
               <div class="actions">Edit</div>
             </div>
           </li>
@@ -207,7 +207,7 @@
             <div>
               <label>
                 Full name (first, middle, last; ex: Pat J. Smith)<br>
-                <input name="name" type="text" placeholder="Name" value="<%- person.name %>">
+                <input name="name" type="text" placeholder="Name" required value="<%- person.name %>">
               </label>
             </div>
             <div class="button-group justify">
