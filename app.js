@@ -391,25 +391,66 @@
     };
 
     function AdultListView(options) {
+        this.el = qs("#adults");
         this.listEl = qs("#adults .person-list");
         this.numPeopleEl = qs("#adults .num-people");
         this.ssnFormEl = qs("#adults .ssn-form");
+        this.last4SSNEl = qs("[name=last-4-ssn]", this.el);
         this.peopleListView = null;
         this.model = options.model;
         this.unloaders = [];
 
-        this.model.on("updated:hasSSN", function() {
-            qs(".last-4-ssn-control", this.ssnFormEl).style.display = this.model.get("hasSSN") ? "block" : "none";
-        }.bind(this));
         this.model.on("addedPerson", this.setNumPeople.bind(this));
         this.model.on("deletedPerson", this.setNumPeople.bind(this));
+
+        var radioBtns = qsa("[name=has-ssn]", this.el);
+        radioBtns.forEach(function(btn) {
+            var unload = $on(btn, "change", function(event) {
+                var el = event.target;
+                this.toggleSSNDisplay(el.value === "yes" && el.checked);
+            }.bind(this));
+            this.unloaders.push(unload);
+        }.bind(this));
+
+        var unload = $on(this.last4SSNEl, "input", function(event) {
+            var radio = qs("[name=has-ssn]:checked");
+            if (radio) {
+                if (radio.value === "yes" && this.last4SSNEl.value === "") {
+                    this.last4SSNEl.setCustomValidity("Please supply the last 4 digits of the SSN.");
+                } else {
+                    this.last4SSNEl.setCustomValidity("");
+                }
+            }
+        }.bind(this));
     }
+
+    AdultListView.prototype.toggleSSNDisplay = function(isDisplayed) {
+        var el = qs(".last-4-ssn-control", this.el);
+        if (isDisplayed) {
+            el.style.display = "block";
+            this.last4SSNEl.setCustomValidity("Please supply the last 4 digits of the SSN.");
+        } else {
+            el.style.display = "none";
+            this.last4SSNEl.setCustomValidity("");
+        }
+    };
 
     AdultListView.prototype.render = function() {
         var peopleListView = this.peopleListView = new PeopleListView({personView: AdultPersonView, model: this.model, peopleMethod: this.model.adults});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
         this.setNumPeople();
+
+        var last4SSN = this.model.get("last4SSN");
+        if (last4SSN) {
+            var el = qs("[name=last-4-ssn]", this.el);
+            el.value = last4SSN;
+            var radioBtn = qs("[name=has-ssn][value=yes]", this.el);
+            radioBtn.checked = true;
+        } else {
+            var radioBtn = qs("[name=has-ssn][value=no]", this.el);
+            radioBtn.checked = true;
+        }
     };
 
     AdultListView.prototype.setNumPeople = function() {
@@ -419,20 +460,6 @@
     AdultListView.prototype.bind = function(event, handler) {
         var unloader;
         switch (event) {
-        case "handleLast4SSNInput":
-            unloader = $on(qs("[name=last-4-ssn]", this.ssnFormEl), "input", function(event) {
-                handler(event.target.value);
-            }.bind(this));
-            this.unloaders.push(unloader);
-            break;
-        case "handleHasSSNRadioClick":
-            qsa("[name=has-ssn]", this.ssnFormEl).forEach(function(el) {
-                var unloader = $on(el, "click", function(event) {
-                    handler(event.target.value === "yes" && event.target.checked);
-                }.bind(this));
-                this.unloaders.push(unloader);
-            }.bind(this));
-            break;
         case "handleAddPersonClick":
             unloader = $on(qs("#adults .add-person .actions"), "click", function(event) {
                 handler({name: "Adult #" + (this.model.adults().length + 1), ageClass: LunchUX.AgeClass.adult});
@@ -442,9 +469,17 @@
         case "handleContinueBtnClick":
             unloader = $on(qs("#adults form.ssn-form"), "submit", function(event) {
                 event.preventDefault();
-                var submitBtn = qs("button.button", event.target);
-                var nextScreenId = submitBtn.getAttribute("data-next-screen");
-                handler({nextScreenId: nextScreenId});
+                var last4SSN = "";
+                var hasSSN = qs("[name=has-ssn]:checked", this.el);
+                if (hasSSN.value === "yes") {
+                    last4SSN = this.last4SSNEl.value;
+                }
+                var continueBtn = qs("button.button", event.target);
+                var nextScreenId = continueBtn.getAttribute("data-next-screen");
+                handler({
+                    modelUpdates: [{name: "last4SSN", value: last4SSN}],
+                    nextScreenId: nextScreenId
+                });
             }.bind(this));
             this.unloaders.push(unloader);
             break;
@@ -460,38 +495,62 @@
     };
 
     function OtherHelpView(options) {
+        this.el = options.el;
         this.otherHelpFormEl = qs("#other-help .other-help-form");
+        this.caseNumberEl = qs("[name=case-number]", this.el);
         this.model = options.model;
+        this.template = options.template;
         this.unloaders = [];
-        this.model.on("updated:hasOtherHelp", function() {
-            qs(".case-number-control", this.otherHelpFormEl).style.display = this.model.get("hasOtherHelp") ? "block" : "none";
-        }.bind(this));
-    }
 
-    OtherHelpView.prototype.bind = function(event, handler) {
-        var unload;
-        switch (event) {
-        case "handleHasOtherHelpRadioClick":
-            qsa("[name=has-other-help]", this.otherHelpFormEl).forEach(function(el) {
-                var unload = $on(el, "click", function(event) {
-                    handler(event.target.value === "yes" && event.target.checked);
-                }.bind(this));
-                this.unloaders.push(unload);
-            }.bind(this));
-            break;
-        case "handleCaseNumberInput":
-            var caseNumber = qs("[name=case-number]", this.otherHelpFormEl);
-            unload = $on(caseNumber, "input", function(event) {
-                handler(caseNumber.value);
+        var radioBtns = qsa("[name=has-other-help]", this.el);
+        radioBtns.forEach(function(btn) {
+            var unload = $on(btn, "change", function(event) {
+                var el = event.target;
+                this.toggleCaseNumberDisplay(el.value === "yes" && el.checked);
             }.bind(this));
             this.unloaders.push(unload);
-            break;
+        }.bind(this))
+
+        var unload = $on(this.caseNumberEl, "input", function(event) {
+            var radio = qs("[name=has-other-help]:checked");
+            if (radio) {
+                if (radio.value === "yes" && this.caseNumberEl.value === "") {
+                    this.caseNumberEl.setCustomValidity("Please supply a case number.");
+                } else {
+                    this.caseNumberEl.setCustomValidity("");
+                }
+            }
+        }.bind(this));
+        this.unloaders.push(unload);
+    }
+
+    OtherHelpView.prototype.toggleCaseNumberDisplay = function(isDisplayed) {
+        var el = qs(".case-number-control", this.el);
+        if (isDisplayed) {
+            el.style.display = "block";
+            this.caseNumberEl.setCustomValidity("Please supply a case number.");
+        } else {
+            el.style.display = "none";
+            this.caseNumberEl.setCustomValidity("");
+        }
+    };
+
+    OtherHelpView.prototype.bind = function(event, handler) {
+        switch (event) {
         case "handleContinueBtnClick":
-            unload = $on(qs("#other-help form"), "submit", function(event) {
+            var unload = $on(qs("#other-help form"), "submit", function(event) {
                 event.preventDefault();
-                var submitBtn = qs("button.button", event.target);
-                var nextScreenId = submitBtn.getAttribute("data-next-screen");
-                handler({nextScreenId: nextScreenId});
+                var caseNumber = "";
+                var hasOtherHelp = qs("[name=has-other-help]:checked", this.el);
+                if (hasOtherHelp.value === "yes") {
+                    caseNumber = this.caseNumberEl.value;
+                }
+                var continueBtn = qs("button.button", event.target);
+                var nextScreenId = continueBtn.getAttribute("data-next-screen");
+                handler({
+                    modelUpdates: [{name: "caseNumber", "value": caseNumber}],
+                    nextScreenId: nextScreenId
+                });
             }.bind(this));
             this.unloaders.push(unload);
             break;
@@ -504,7 +563,19 @@
         });
     };
 
-    OtherHelpView.prototype.render = function() {};
+    OtherHelpView.prototype.render = function() {
+        var caseNumber = this.model.get("caseNumber");
+        if (caseNumber) {
+            this.toggleCaseNumberDisplay(true);
+            var el = qs("[name=case-number]", this.el);
+            el.value = caseNumber;
+            var radio = qs("[name=has-other-help][value=yes]")
+            radio.checked = true;
+        } else {
+            var radio = qs("[name=has-other-help][value=no]")
+            radio.checked = true;
+        }
+    };
 
     function IncomePersonView(options) {
         this.el = options.el;
@@ -721,10 +792,10 @@
             adultSummary: this.adultSummary.bind(this),
         });
 
-        this.otherHelpEl.innerHTML = this.model.get("hasOtherHelp") ? "Someone in your household receives SNAP, TANF, or FDPIR." :
+        this.otherHelpEl.innerHTML = this.model.get("caseNumber") ? "Someone in your household receives SNAP, TANF, or FDPIR." :
             "Nobody in your household receives other assistance.";
 
-        this.ssnEl.innerHTML = this.model.get("hasSSN") ? '<p>You told us the last four digits of your SSN are:</p><div class="ssn">XXX-XXX-' + this.model.get("last4SSN") + '</div>' : "Nobody in your household has a Social Security number.";
+        this.ssnEl.innerHTML = this.model.get("last4SSN") ? '<p>You told us the last four digits of your SSN are:</p><div class="ssn">XXX-XXX-' + this.model.get("last4SSN") + '</div>' : "Nobody in your household has a Social Security number.";
     };
 
     ReviewView.prototype.incomeText = function(p) {
@@ -908,14 +979,10 @@
                 {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
-                {event: "handleLast4SSNInput", handler: this.handleLast4SSNInput.bind(this)},
-                {event: "handleHasSSNRadioClick", handler: this.handleHasSSNRadioClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
                 {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "other-help": [
-                {event: "handleHasOtherHelpRadioClick", handler: this.handleHasOtherHelpRadioClick.bind(this)},
-                {event: "handleCaseNumberInput", handler: this.handleCaseNumberInput.bind(this)},
                 {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "income": [
@@ -973,24 +1040,13 @@
         this.model.addPerson(options);
     };
 
-    Controller.prototype.handleLast4SSNInput = function(last4SSN) {
-        this.model.set("last4SSN", last4SSN);
-    };
-
-    Controller.prototype.handleHasSSNRadioClick = function(hasSSN) {
-        this.model.set("hasSSN", hasSSN);
-    };
-
     Controller.prototype.handleContinueBtnClick = function(options) {
+        if (options.modelUpdates) {
+            options.modelUpdates.forEach(function(pair) {
+                this.model.set(pair.name, pair.value);
+            }.bind(this));
+        }
         this.setView(options.nextScreenId);
-    };
-
-    Controller.prototype.handleHasOtherHelpRadioClick = function(hasOtherHelp) {
-        this.model.set("hasOtherHelp", hasOtherHelp);
-    };
-
-    Controller.prototype.handleCaseNumberInput = function(caseNumber) {
-        this.model.set("caseNumber", caseNumber);
     };
 
     Controller.prototype.handleIncomeUpdate = function(person, type, options) {
@@ -1043,7 +1099,7 @@
 
         // TODO would be great to move this and the next if statement to some isolated biz logic method
         var allFosterKids = this.model.kids().all(function(p) { return p.isFosterChild; });
-        if ((id === "adults" || id === "income") && (this.model.get("hasOtherHelp") || allFosterKids)) {
+        if ((id === "adults" || id === "income") && (this.model.get("caseNumber") || allFosterKids)) {
             //console.debug("short-circuit %s due to hasOtherHelp == true || all foster kids", id);
             controller.setView("review");
             return;
@@ -1085,7 +1141,7 @@
             div.innerHTML = template();
             empty(appContainer);
             appContainer.appendChild(div);
-            var view = new ViewToLoad({model: this.model});
+            var view = new ViewToLoad({model: this.model, template: template, el: div});
             view.render();
             this.activeView = view;
             if (this.handlers[id]) {

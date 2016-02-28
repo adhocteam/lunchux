@@ -52,10 +52,8 @@
     Model.prototype.defaultValues = function() {
         return {
             people: [],
-            hasSSN: false,
-            last4SSN: "",
-            hasOtherHelp: false,
             caseNumber: "",
+            last4SSN: "",
             phone: "",
             email: "",
             hasAddress: false,
