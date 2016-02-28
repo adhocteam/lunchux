@@ -534,7 +534,39 @@ ul.review-list {
       background: rgba(0,0,0,.1);
       cursor: pointer;
     }
+    
+    .modal,
+    .modal-trigger,
+    .modal .modal-state:checked + .modal-fade-screen,
+     {
+      
+      padding:0;
+      margin:0;
+    }
+    
+    .modal-inner {
+      
+      padding: 3em;
+      margin:0 auto;
+      top:5.5em !important;
+    }
+    
+    .modal-fade-screen {
+      
+      background:rgba(0, 0, 0, 0.85);
+    }
+    
+    .modal-close {
+      
+      margin:0;
+    }
   }
+}
+
+#case-entry {
+  
+  padding:0;
+  margin:0;
 }
 
 #household-size .form-controls-group { display: flex; justify-content: space-around; text-align: left; }

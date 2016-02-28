@@ -698,6 +698,23 @@ ul.review-list {
   .radio-group div.radio-selection:hover {
     background: rgba(0, 0, 0, 0.1);
     cursor: pointer; }
+  .radio-group div.radio-selection .modal,
+  .radio-group div.radio-selection .modal-trigger,
+  .radio-group div.radio-selection .modal .modal-state:checked + .modal-fade-screen {
+    padding: 0;
+    margin: 0; }
+  .radio-group div.radio-selection .modal-inner {
+    padding: 3em;
+    margin: 0 auto;
+    top: 5.5em !important; }
+  .radio-group div.radio-selection .modal-fade-screen {
+    background: rgba(0, 0, 0, 0.85); }
+  .radio-group div.radio-selection .modal-close {
+    margin: 0; }
+
+#case-entry {
+  padding: 0;
+  margin: 0; }
 
 #household-size .form-controls-group {
   display: flex;
