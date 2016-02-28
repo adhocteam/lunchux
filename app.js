@@ -592,7 +592,7 @@
         this.listEl = qs("#income .person-list");
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
-        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView});
+        this.peopleListView = new PeopleListView({model: this.model, personView: IncomePersonView, peopleMethod: this.model.sortedHousehold});
     }
 
     IncomeView.prototype.render = function() {
