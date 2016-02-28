@@ -595,6 +595,7 @@
         this.model = options.model;
         this.person = options.person;
         this.template = templateFrom("#income-person-form-template");
+        this.events = new LunchUX.Event();
 
         this.model.on("toggleDetailsForm", function(view, show) {
             if (this === view) {
@@ -625,6 +626,12 @@
         qs(".details-form", this.el).style.display = "none";
     };
 
+    var incomeTypes = [
+        {label: 'work', value: 'work'},
+        {label: 'assistance programs, alimony, or child support', value: 'assistance'},
+        {label: 'pensions, retirement, or any other income', value: 'pensions'}
+    ];
+
     IncomePersonView.prototype.render = function() {
         var person = this.person;
         var personView = new PersonView({person: person, model: this.model});
@@ -633,12 +640,6 @@
         var li = qs("li", this.el);
         var form = document.createElement("div");
         li.appendChild(form);
-
-        var incomeTypes = [
-            {label: 'work', value: 'work'},
-            {label: 'assistance programs, alimony, or child support', value: 'assistance'},
-            {label: 'pensions, retirement, or any other income', value: 'pensions'}
-        ];
 
         var frequencies = ['pick one','hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
 
@@ -652,8 +653,7 @@
 
         form.innerHTML = this.template({
             person: person,
-            incomeTypes:
-            incomeTypes,
+            incomeTypes: incomeTypes,
             frequencies: frequencies,
             incomeAmount: incomeAmount,
             incomeFrequency: incomeFrequency
@@ -689,6 +689,7 @@
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
                 handler(this, this.person);
+                this.events.notify("saved", {view: this, person: this.person});
             }.bind(this));
             break;
         }
@@ -707,7 +708,7 @@
         ];
     }
 
-    IncomeListView.prototype.addOne = function(person, options) {
+    IncomeListView.prototype.addOne = function(person) {
         var div = document.createElement("div");
         var childView = new IncomePersonView({person: person, model: this.model, el: div});
         this.el.appendChild(childView.render().el);
@@ -718,28 +719,43 @@
                 }
             }.bind(this));
         }.bind(this));
+        childView.events.bind("saved", function(options) {
+            this.expandNextUnanswered();
+        }.bind(this));
         this.childViews.push(childView);
-
-        options = options || {};
-        if (options.expand) {
-            this.model.toggleDetailsForm(childView);
-        }
     };
 
     IncomeListView.prototype.render = function() {
         this.el = document.createElement("div");
         var people = this.model.sortedHousehold();
         var expandedFirst = false;
-        people.forEach(function(person) {
-            var options = {expand: false};
-            if (person.name === "" && !expandedFirst) {
-                options.expand = true;
-                expandedFirst = true;
-            }
-            this.addOne(person, options);
-        }.bind(this));
+        people.forEach(this.addOne.bind(this));
+        this.expandNextUnanswered();
         return this;
     };
+
+    IncomeListView.prototype.expandNextUnanswered = function() {
+        for (var i = 0; i < this.childViews.length; i++) {
+            var view = this.childViews[i];
+            var person = view.person;
+            if (!hasAnsweredIncome(person)) {
+                this.model.toggleDetailsForm(view);
+                break;
+            }
+        }
+    };
+
+    function hasAnsweredIncome(person) {
+        var incomes = person.incomes || {};
+        for (var i = 0; i < incomeTypes.length; i++) {
+            var type = incomeTypes[i].value;
+            if (!(type in incomes) ||
+                (incomes[type].amount < 0 || (income[type] > 0 && incomes[type].freq === ""))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     IncomeListView.prototype.bind = function(event, handler) {
         if (this.events.indexOf(event) === -1) {
