@@ -130,7 +130,7 @@
         }.bind(this));
 
         this.model.on("updatedPerson", function(options) {
-            if (options.current.id === this.person.id) {
+            if (options.person.id === this.person.id) {
                 this.render();
             }
         }.bind(this));
@@ -165,6 +165,54 @@
         return this;
     };
 
+    function serializeForm(form) {
+        var data = [];
+        var checkboxes = {};
+        for (var i = 0; i < form.elements.length; i++) {
+            var el = form.elements[i];
+            if (el.name === "") {
+                continue;
+            }
+            switch (el.type) {
+            case "text":
+            case "number":
+            case "tel":
+            case "email":
+                data.push({name: el.name, value: el.value});
+                break;
+            case "radio":
+                if (el.checked) {
+                    data.push({name: el.name, value: el.value});
+                }
+                break;
+            case "checkbox":
+                if (el.checked) {
+                    var values = checkboxes[el.name] || [];
+                    values.push(el.value);
+                    checkboxes[el.name] = values;
+                }
+                break;
+            default:
+                throw new Error("got unexpected form element type " + type);
+            }
+        }
+        for (var key in checkboxes) {
+            if (checkboxes.hasOwnProperty(key)) {
+                var values = checkboxes[key];
+                data.push({name: key, value: values});
+            }
+        }
+        return data;
+    }
+
+    function updateFromForm(obj, params) {
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i];
+            var prop = dashToCamel(param.name);
+            obj[prop] = param.value;
+        }
+    }
+
     KidPersonView.prototype.bind = function(event, handler) {
         switch (event) {
         case "toggleDetailsForm":
@@ -172,31 +220,13 @@
                 handler(this);
             }.bind(this));
             break;
-        case "handleNameInput":
-            $delegate(this.el, "[name=name]", "input", function(event) {
-                handler(this.person, event.target.value);
-            }.bind(this));
-            break;
-        case "handleBooleanRadioClick":
-            $delegate(this.el, "[type=radio]", "click", function(event) {
-                var input = event.target;
-                var checked = input.value === "yes" && input.checked;
-                handler(this.person, input.name, checked);
-            }.bind(this));
-            break;
-        case "handleRaceCheckboxClick":
-            $delegate(this.el, "[name=race]", "click", function(event) {
-                var checked = qsa("[name=race]:checked", this.el);
-                var races = checked.map(function(checkbox) {
-                    return checkbox.value;
-                });
-                handler(this.person, races);
-            }.bind(this));
-            break;
         case "handleSaveBtnClick":
             $delegate(this.el, "form", "submit", function(event) {
                 event.preventDefault();
-                handler({view: this, person: this.person});
+                var data = serializeForm(event.target);
+                var person = this.person;
+                updateFromForm(person, data);
+                handler({view: this, person: person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
@@ -220,9 +250,6 @@
 
         this.events = [
             "toggleDetailsForm",
-            "handleNameInput",
-            "handleBooleanRadioClick",
-            "handleRaceCheckboxClick",
             "handleSaveBtnClick",
             "handleDeleteBtnClick",
             "handleIncomeAmountInput",
@@ -348,7 +375,7 @@
         }.bind(this));
 
         this.model.on("updatedPerson", function(options) {
-            if (options.current.id === this.person.id) {
+            if (options.person.id === this.person.id) {
                 this.render();
             }
         }.bind(this));
@@ -379,11 +406,6 @@
         case "toggleDetailsForm":
             $delegate(this.el, ".actions", "click", function(event) {
                 handler(this);
-            }.bind(this));
-            break;
-        case "handleNameInput":
-            $delegate(this.el, "[name=name]", "input", function(event) {
-                handler(this.person, event.target.value);
             }.bind(this));
             break;
         case "handleSaveBtnClick":
@@ -695,7 +717,7 @@
                 }.bind(this));
                 var person = this.person;
                 person.incomes = incomes;
-                handler({view: this, person: person, skipToggleEditing: true});
+                handler({view: this, person: person});
             }.bind(this));
             break;
         }
@@ -1054,16 +1076,12 @@
             ],
             "kids": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
-                {event: "handleBooleanRadioClick", handler: this.handleBooleanRadioClick.bind(this)},
-                {event: "handleRaceCheckboxClick", handler: this.handleRaceCheckboxClick.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)}
             ],
             "adults": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleNameInput", handler: this.handleNameInput.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
                 {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
@@ -1092,29 +1110,9 @@
         this.model.toggleDetailsForm(view);
     };
 
-    Controller.prototype.handleNameInput = function(person, name) {
-        this.model.updatePerson(person, {name: name});
-    };
-
-    Controller.prototype.handleBooleanRadioClick = function(person, name, checked) {
-        var propNameMap = {
-            "is-student": "isStudent",
-            "is-homeless": "isHomeless",
-            "is-foster-child": "isFosterChild"
-        };
-        var propName = propNameMap[name];
-        var options = {};
-        options[propName] = checked;
-        this.model.updatePerson(person, options);
-    };
-
-    Controller.prototype.handleRaceCheckboxClick = function(person, races) {
-        this.model.updatePerson(person, {races: races});
-    };
-
     Controller.prototype.handleSaveBtnClick = function(options) {
         this.model.savePerson(options.person);
-        this.model.toggleDetailsForm(options.view, options.skipToggleEditing);
+        this.model.toggleDetailsForm(options.view);
     };
 
     Controller.prototype.handleDeleteBtnClick = function(person) {
@@ -1273,16 +1271,12 @@
                 return {view: state.view.person.id, show: state.show};
             });
             var extra = JSON.stringify({
-                editingPerson: model.editingPerson,
                 formDisplay: formDisplay
             }, null, 4);
             qs("#debug pre").innerText = "extra:\n" + extra + "\n\nmodel:\n" + store;
         }
 
         model.on("saved", updateDebugWindow);
-        model.on("startEditing", updateDebugWindow);
-        model.on("stopEditing", updateDebugWindow);
-        model.on("editedPerson", updateDebugWindow);
         controller.on("view:unloaded", updateDebugWindow);
         controller.on("view:loaded", updateDebugWindow);
         updateDebugWindow();
