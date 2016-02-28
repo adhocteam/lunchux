@@ -732,6 +732,7 @@
                 var person = this.person;
                 person.incomes = incomes;
                 handler({view: this, person: person});
+                this.events.notify("saved", {view: this});
             }.bind(this));
             break;
         }
