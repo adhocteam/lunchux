@@ -245,6 +245,10 @@
             }.bind(this));
         }.bind(this));
         this.childViews.push(personView);
+
+        if (person.name === "") {
+            this.model.toggleDetailsForm(personView);
+        }
     };
 
     PeopleListView.prototype.deleteOne = function(person) {
