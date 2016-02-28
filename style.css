@@ -2,4 +2,4 @@
 
 /* moved css to screen.scss */
 
-
+.person .actions { cursor: pointer; }
