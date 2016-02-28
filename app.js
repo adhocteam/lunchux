@@ -1039,7 +1039,7 @@
             qs(".existing-session").classList.add("hide");
         }
 
-        if (options.fromView) {
+        if (options.fromView && options.fromView !== "contact") {
             this.markComplete(options.fromView);
         }
 
