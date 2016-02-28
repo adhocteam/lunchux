@@ -268,7 +268,7 @@
 
         <script type="text/template" id="kid-summary-template">
           
-          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b> person.name is:</b>" %> 
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %> 
           
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
             <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
