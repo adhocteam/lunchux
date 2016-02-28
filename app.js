@@ -205,11 +205,21 @@
         return data;
     }
 
+    var booleans = [
+        "isStudent",
+        "isHomeless",
+        "isFosterChild"
+    ];
+
     function updateFromForm(obj, params) {
         for (var i = 0; i < params.length; i++) {
             var param = params[i];
             var prop = dashToCamel(param.name);
-            obj[prop] = param.value;
+            if (booleans.indexOf(prop) >= 0) {
+                obj[prop] = param.value === "yes";
+            } else {
+                obj[prop] = param.value;
+            }
         }
     }
 
@@ -409,8 +419,12 @@
             }.bind(this));
             break;
         case "handleSaveBtnClick":
-            $delegate(this.el, "button.save", "click", function(event) {
-                handler({view: this, person: this.person});
+            $delegate(this.el, "form", "submit", function(event) {
+                event.preventDefault();
+                var data = serializeForm(event.target);
+                var person = this.person;
+                updateFromForm(person, data);
+                handler({view: this, person: person});
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
