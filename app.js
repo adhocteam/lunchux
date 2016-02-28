@@ -806,6 +806,7 @@
     };
 
     function IncomeView(options) {
+        this.el = qs("#income");
         this.listEl = qs("#income .person-list");
         this.numPeopleEl = qs("#income .num-people");
         this.model = options.model;
@@ -819,7 +820,19 @@
     };
 
     IncomeView.prototype.bind = function(event, handler) {
-        this.listView.bind(event, handler);
+        switch (event) {
+        case "handleContinueBtnClick":
+            $delegate(this.el, "form.income-form", "submit", function(event) {
+                event.preventDefault();
+                var form = event.target;
+                var hash = getHashFromURL(form.action);
+                var nextScreenId = hash.slice(1);
+                handler({nextScreenId: nextScreenId});
+            }.bind(this));
+            break;
+        default:
+            this.listView.bind(event, handler);
+        }
     };
 
     function pluralize(number, singular, plural) {
@@ -1108,7 +1121,8 @@
             ],
             "income": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
-                {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)}
+                {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "review": [],
             "contact": [
