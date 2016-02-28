@@ -233,7 +233,7 @@
         this.model.on("deletedPerson", this.deleteOne.bind(this));
     }
 
-    PeopleListView.prototype.addOne = function(person) {
+    PeopleListView.prototype.addOne = function(person, options) {
         var div = document.createElement("div");
         var personView = new this.personView({person: person, model: this.model, el: div});
         this.el.appendChild(personView.render().el);
@@ -246,7 +246,8 @@
         }.bind(this));
         this.childViews.push(personView);
 
-        if (person.name === "") {
+        options = options || {};
+        if (options.expand) {
             this.model.toggleDetailsForm(personView);
         }
     };
@@ -268,7 +269,15 @@
     PeopleListView.prototype.render = function() {
         this.el = document.createElement("div");
         var people = this.peopleMethod.call(this.model);
-        people.forEach(this.addOne.bind(this));
+        var expandedFirst = false;
+        people.forEach(function(person) {
+            var options = {expand: false};
+            if (person.name === "" && !expandedFirst) {
+                options.expand = true;
+                expandedFirst = true;
+            }
+            this.addOne(person, options);
+        }.bind(this));
         return this;
     };
 
