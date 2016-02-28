@@ -1144,7 +1144,7 @@
 
         var initialViewId = "get-started";
 
-        initDebugging();
+        //initDebugging();
 
         function loadView(event, initial) {
             var options = {initial: !!initial};
