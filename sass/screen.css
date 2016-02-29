@@ -778,13 +778,16 @@ ul.review-list {
   .details-form .button-group {
     margin-top: 0; }
 
-.button.remove {
+.remove {
   color: #f05f5c;
   background: none;
   margin: 0;
   text-decoration: none; }
-  .button.remove:hover {
+  .remove:hover {
     color: #ec312d; }
+  .remove:before {
+    content: '𐄂';
+    margin-right: 4px; }
 
 .normal-label label {
   font-weight: normal; }
