@@ -151,6 +151,7 @@ button {
 .submit {
 
   padding: 0.75em 1.5em !important;
+  margin-bottom:30px;
 }
 
 .question-mark-small {
@@ -370,7 +371,7 @@ h3, h4, h5, h6 {
 }
 
 h4 {
-  border-top: 1px solid #ccc;
+ // border-top: 1px solid #ccc;
   padding: .5em 0 .5em 0;
   display: block;
   margin: .5em 0 .5em 0;
@@ -386,12 +387,6 @@ h4 {
   padding: 1em;
   border-radius: 4px;
   margin: 0 0 2em 0;
-  
-  
-  
-  .sign-form {
-    border-top: none;
-  }
   
   .button {
     
@@ -731,6 +726,17 @@ input.ssn {
   border-top:0;
   border-bottom:0;
   margin-top:0;
+}
+
+.sign-form {
+  
+  padding-bottom:15px;
+  
+  .panel {
+    
+    margin-bottom:0;
+  }
+  
 }
 
 #get-started {

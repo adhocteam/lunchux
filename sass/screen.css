@@ -429,7 +429,8 @@ button {
     color: #a84340; }
 
 .submit {
-  padding: 0.75em 1.5em !important; }
+  padding: 0.75em 1.5em !important;
+  margin-bottom: 30px; }
 
 .question-mark-small {
   width: 15px;
@@ -592,7 +593,6 @@ h3, h4, h5, h6 {
   margin: .25em 0 .25em 0; }
 
 h4 {
-  border-top: 1px solid #ccc;
   padding: .5em 0 .5em 0;
   display: block;
   margin: .5em 0 .5em 0; }
@@ -605,8 +605,6 @@ h4 {
   padding: 1em;
   border-radius: 4px;
   margin: 0 0 2em 0; }
-  .panel .sign-form {
-    border-top: none; }
   .panel .button {
     background-color: #66c266;
     padding: 7px 0.75em; }
@@ -820,6 +818,11 @@ input.ssn {
   border-top: 0;
   border-bottom: 0;
   margin-top: 0; }
+
+.sign-form {
+  padding-bottom: 15px; }
+  .sign-form .panel {
+    margin-bottom: 0; }
 
 #get-started ul {
   margin-bottom: 20px; }
