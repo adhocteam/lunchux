@@ -1,11 +1,10 @@
 <section class="screen" id="contact">
   <h2>Just a few more things.</h2>
-  <p>Please share a way to reach you.</p>
 
   <p class="hh-description"></p>
 
   <form>
-    <div class="contact-info">
+    <div class="contact-info panel">
       <h3>Contact information</h3>
       <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
       <div class="form-controls-group">
@@ -22,9 +21,10 @@
       </div>
     </div>
 
-    <p><b>Is there an address we can share?</b> If not, that’s ok! It won’t affect the application.</p>
+    <div class='panel'>
+      <p><b>Is there an address we can share?</b> If not, that’s ok! It won’t affect the application.</p>
 
-    <div class="form-controls-group">
+      <div class="form-controls-group">
       <div class="radio-group">
         <div class='radio-selection'>
           <label><input type="radio" name="has-address" value="yes" required> Yes</label>
@@ -54,18 +54,22 @@
 
       </div>
     </div>
-
-    <p><b>Responding to this section is optional</b> and does not affect your children's eligibility for free or reduced price meals. We are required to ask for information about your children's race and ethnicity. This information is important and helps to make sure we are fully serving our community.</p>
-
-    <h4>Ethnicity</h4>
-    <div class="normal-label">
-      <label><input name="is-hispanic" type="radio" value="yes" required> Hispanic or Latino</label>
-      <label><input name="is-hispanic" type="radio" value="no"> Not Hispanic nor Latino</label>
-      <label><input name="is-hispanic" type="radio" value="declined"> Decline to answer</label>
     </div>
 
-    <h4>Race</h4>
-    <div class="normal-label">
+    <div class='panel'>
+    
+      <h3>Race &amp; Ethnicity</h3>
+      <p><b>Responding to this section is optional</b> and does not affect your children's eligibility for free or reduced price meals. We are required to ask for information about your children's race and ethnicity. This information is important and helps to make sure we are fully serving our community.</p>
+
+      <h4>Ethnicity</h4>
+      <div class="normal-label">
+        <label><input name="is-hispanic" type="radio" value="yes" required> Hispanic or Latino</label>
+        <label><input name="is-hispanic" type="radio" value="no"> Not Hispanic nor Latino</label>
+        <label><input name="is-hispanic" type="radio" value="declined"> Decline to answer</label>
+      </div>
+
+      <h4>Race</h4>
+      <div class="normal-label">
       <label>
         <input type="checkbox" name="race" value="american-indian"> American Indian or Alaskan Native
       </label>
@@ -85,28 +89,36 @@
         <input type="checkbox" name="race" value="declined"> I'd rather not say
       </label>
     </div>
+    </div>
 
-    <div class="agreements inner-section">
+    <div class="agreements">
       <h2>Almost done!</h2>
-      <p>We have to show you some information before you submit this application.</p>
-      <ul>
-        <li><a class='button info' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
-        <li><a class='button info' href="#use-of-info-statement">Use of information statement</a></li>
-      </ul>
+      
+      <div class='panel'>
+        <p>We have to show you some information before you submit this application.</p>
+        <ul>
+          <li><a class='more-info' href="#non-discrimination-statement">USDA non-discrimination statement</a></li>
+          <li><a class='more-info' href="#use-of-info-statement">Use of information statement</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="sign-form inner-section last">
       <h2>Time to sign!</h2>
+      
+      <div class='panel'>
       <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
       <div class="form-controls-group">
         <div>
           <label>
-            Type your name:<br>
+            <p>Type your name:</p>
             <input type="text" name="signature" placeholder="Your name" required>
           </label>
         </div>
       </div>
     </div>
+    </div>
+    
     <div>
       <button class="button fwd submit">Send your application</button>
     </div>

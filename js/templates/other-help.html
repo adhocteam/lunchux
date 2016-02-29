@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="modal">
+      <div class="modal">
       <label for="modal-2">
         <div class="modal-trigger">TANF <span class='question-mark-small'></span></div>
       </label>
@@ -36,7 +36,7 @@
 
      or
 
-     <div class="modal">
+      <div class="modal">
       <label for="modal-3">
         <div class="modal-trigger">FDPIR <span class='question-mark-small'></span></div>
       </label>
@@ -62,14 +62,11 @@
         <!-- initially hidden, visibility conditional on has-other-help checked -->
         <div class="case-number-control" style="display: none"> 
           <label>Case Number</label>
-          <input type="text" name="case-number" placeholder="Case Number">
-
-          <!-- Modal -->
-
+          
           <div id='case-entry'>Please enter just one
             <div class="modal">
               <label for="modal-4">
-                <div class="modal-trigger">case number: <span class='question-mark-small'></span></div>
+                <div class="modal-trigger">case number.<span class='question-mark-small'></span></div>
               </label>
               <input class="modal-state" id="modal-4" type="checkbox" />
               <div class="modal-fade-screen">
@@ -82,19 +79,16 @@
             </div>
 
           </div>
-
-          <!--/modal -->
+          
+          <input type="text" name="case-number" placeholder="Case Number">
 
         </div>
 
       </div>
-    </div>
-
-
-      <div class="radio-selection">
+        <div class="radio-selection">
         <label><input type="radio" name="has-other-help" value="no">No</label>
       </div>
-
+      </div>
     </div>
 
 

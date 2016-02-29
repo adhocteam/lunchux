@@ -84,8 +84,10 @@ button {
   color: #fff; //background: #000;
 }
 
-.info {
-  background-color: $blue;
+.more-info {
+  
+  color: $dark-blue;
+  text-decoration: underline;
 }
 
 .warning {
@@ -150,6 +152,7 @@ button {
 .submit {
 
   padding: 0.75em 1.5em !important;
+  margin-bottom:30px;
 }
 
 .question-mark-small {
@@ -369,7 +372,7 @@ h3, h4, h5, h6 {
 }
 
 h4 {
-  border-top: 1px solid #ccc;
+ // border-top: 1px solid #ccc;
   padding: .5em 0 .5em 0;
   display: block;
   margin: .5em 0 .5em 0;
@@ -380,15 +383,29 @@ h4 {
    ============= */
 
 .panel {
-  background: rgba(0,0,0,.05);
-  padding: .5em .75em;
-  border-radius: .35em;
-  margin: 0 0 1em 0;
-  .sign-form {
-    border-top: none;
+  
+  background: rgba($light-gray, 0.2);
+  padding: 1em;
+  border-radius: 4px;
+  margin: 0 0 2em 0;
+  
+  .button {
+    
+    background-color: $green;
+    padding: 7px .75em ;
+  }
+  
+  .edit-button-margined {
+    
+    margin-top: 0.75em;
   }
 }
 
+.panel.info {
+  
+  margin-top:1em;
+  
+}
 /* =============
    HOUSEHOLD INFO
    ============= */
@@ -487,6 +504,7 @@ h4 {
   .person-name-bar {
 
     color: $dark-blue;
+    border-bottom:none;
   }
 }
 
@@ -709,6 +727,17 @@ input.ssn {
   border-top:0;
   border-bottom:0;
   margin-top:0;
+}
+
+.sign-form {
+  
+  padding-bottom:15px;
+  
+  .panel {
+    
+    margin-bottom:0;
+  }
+  
 }
 
 #get-started {

@@ -386,8 +386,9 @@ button {
 .button:hover {
   color: #fff; }
 
-.info {
-  background-color: #E1EEE7; }
+.more-info {
+  color: #1E5A8C;
+  text-decoration: underline; }
 
 .warning {
   background-color: #f05f5c; }
@@ -428,7 +429,8 @@ button {
     color: #a84340; }
 
 .submit {
-  padding: 0.75em 1.5em !important; }
+  padding: 0.75em 1.5em !important;
+  margin-bottom: 30px; }
 
 .question-mark-small {
   width: 15px;
@@ -591,7 +593,6 @@ h3, h4, h5, h6 {
   margin: .25em 0 .25em 0; }
 
 h4 {
-  border-top: 1px solid #ccc;
   padding: .5em 0 .5em 0;
   display: block;
   margin: .5em 0 .5em 0; }
@@ -600,12 +601,18 @@ h4 {
    Panels
    ============= */
 .panel {
-  background: rgba(0, 0, 0, 0.05);
-  padding: .5em .75em;
-  border-radius: .35em;
-  margin: 0 0 1em 0; }
-  .panel .sign-form {
-    border-top: none; }
+  background: rgba(221, 221, 221, 0.2);
+  padding: 1em;
+  border-radius: 4px;
+  margin: 0 0 2em 0; }
+  .panel .button {
+    background-color: #66c266;
+    padding: 7px 0.75em; }
+  .panel .edit-button-margined {
+    margin-top: 0.75em; }
+
+.panel.info {
+  margin-top: 1em; }
 
 /* =============
    HOUSEHOLD INFO
@@ -659,7 +666,8 @@ h4 {
   /**/ }
 
 .add .person-name-bar {
-  color: #1E5A8C; }
+  color: #1E5A8C;
+  border-bottom: none; }
 
 .person-name {
   font-weight: 700; }
@@ -810,6 +818,11 @@ input.ssn {
   border-top: 0;
   border-bottom: 0;
   margin-top: 0; }
+
+.sign-form {
+  padding-bottom: 15px; }
+  .sign-form .panel {
+    margin-bottom: 0; }
 
 #get-started ul {
   margin-bottom: 20px; }
