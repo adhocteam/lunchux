@@ -607,6 +607,9 @@ h4 {
   margin: 0 0 1em 0; }
   .panel .sign-form {
     border-top: none; }
+  .panel .button {
+    background-color: #66c266;
+    padding: 7px 0.75em; }
 
 /* =============
    HOUSEHOLD INFO
