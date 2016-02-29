@@ -139,7 +139,7 @@
                     <div class='modal-inner'>
                       <div class="modal-close" for="modal-2"></div>
                       <h1>What makes a child homeless?</h1>
-                      <p class="modal-intro">A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</p> 
+                      <p class="modal-intro">A child is homeless if they've been identified by the Local Education Agency (LEA) homeless liaison, or by an official of a homeless shelter, as lacking a fixed, regular, and adequate nighttime residence.</p>
                     </div>
                   </div>
                 </div>
@@ -230,7 +230,7 @@
 
         <script type="text/template" id="income-person-form-template">
           <form class="details-form" style="display: none">
-            <p><b>Does <%= person.name %> contribute in income?</b></p>
+            <p><b>Does <%= person.name %> have any income?</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
               <div class="income-<%= type.value %>">
@@ -279,7 +279,7 @@
         </script>
 
         <script type="text/template" id="kid-summary-template">
-          
+
           <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary panel'><b>" + person.name + " is:</b>" %>
 
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
