@@ -814,22 +814,24 @@
         this.model = options.model;
         this.listView = new IncomeListView({el: this.listEl, model: this.model});
 
-        this.listView.events.bind("saved", this.renderContinueBtn.bind(this));
+        this.listView.events.bind("saved", this.renderValidity.bind(this));
     }
 
     IncomeView.prototype.render = function() {
         empty(this.listEl);
         this.listEl.appendChild(this.listView.render().el);
         this.numPeopleEl.innerHTML = pluralize(this.model.all().people.length, "person", "people");
-        this.renderContinueBtn();
+        this.renderValidity();
     };
 
-    IncomeView.prototype.renderContinueBtn = function() {
+    IncomeView.prototype.renderValidity = function() {
         var continueBtn = qs(".income-form button", this.el);
         if (!this.isValid()) {
             continueBtn.disabled = true;
+            this.listEl.classList.add("incomplete");
         } else {
             continueBtn.disabled = false;
+            this.listEl.classList.remove("incomplete");
         }
     };
 
