@@ -949,8 +949,7 @@
             adultSummary: this.adultSummary.bind(this),
         });
 
-        this.otherHelpEl.innerHTML = this.model.get("caseNumber") ? "Someone in your household receives SNAP, TANF, or FDPIR." :
-            "Nobody in your household receives other assistance.";
+        this.otherHelpEl.innerHTML = this.model.get("hasOtherHelp") ? "Someone in your household receives SNAP, TANF, or FDPIR. Because of this, you don't need to tell us about your income." : "Nobody in your household receives other assistance.";
 
         this.ssnEl.innerHTML = this.model.get("last4SSN") ? '<p>You told us the last four digits of your SSN are:</p><div class="ssn">XXX-XXX-' + this.model.get("last4SSN") + '</div>' : "Nobody in your household has a Social Security number.";
     };
