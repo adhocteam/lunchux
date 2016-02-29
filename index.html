@@ -312,7 +312,7 @@
           <li class="person invalid panel">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions edit"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
+              <div class="actions edit"><a class='button' href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
             </div>
             <ul class="summary">
               <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
