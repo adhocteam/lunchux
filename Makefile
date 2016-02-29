@@ -13,5 +13,8 @@ build/templates.js: $(template_files)
 	mkdir -p build
 	env PYTHONIOENCODING=utf-8 ./tools/compiletemplates.py $^ > $@
 
+publish:
+	rsync -e ssh -avz --exclude .git . pubweb.adhocteam.us:/opt/lunchux/
+
 clean:
 	-rm -f build/templates.js
