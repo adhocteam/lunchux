@@ -353,7 +353,7 @@ body {
 
 .disabled a {
   background: #ddd;
-  color: white !important; }
+  color: #444 !important; }
 
 .container {
   overflow: hidden; }
@@ -738,7 +738,7 @@ ul.review-list {
   font-size: smaller; }
 
 /*
-  
+
   .details-form .normal-label label {
     background: rgba(255, 255, 255, 0.25);
     padding: .25em;

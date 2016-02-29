@@ -44,8 +44,8 @@ body {
 
 .disabled a {
   background: $light-gray;
-  color: white !important;
-  
+  color: #444 !important;
+
 }
 
 .container {
@@ -85,7 +85,7 @@ button {
 }
 
 .more-info {
-  
+
   color: $dark-blue;
   text-decoration: underline;
 }
@@ -383,28 +383,28 @@ h4 {
    ============= */
 
 .panel {
-  
+
   background: rgba($light-gray, 0.2);
   padding: 1em;
   border-radius: 4px;
   margin: 0 0 2em 0;
-  
+
   .button {
-    
+
     background-color: $green;
     padding: 7px .75em ;
   }
-  
+
   .edit-button-margined {
-    
+
     margin-top: 0.75em;
   }
 }
 
 .panel.info {
-  
+
   margin-top:1em;
-  
+
 }
 /* =============
    HOUSEHOLD INFO
@@ -553,37 +553,37 @@ ul.review-list {
       background: rgba(0,0,0,.1);
       cursor: pointer;
     }
-    
+
     .modal,
     .modal-trigger,
     .modal .modal-state:checked + .modal-fade-screen,
      {
-      
+
       padding:0;
       margin:0;
     }
-    
+
     .modal-inner {
-      
+
       padding: 3em;
       margin:0 auto;
       top:5.5em !important;
     }
-    
+
     .modal-fade-screen {
-      
+
       background:rgba(0, 0, 0, 0.85);
     }
-    
+
     .modal-close {
-      
+
       margin:0;
     }
   }
 }
 
 #case-entry {
-  
+
   padding:0;
   margin:0;
 }
@@ -595,7 +595,7 @@ ul.review-list {
 
 
 /*
-  
+
   .details-form .normal-label label {
     background: rgba(255, 255, 255, 0.25);
     padding: .25em;
@@ -605,9 +605,9 @@ ul.review-list {
   */
 
 .radio-selection {
-  
+
   margin-bottom:0 !important;
-  
+
 }
 
 .details-form {
@@ -730,14 +730,14 @@ input.ssn {
 }
 
 .sign-form {
-  
+
   padding-bottom:15px;
-  
+
   .panel {
-    
+
     margin-bottom:0;
   }
-  
+
 }
 
 #get-started {
@@ -763,14 +763,14 @@ input.ssn {
 }
 
 .summary {
-  
+
   div {
-    
+
     margin-top:15px;
     //margin-bottom:15px;
   }
-  
-  
+
+
 }
 /* =============
    FAQ
