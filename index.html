@@ -230,7 +230,7 @@
 
         <script type="text/template" id="income-person-form-template">
           <form class="details-form" style="display: none">
-            <p><b>How much does <%= person.name %> contribute in income, and how often?</b></p>
+            <p><b>Does <%= person.name %> contribute in income?</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
               <div class="income-<%= type.value %>">
@@ -241,11 +241,11 @@
                   </label>
                   <div class="income-control" style="display: none">
                     <label>
-                      Amount ($)<br>
+                      How much? ($)<br>
                       <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
                     </label>
                     <label>
-                      How often
+                      How often?
                       <select name="income-<%= type.value %>-freq">
                         <% frequencies.map(function(freq) { %>
                         <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
