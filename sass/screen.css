@@ -658,12 +658,13 @@ h4 {
 #review .invalid .person-name-bar {
   color: #f05f5c; }
 #review .invalid .person-name-bar .person-name:before {
-  content: '𐄂';
   margin-right: 4px;
   width: 20px;
   height: 30px;
   vertical-align: text-bottom;
   /**/ }
+#review .edit-button .button {
+  background-color: #66c266; }
 
 .add .person-name-bar {
   color: #1E5A8C;

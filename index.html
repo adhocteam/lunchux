@@ -270,17 +270,16 @@
 
         <script type="text/template" id="review-description-template">
           <p>
-            There are <b><%= pluralize(numKids, "kid") %></b> and
+            You have <b><%= pluralize(numKids, "kid") %></b> and
             <b><%= pluralize(numAdults, "adult") %></b> in your household, for a
             total of
             <b><%= pluralize(numPeople, "person", "people") %></b>.
-            Do you need to add anyone else?
           </p>
         </script>
 
         <script type="text/template" id="kid-summary-template">
 
-          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary panel'><b>" + person.name + " is:</b>" %>
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %>
 
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
             <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
@@ -314,7 +313,6 @@
           <li class="person invalid panel">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
-              <div class="actions edit"><a class='button' href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
             </div>
             <ul class="summary">
               <%= person.ageClass === LunchUX.AgeClass.child ? kidSummary(person) : adultSummary(person) %>
