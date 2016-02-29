@@ -574,6 +574,23 @@ ul.review-list {
 
 .notes { font-size: smaller; }
 
+
+/*
+  
+  .details-form .normal-label label {
+    background: rgba(255, 255, 255, 0.25);
+    padding: .25em;
+    border-radius: .25em;
+    margin-bottom: .25em;
+}
+  */
+
+.radio-selection {
+  
+  margin-bottom:0 !important;
+  
+}
+
 .details-form {
   background: rgba(0,0,0,.08);
   padding: 1em;
@@ -586,6 +603,7 @@ ul.review-list {
     }
   }
 
+  .radio-selection label,
   .normal-label label {
     background: rgba(255,255,255,.25);
     padding: .25em;
