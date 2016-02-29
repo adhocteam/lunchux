@@ -7,6 +7,8 @@
         <title>Square Meal</title>
         <link href="style.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="https://cdn.ravenjs.com/2.1.0/raven.min.js"></script>
+        <script>Raven.config('https://f636e4e9dc9c4c29adbd7c23b0215cd7@app.getsentry.com/68685').install();</script>
         <script src="config.js"></script>
         <script src="helpers.js"></script>
         <script src="build/templates.js"></script>
@@ -204,7 +206,7 @@
         </script>
 
         <script type="text/template" id="adult-person-form-template">
-          <div class="details-form" style="display: none">
+          <form class="details-form" style="display: none">
             <div>
               <label>
                 Full name (first, middle, last; ex: Pat J. Smith)<br>
@@ -215,7 +217,7 @@
               <button class="button save">Save</button>
               <a class="button remove" href="#">Remove</a>
             </div>
-            </div>
+          </form>
         </script>
 
         <script type="text/template" id="income-person-form-template">
@@ -223,30 +225,32 @@
             <p><b>How much does <%= person.name %> contribute in income, and how often?</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
-              From <%= type.label %><br>
-              <div class="radio-selection">
-                <label>
-                  <input type="radio" name="has-income-<%= type.value %>" value="yes" required> Yes
-                </label>
-                <div class="income-control" style="display: none">
+              <div class="income-<%= type.value %>">
+                From <%= type.label %><br>
+                <div class="radio-selection">
                   <label>
-                    Amount ($)<br>
-                    <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                    <input type="radio" name="has-income-<%= type.value %>" value="yes" data-income-type="<%= type.value %>" required> Yes
                   </label>
+                  <div class="income-control" style="display: none">
+                    <label>
+                      Amount ($)<br>
+                      <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                    </label>
+                    <label>
+                      How often
+                      <select name="income-<%= type.value %>-freq">
+                        <% frequencies.map(function(freq) { %>
+                        <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
+                        <% }) %>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="radio-selection">
                   <label>
-                    How often
-                    <select name="income-<%= type.value %>-freq">
-                      <% frequencies.map(function(freq) { %>
-                      <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
-                      <% }) %>
-                    </select>
+                    <input type="radio" name="has-income-<%= type.value %>" value="no" data-income-type="<%= type.value %>"> No
                   </label>
                 </div>
-              </div>
-              <div class="radio-selection">
-                <label>
-                  <input type="radio" name="has-income-<%= type.value %>" value="no"> No
-                </label>
               </div>
               <% }) %>
             </div>
@@ -267,29 +271,29 @@
         </script>
 
         <script type="text/template" id="kid-summary-template">
-          
-          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %> 
-          
+
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %>
+
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
             <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
             <%= person.isHomeless ? "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" : "" %>
-            
+
             <!-- true : false -->
           </div>
-          
+
           <div class='student-summary'><b><%= person.name %> is not:</b>
-          
+
             <%= person.isStudent ? "" : "<li class='styled-list'>a student</li>" %>
             <%= person.isFosterChild ? "" : "<li class='styled-list'>a foster child</li>" %>
             <%= person.isHomeless ? "" : "<li class='styled-list'>considered homeless, a migrant, a runaway, or enrolled in the Head Start program.</li>" %>
           </div>
-          
+
           <div><b><%= person.name %>:</b>
             <li class='styled-list'>has <%= incomeText(person) %>.</li>
           </div>
 
         </script>
-        
+
         <script type="text/template" id="adult-summary-template">
           <li class='styled-list'><%= person.name %> is an adult member of your household.</li>
           <li class='styled-list'><%= person.name %> has <%= incomeText(person) %>.</li>

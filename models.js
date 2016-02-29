@@ -40,7 +40,6 @@
 
         this.data = store.load() || this.defaultValues();
 
-        this.editingPerson = null;
         this.formDisplay = [];
     }
 
@@ -52,10 +51,8 @@
     Model.prototype.defaultValues = function() {
         return {
             people: [],
-            hasSSN: false,
-            last4SSN: "",
-            hasOtherHelp: false,
             caseNumber: "",
+            last4SSN: "",
             phone: "",
             email: "",
             hasAddress: false,
@@ -108,7 +105,6 @@
     };
 
     Model.prototype.reset = function() {
-        this.editingPerson = null;
         this.formDisplay = [];
     };
 
@@ -137,22 +133,9 @@
                     this.events.notify("toggleDetailsForm", s.view, false);
                 }
             }.bind(this));
-            this.startEditing(view.person);
-        } else {
-            this.stopEditing();
         }
 
         this.events.notify("toggleDetailsForm", view, state.show);
-    };
-
-    Model.prototype.startEditing = function(person) {
-        this.editingPerson = extend({}, person);
-        this.events.notify("startEditing");
-    };
-
-    Model.prototype.stopEditing = function() {
-        this.editingPerson = null;
-        this.events.notify("stopEditing");
     };
 
     Model.prototype.showDetailsForm = function(view) {
@@ -189,40 +172,18 @@
 
     Model.prototype.save = function() {
         this.store.save(this.data);
-
         this.events.notify("saved");
     };
 
-    Model.prototype.personIsBeingEdited = function(person) {
-        return person.id === this.editingPerson.id;
-    };
-
-    Model.prototype.updatePerson = function(person, props) {
-        if (!this.personIsBeingEdited(person)) {
-            console.error("view state out of sync -- expected editingPerson id (%d) to match update id (%d)", person.id, this.editingPerson.id);
-            return;
-        }
-        this.editingPerson = extend(this.editingPerson || extend({}, person), props);
-        this.events.notify("editedPerson");
-    };
-
     Model.prototype.savePerson = function(person) {
-        if (!this.personIsBeingEdited(person)) {
-            console.error("view state out of sync -- expected editingPerson id (%d) to match update id (%d)", person.id, this.editingPerson.id);
-            return;
-        }
-        var current = null;
-        for (var i = 0, people = this.all().people; i < people.length; i++) {
-            var p = people[i];
-            if (p.id === this.editingPerson.id) {
-                extend(p, this.editingPerson);
-                current = p;
+        for (var i = 0, people = this.data.people; i < people.length; i++) {
+            if (person.id === people[i].id) {
+                people[i] = person;
                 break;
             }
         }
-        this.stopEditing();
         this.save();
-        this.events.notify("updatedPerson", {previous: person, current: current});
+        this.events.notify("updatedPerson", {person: person});
     };
 
     Model.prototype.get = function(prop) {
@@ -233,19 +194,6 @@
         this.data[prop] = value;
         this.save();
         this.events.notify("updated:" + prop);
-    };
-
-    Model.prototype.updatePersonIncome = function(person, type, options) {
-        if (!this.personIsBeingEdited(person)) {
-            console.error("view state out of sync -- expected editingPerson id (%d) to match update id (%d)", person.id, this.editingPerson.id);
-            return;
-        }
-        var incomes = this.editingPerson.incomes || {};
-        var income = incomes[type] || {};
-        extend(income, options);
-        incomes[type] = income;
-        this.editingPerson.incomes = incomes;
-        this.events.notify("editedPerson");
     };
 
     Model.prototype.hasExistingSession = function() {
