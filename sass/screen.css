@@ -386,8 +386,9 @@ button {
 .button:hover {
   color: #fff; }
 
-.info {
-  background-color: #E1EEE7; }
+.more-info {
+  color: #1E5A8C;
+  text-decoration: underline; }
 
 .warning {
   background-color: #f05f5c; }

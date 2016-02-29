@@ -83,8 +83,10 @@ button {
   color: #fff; //background: #000;
 }
 
-.info {
-  background-color: $blue;
+.more-info {
+  
+  color: $dark-blue;
+  text-decoration: underline;
 }
 
 .warning {
