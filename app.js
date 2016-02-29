@@ -645,7 +645,19 @@
         $delegate(this.el, "form [type=radio]", "change", function(event) {
             this.toggleIncomeType(event.target);
         }.bind(this));
+
+        this.events.bind("saved", function() {
+            this.renderAnswered();
+        }.bind(this));
     }
+
+    IncomePersonView.prototype.renderAnswered = function() {
+        if (!hasAnsweredIncome(this.person)) {
+            qs("li", this.el).classList.add("incomplete");
+        } else {
+            qs("li", this.el).classList.remove("incomplete");
+        }
+    };
 
     IncomePersonView.prototype.toggleIncomeType = function(el) {
         var incomeType = el.getAttribute("data-income-type");
@@ -693,6 +705,8 @@
             incomeAmount: incomeAmount,
             incomeFrequency: incomeFrequency
         });
+
+        this.renderAnswered();
 
         return this;
     };
@@ -827,10 +841,8 @@
         var continueBtn = qs(".income-form button", this.el);
         if (!this.isValid()) {
             continueBtn.disabled = true;
-            this.listEl.classList.add("incomplete");
         } else {
             continueBtn.disabled = false;
-            this.listEl.classList.remove("incomplete");
         }
     };
 
