@@ -654,7 +654,7 @@ ul.review-list {
 }
 
 
-.button.remove {
+.remove {
   color: $red;
   background: none;
   margin: 0;
@@ -662,6 +662,12 @@ ul.review-list {
 
   &:hover {
     color: darken($red, 10);
+  } 
+  
+  &:before {
+    
+    content: '𐄂';
+    margin-right:4px;
   }
 }
 
