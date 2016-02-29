@@ -649,6 +649,16 @@
             this.toggleIncomeType(event.target);
         }.bind(this));
 
+        $delegate(this.el, "form select", "change", function(event) {
+            var select = event.target;
+            // Once they've selected a frequency, don't let them select the
+            // "Pick one" empty value option -- would confuse the required
+            // nature of that field.
+            if (select.value !== "") {
+                select.options[0].disabled = true;
+            }
+        });
+
         this.events.bind("saved", function() {
             this.renderAnswered();
         }.bind(this));
@@ -665,7 +675,18 @@
     IncomePersonView.prototype.toggleIncomeType = function(el) {
         var incomeType = el.getAttribute("data-income-type");
         var incomeTypeForm = qs(".income-" + incomeType + " .income-control", this.el);
-        incomeTypeForm.style.display = el.value === "yes" && el.checked ? "block" : "none";
+        var hasIncome = el.value === "yes" && el.checked;
+        var amount = qs("[name=income-" + incomeType + "-amount]", this.el);
+        var freq = qs("[name=income-" + incomeType + "-freq]", this.el);
+        if (hasIncome) {
+            incomeTypeForm.style.display = "block";
+            amount.required = true;
+            freq.required = true;
+        } else {
+            incomeTypeForm.style.display = "none";
+            amount.required = false;
+            freq.required = false;
+        }
     };
 
     IncomePersonView.prototype.showForm = function() {
@@ -691,18 +712,36 @@
         var form = document.createElement("div");
         li.appendChild(form);
 
-        var frequencies = ['pick one','hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
+        var frequencies = ['hourly', 'daily', 'weekly', 'every two weeks', 'monthly', 'yearly'];
+
+        function hasAnsweredIncomeType(person, type) {
+            return typeof(person.incomes[type]) !== "undefined";
+        }
+
+        function hasIncomeType(person, type) {
+            return !!person.incomes[type];
+        }
+
+        function hasIncomeTypeBool(person, type, bool) {
+            if (hasIncomeType(person, type)) {
+                return person.incomes[type].has === bool;
+            }
+            return false;
+        }
 
         function incomeAmount(person, type) {
-            return person.incomes && person.incomes[type] ? person.incomes[type].amount : 0;
+            return hasIncomeType(person, type) ? person.incomes[type].amount : "";
         }
 
         function incomeFrequency(person, type) {
-            return person.incomes && person.incomes[type] ? person.incomes[type].freq : "";
+            return hasIncomeType(person, type) ? person.incomes[type].freq : "";
         }
 
         form.innerHTML = this.template({
             person: person,
+            hasIncomeType: hasIncomeType,
+            hasAnsweredIncomeType: hasAnsweredIncomeType,
+            hasIncomeTypeBool: hasIncomeTypeBool,
             incomeTypes: incomeTypes,
             frequencies: frequencies,
             incomeAmount: incomeAmount,
@@ -734,7 +773,7 @@
                         incomes[type] = {
                             amount: 0,
                             freq: "",
-                            answered: true
+                            has: false
                         };
                     } else {
                         var amount = parseInt(qs("[name=income-"+type+"-amount]", form).value, 10);
@@ -742,7 +781,7 @@
                         incomes[type] = {
                             amount: amount,
                             freq: freq,
-                            answered: true
+                            has: true
                         };
                     }
                 }.bind(this));

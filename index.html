@@ -242,28 +242,29 @@
 
         <script type="text/template" id="income-person-form-template">
           <form class="details-form" style="display: none">
-            <p><b>Does <%= person.name %> have any income?</b></p>
+            <p><b>Does <%= person.name %> have any income &hellip;</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
 
               <div class="income-<%= type.value %>">
 
-                From <%= type.label %><br>
+                From <%= type.label %>?<br>
 
                 <div class="radio-selection">
                   <label>
-                    <input type="radio" name="has-income-<%= type.value %>" value="yes" data-income-type="<%= type.value %>" required> Yes
+                    <input type="radio" name="has-income-<%= type.value %>" value="yes" data-income-type="<%= type.value %>" required <% if (hasIncomeTypeBool(person, type.value, true)) { %>checked<% } %>> Yes
                   </label>
 
-                  <div class="income-control panel" style="display: none">
+                  <div class="income-control panel" <% if (hasIncomeTypeBool(person, type.value, false) || !hasAnsweredIncomeType(person, type.value)) { %>style="display: none"<% } %>>
 
                     <label class='no-bg'>
                       How much? ($)<br>
-                      <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
+                      <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>">
                     </label>
                     <label class='no-bg'>
                       How often?
                       <select name="income-<%= type.value %>-freq">
+                        <option value="">Pick one</option>
                         <% frequencies.map(function(freq) { %>
                         <option <%= (incomeFrequency(person, type.value) === freq ? "selected" : "") %>><%= freq %></option>
                         <% }) %>
@@ -273,7 +274,7 @@
                 </div>
                 <div class="radio-selection">
                   <label>
-                    <input type="radio" name="has-income-<%= type.value %>" value="no" data-income-type="<%= type.value %>"> No
+                    <input type="radio" name="has-income-<%= type.value %>" value="no" data-income-type="<%= type.value %>" <% if (hasIncomeTypeBool(person, type.value, false)) { %>checked<% } %>> No
                   </label>
                 </div>
               </div>
