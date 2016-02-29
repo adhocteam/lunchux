@@ -189,8 +189,6 @@ html {
 
 .modal {
   display: inline-block; }
-  .modal .question-mark-small {
-    vertical-align: super; }
   .modal label {
     cursor: pointer;
     margin-bottom: 0; }
@@ -202,7 +200,8 @@ html {
     display: none; }
   .modal .modal-trigger {
     font-weight: normal;
-    color: #f05f5c; }
+    color: #63589C;
+    text-decoration: underline; }
   .modal .modal-fade-screen {
     -webkit-transition: opacity 0.25s ease;
     -moz-transition: opacity 0.25s ease;
@@ -569,13 +568,23 @@ main {
   justify-content: space-between;
   margin-top: 60px; }
   .button-group .button {
-    width: 100%;
     margin: 0 0 1em 0;
     text-align: center;
     width: 45%; }
+  .button-group .full-width {
+    width: 100% !important; }
 
 .no-justify {
   display: list-item; }
+
+.full-width {
+  width: 100%;
+  text-align: center; }
+
+.reset {
+  background-color: #1E5A8C;
+  margin-top: 30px;
+  margin-bottom: 30px; }
 
 /* =============
    HEADINGS
@@ -648,26 +657,29 @@ h4 {
 .invalid .person-name-bar,
 .invalid .notes {
   color: #f05f5c; }
-.invalid .person-name-bar .person-name:before {
-  /*content: '𐄂';
-  margin-right:4px;
-  width:20px;
-  height:30px;
-  vertical-align:top;*/ }
+
+.incomplete .person-name-bar {
+  color: #ffc549; }
+  .incomplete .person-name-bar .person-name:before {
+    content: '➙'; }
 
 #review .invalid .person-name-bar {
   color: #f05f5c; }
 #review .invalid .person-name-bar .person-name:before {
-  content: '𐄂';
   margin-right: 4px;
   width: 20px;
   height: 30px;
   vertical-align: text-bottom;
   /**/ }
+#review .edit-button .button {
+  background-color: #66c266; }
 
 .add .person-name-bar {
-  color: #1E5A8C;
-  border-bottom: none; }
+  border-bottom: none;
+  background-color: #1E5A8C; }
+.add .person-name-bar.button {
+  padding: 7px .75em;
+  color: white; }
 
 .person-name {
   font-weight: 700; }
@@ -737,15 +749,6 @@ ul.review-list {
 .notes {
   font-size: smaller; }
 
-/*
-
-  .details-form .normal-label label {
-    background: rgba(255, 255, 255, 0.25);
-    padding: .25em;
-    border-radius: .25em;
-    margin-bottom: .25em;
-}
-  */
 .radio-selection {
   margin-bottom: 0 !important; }
 
@@ -864,6 +867,17 @@ footer {
     text-decoration: underline; }
   footer .question-mark-small {
     margin-right: 7px; }
+
+.income-control label {
+  width: 46%;
+  justify-content: space-between;
+  display: inline-block;
+  vertical-align: top; }
+.income-control .no-bg {
+  background: none !important; }
+
+.income-control.panel {
+  background: rgba(255, 255, 255, 0.25); }
 
 /* =============
    Mobile

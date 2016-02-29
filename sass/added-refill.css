@@ -1,5 +1,5 @@
 /*
-Error: Undefined variable: "$red".
+Error: Undefined variable: "$primary".
         on line 46 of sass/added-refill.scss
 
 41:   }
@@ -7,12 +7,12 @@ Error: Undefined variable: "$red".
 43:   .modal-trigger {
 44:    // padding: 0.8em 1em;
 45:    font-weight:normal;
-46:    color:$red;
-47:   }
-48: 
-49:   .modal-fade-screen { // overlay
-50:     @include transition(opacity 0.25s ease);
-51:     @include position(fixed, 0);
+46:    color:$primary;
+47:    text-decoration: underline;
+48:   }
+49: 
+50:   .modal-fade-screen { // overlay
+51:     @include transition(opacity 0.25s ease);
 
 Backtrace:
 sass/added-refill.scss:46
@@ -79,4 +79,4 @@ sass/added-refill.scss:46
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$red\".\A         on line 46 of sass/added-refill.scss\A \A 41:   }\A 42: \A 43:   .modal-trigger {\A 44:    // padding: 0.8em 1em;\A 45:    font-weight:normal;\A 46:    color:$red;\A 47:   }\A 48: \A 49:   .modal-fade-screen { // overlay\A 50:     @include transition(opacity 0.25s ease);\A 51:     @include position(fixed, 0);"; }
+  content: "Error: Undefined variable: \"$primary\".\A         on line 46 of sass/added-refill.scss\A \A 41:   }\A 42: \A 43:   .modal-trigger {\A 44:    // padding: 0.8em 1em;\A 45:    font-weight:normal;\A 46:    color:$primary;\A 47:    text-decoration: underline;\A 48:   }\A 49: \A 50:   .modal-fade-screen { // overlay\A 51:     @include transition(opacity 0.25s ease);"; }

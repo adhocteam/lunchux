@@ -100,7 +100,8 @@
 
     function PersonView(options) {
         this.el = document.createElement("div");
-        this.template = templateFrom("#person-template");
+        var templateSelector = options.templateSelector || "#person-template";
+        this.template = templateFrom(templateSelector);
         this.model = options.model; // app-wide model
         this.person = options.person;
     }
@@ -225,7 +226,8 @@
     KidPersonView.prototype.bind = function(event, handler) {
         switch (event) {
         case "toggleDetailsForm":
-            $delegate(this.el, ".actions", "click", function(event) {
+            $delegate(this.el, ".actions .edit", "click", function(event) {
+                event.preventDefault();
                 handler(this);
             }.bind(this));
             break;
@@ -239,7 +241,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".remove", "click", function(event) {
+            $delegate(this.el, ".actions .remove", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
@@ -325,6 +327,7 @@
     };
 
     function KidListView(options) {
+        this.el = qs("#kids");
         this.listEl = qs("#kids .person-list");
         this.numPeopleEl = qs("#kids .num-people");
         this.addPersonEl = qs("#kids .add-person");
@@ -339,7 +342,7 @@
     KidListView.prototype.bind = function(event, handler) {
         switch (event) {
         case "handleAddPersonClick":
-            var unload = $on(qs(".actions", this.addPersonEl), "click", function(event) {
+            var unload = $on(qs(".add-person", this.el), "click", function(event) {
                 // TODO: move details to controller/handler
                 handler({ageClass: LunchUX.AgeClass.child});
             }.bind(this));
@@ -413,7 +416,8 @@
     AdultPersonView.prototype.bind = function(event, handler) {
         switch (event) {
         case "toggleDetailsForm":
-            $delegate(this.el, ".actions", "click", function(event) {
+            $delegate(this.el, ".actions .edit", "click", function(event) {
+                event.preventDefault();
                 handler(this);
             }.bind(this));
             break;
@@ -427,7 +431,7 @@
             }.bind(this));
             break;
         case "handleDeleteBtnClick":
-            $delegate(this.el, ".remove", "click", function(event) {
+            $delegate(this.el, ".actions .remove", "click", function(event) {
                 event.preventDefault();
                 handler(this.person);
             }.bind(this));
@@ -509,7 +513,7 @@
         var unloader;
         switch (event) {
         case "handleAddPersonClick":
-            unloader = $on(qs("#adults .add-person .actions"), "click", function(event) {
+            unloader = $on(qs(".add-person", this.el), "click", function(event) {
                 handler({ageClass: LunchUX.AgeClass.adult});
             }.bind(this));
             this.unloaders.push(unloader);
@@ -680,7 +684,7 @@
 
     IncomePersonView.prototype.render = function() {
         var person = this.person;
-        var personView = new PersonView({person: person, model: this.model});
+        var personView = new PersonView({person: person, model: this.model, templateSelector: "#income-person-template"});
         empty(this.el);
         this.el.appendChild(personView.render().el);
         var li = qs("li", this.el);
@@ -713,7 +717,8 @@
     IncomePersonView.prototype.bind = function(event, handler) {
         switch (event) {
         case "toggleDetailsForm":
-            $delegate(this.el, ".actions", "click", function(event) {
+            $delegate(this.el, ".actions .edit", "click", function(event) {
+                event.preventDefault();
                 handler(this);
             }.bind(this));
             break;

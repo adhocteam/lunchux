@@ -7,7 +7,7 @@ js_files = $(shell find . -name \*.js ! -path ./node_modules/\*)
 jshint: $(js_files)
 	$(JSHINT) $<
 
-template_files = $(shell find js/templates -name \*.html)
+template_files = $(shell find js/templates -name \*.html ! -name \*.\#\*)
 
 build/templates.js: $(template_files)
 	mkdir -p build
