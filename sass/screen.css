@@ -668,7 +668,8 @@ h4 {
   /**/ }
 
 .add .person-name-bar {
-  color: #1E5A8C; }
+  color: #1E5A8C;
+  border-bottom: none; }
 
 .person-name {
   font-weight: 700; }
