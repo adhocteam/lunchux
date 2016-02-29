@@ -491,14 +491,14 @@
         this.setNumPeople();
 
         var last4SSN = this.model.get("last4SSN");
-        if (last4SSN) {
-            var el = qs("[name=last-4-ssn]", this.el);
-            el.value = last4SSN;
-            var radioBtn = qs("[name=has-ssn][value=yes]", this.el);
-            radioBtn.checked = true;
-        } else {
-            var radioBtn = qs("[name=has-ssn][value=no]", this.el);
-            radioBtn.checked = true;
+        if (typeof(last4SSN) === "string") {
+            if (last4SSN !== "") {
+                this.toggleSSNDisplay(true);
+                qs("[name=last-4-ssn]", this.el).value = last4SSN;
+                qs("[name=has-ssn][value=yes]", this.el).checked = true;
+            } else {
+                qs("[name=has-ssn][value=no]", this.el).checked = true;
+            }
         }
     };
 
@@ -614,15 +614,14 @@
 
     OtherHelpView.prototype.render = function() {
         var caseNumber = this.model.get("caseNumber");
-        if (caseNumber) {
-            this.toggleCaseNumberDisplay(true);
-            var el = qs("[name=case-number]", this.el);
-            el.value = caseNumber;
-            var radio = qs("[name=has-other-help][value=yes]")
-            radio.checked = true;
-        } else {
-            var radio = qs("[name=has-other-help][value=no]")
-            radio.checked = true;
+        if (typeof(caseNumber) === "string") {
+            if (caseNumber !== "") {
+                this.toggleCaseNumberDisplay(true);
+                qs("[name=case-number]", this.el).value = caseNumber;
+                qs("[name=has-other-help][value=yes]").checked = true;
+            } else {
+                qs("[name=has-other-help][value=no]").checked = true;
+            }
         }
     };
 

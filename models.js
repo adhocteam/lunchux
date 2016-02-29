@@ -51,8 +51,8 @@
     Model.prototype.defaultValues = function() {
         return {
             people: [],
-            caseNumber: "",
-            last4SSN: "",
+            caseNumber: null, // null means has not said yes or no to having other help, empty string "" means no, non-empty string means yes
+            last4SSN: null, // null means has not said yes or no to having an SSN, empty string "" means no, non-empty string means yes
             phone: "",
             email: "",
             hasAddress: false,
