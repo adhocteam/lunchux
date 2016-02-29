@@ -279,8 +279,8 @@
         </script>
 
         <script type="text/template" id="kid-summary-template">
-
-          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary'><b>" + person.name + " is:</b>" %>
+          
+          <%= !person.isHomeless && !person.isFosterChild && !person.isStudent ? "" : "<div class='student-summary panel'><b>" + person.name + " is:</b>" %>
 
             <%= person.isStudent ? "<li class='styled-list'> a student</li>" : "" %>
             <%= person.isFosterChild ? "<li class='styled-list'>a foster child</li>" : "" %>
@@ -309,7 +309,7 @@
 
         <script type="text/template" id="person-summary-template">
           <% people.forEach(function(person) { %>
-          <li class="person invalid">
+          <li class="person invalid panel">
             <div class="person-name-bar">
               <div class="person-name"><%= person.name %></div>
               <div class="actions edit"><a href="#<%= person.ageClass === LunchUX.AgeClass.child ? "kids" : "adults" %>">Edit</a></div>
