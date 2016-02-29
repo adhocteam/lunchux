@@ -112,18 +112,18 @@
 
             <div class="normal-label">
 
-              <p><b>Is <%- name %> a student?</b></p>
+              <p><b>Is this kid a student?</b></p>
               <label><input name="is-student" type="radio" value="yes" <%= tribool(person.isStudent, true) %>> Yes</label>
               <label><input name="is-student" type="radio" value="no" required <%= tribool(person.isStudent, false) %>> No</label>
             </div>
 
             <div class="normal-label">
-              <p><b>Is <%- name %> a foster child?</b></p>
+              <p><b>Is this kid a foster child?</b></p>
               <label><input name="is-foster-child" type="radio" value="yes" <%= tribool(person.isFosterChild, true) %>> Yes</label>
               <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
             </div>
 
-            <p><b>Is <%- name %> considered</b></p>
+            <p><b>Is this kid considered</b></p>
 
             <ul class="review-list">
               <li class="styled-list">
