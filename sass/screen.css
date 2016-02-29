@@ -729,6 +729,18 @@ ul.review-list {
 .notes {
   font-size: smaller; }
 
+/*
+  
+  .details-form .normal-label label {
+    background: rgba(255, 255, 255, 0.25);
+    padding: .25em;
+    border-radius: .25em;
+    margin-bottom: .25em;
+}
+  */
+.radio-selection {
+  margin-bottom: 0 !important; }
+
 .details-form {
   background: rgba(0, 0, 0, 0.08);
   padding: 1em;
@@ -738,11 +750,13 @@ ul.review-list {
     margin-bottom: 1em; }
     .details-form div p {
       margin-bottom: 0; }
+  .details-form .radio-selection label,
   .details-form .normal-label label {
     background: rgba(255, 255, 255, 0.25);
     padding: .25em;
     border-radius: .25em;
     margin-bottom: .25em; }
+    .details-form .radio-selection label:hover,
     .details-form .normal-label label:hover {
       cursor: pointer;
       background: rgba(255, 255, 255, 0.45); }
