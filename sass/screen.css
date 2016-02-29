@@ -601,15 +601,20 @@ h4 {
    Panels
    ============= */
 .panel {
-  background: rgba(0, 0, 0, 0.05);
-  padding: .5em .75em;
-  border-radius: .35em;
-  margin: 0 0 1em 0; }
+  background: rgba(221, 221, 221, 0.2);
+  padding: 1em;
+  border-radius: 4px;
+  margin: 0 0 2em 0; }
   .panel .sign-form {
     border-top: none; }
   .panel .button {
     background-color: #66c266;
     padding: 7px 0.75em; }
+  .panel .edit-button-margined {
+    margin-top: 0.75em; }
+
+.panel.info {
+  margin-top: 1em; }
 
 /* =============
    HOUSEHOLD INFO
