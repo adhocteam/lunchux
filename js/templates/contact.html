@@ -5,36 +5,48 @@
     <div class="contact-info panel">
       <h3>Contact information</h3>
       <div>
-        <p><b>City, State and ZIP Code are required.</b></p>
-        <label>City:<br>
+
+        <div>
+          <label for="address">Street address:
+            <span>(Optional)</span>
+            <input type="text" name="street" value="" placeholder="742 Evergreen Terrace">
+          </label>
+        </div>
+
+
+        <label>City:
+          <span>(Required)</span>
           <input type="text" name="city" value="" placeholder="Anytown" required>
         </label>
-        <label>State:<br>
+        <div class="state-input">
+        <label>State:
+          <span>(Required)</span>
           <select name="state" required>
             <option value=""></option>
           </select>
         </label>
-        <label>ZIP Code:<br>
+      </div>
+      <div class="zip-input">
+        <label>ZIP Code:
+          <span>(Required)</span>
           <input type="text" name="zip" value="" placeholder="99999" required pattern="^[0-9]{5}$">
         </label>
       </div>
+    </div>
 
-      <br>
+      <hr style="clear: both; display: block;" />
 
-      <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
       <div class="form-controls-group">
-        <div>
-          <label for="address">Street address:
-            <input type="text" name="street" value="" placeholder="742 Evergreen Terrace">
-          </label>
-        </div>
+
         <div>
           <label for="phone-number">Phone number:
+            <span>(Optional)</span>
             <input type="tel" name="phone" id="phone-number" value="" placeholder="(555) 555-1212">
           </label>
         </div>
         <div>
           <label for="email-address">Email address:
+            <span>(Optional)</span>
             <input type="email" name="email" value="" id="email-address" placeholder="email@example.com">
           </label>
         </div>

@@ -818,9 +818,37 @@ input.ssn {
   }
 }
 
+label span {
+  float: right;
+  font-size: .8em;
+  color: #555;
+  font-style: normal;
+  font-weight: normal;
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+}
+
 .income-control.panel {
     background: rgba(255, 255, 255, 0.25);
   }
+
+.state-input {
+  float: left;
+  width: 30%;
+  padding: 0 1.5em 0 0;
+  select {
+    margin: 0;
+    height: 2em;
+    line-height: 1.5em;
+  }
+}
+
+.zip-input {
+  float: right;
+  width: 59%;
+}
+
 
 /* =============
    Mobile
