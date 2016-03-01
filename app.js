@@ -463,27 +463,16 @@
             }.bind(this));
             this.unloaders.push(unload);
         }.bind(this));
-
-        var unload = $on(this.last4SSNEl, "input", function(event) {
-            var radio = qs("[name=has-ssn]:checked");
-            if (radio) {
-                if (radio.value === "yes" && this.last4SSNEl.value === "") {
-                    this.last4SSNEl.setCustomValidity("Please supply the last 4 digits of the SSN.");
-                } else {
-                    this.last4SSNEl.setCustomValidity("");
-                }
-            }
-        }.bind(this));
     }
 
     AdultListView.prototype.toggleSSNDisplay = function(isDisplayed) {
         var el = qs(".last-4-ssn-control", this.el);
         if (isDisplayed) {
             el.style.display = "block";
-            this.last4SSNEl.setCustomValidity("Please supply the last 4 digits of the SSN.");
+            this.last4SSNEl.required = true;
         } else {
             el.style.display = "none";
-            this.last4SSNEl.setCustomValidity("");
+            this.last4SSNEl.required = false;
         }
     };
 
