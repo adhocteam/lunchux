@@ -915,7 +915,7 @@ footer {
         border: 4px solid #E1EEE7; }
 
   li.done + span.prog-bar {
-    background-color: #1E5A8C; }
+    background-color: #E1EEE7; }
 
   .screen {
     float: left;
