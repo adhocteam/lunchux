@@ -396,10 +396,10 @@ button {
 
 .save,
 .fwd {
-  background-color: #66c266; }
+  background-color: #2C9656; }
   .save:hover,
   .fwd:hover {
-    background-color: #46af46; }
+    background-color: #206f3f; }
 
 .back {
   border: 2px solid #ccc;
@@ -452,9 +452,6 @@ a {
 /* =============
    HEADERS
    ============= */
-#menu:before {
-  content: "🍔 "; }
-
 header {
   background: #4e467b url(/images/logo.png) 50% 5% no-repeat;
   background-size: 2.5em;
@@ -488,7 +485,7 @@ header {
     header .nav #signout {
       text-align: right; }
     header .nav .faq {
-      color: #f05f5c;
+      color: #fff;
       vertical-align: text-bottom; }
       header .nav .faq:hover {
         color: #b44745; }
@@ -572,6 +569,7 @@ main {
     text-align: center;
     width: 45%; }
   .button-group .full-width {
+    text-align: center;
     width: 100% !important; }
 
 .no-justify {
@@ -615,7 +613,7 @@ h4 {
   border-radius: 4px;
   margin: 0 0 2em 0; }
   .panel .button {
-    background-color: #66c266;
+    background-color: #2C9656;
     padding: 7px 0.75em; }
   .panel .edit-button-margined {
     margin-top: 0.75em; }
@@ -644,24 +642,26 @@ h4 {
     margin-bottom: 0; }
 
 .valid .person-name-bar {
-  color: #66c266; }
+  color: #2C9656; }
   .valid .person-name-bar .person-name:before {
-    content: "✓";
+    content: "☑";
     border-radius: 15px;
-    margin-right: 4px;
-    width: 20px;
-    height: 20px; }
+    margin: 0 .25em 0 0;
+    width: 24px;
+    vertical-align: absmiddle;
+    font-weight: bold;
+    font-size: 1.45em; }
   .valid .person-name-bar .actions a {
-    color: #66c266; }
+    color: #2C9656; }
 
 .invalid .person-name-bar,
 .invalid .notes {
   color: #f05f5c; }
 
 .incomplete .person-name-bar {
-  color: #ffc549; }
+  color: #444; }
   .incomplete .person-name-bar .person-name:before {
-    content: '➙'; }
+    content: '☐'; }
 
 #review .invalid .person-name-bar {
   color: #f05f5c; }
@@ -672,7 +672,7 @@ h4 {
   vertical-align: text-bottom;
   /**/ }
 #review .edit-button .button {
-  background-color: #66c266; }
+  background-color: #2C9656; }
 
 .add .person-name-bar {
   border-bottom: none;
@@ -688,6 +688,10 @@ h4 {
   margin-bottom: 1em; }
   .add-person h3 {
     margin-bottom: 0; }
+  .add-person .person.add .person-name-bar.button.full-width {
+    display: block;
+    text-align: center !important;
+    margin: 0 auto; }
 
 .show {
   opacity: 1;
