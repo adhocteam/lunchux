@@ -198,8 +198,7 @@
         }
         for (var key in checkboxes) {
             if (checkboxes.hasOwnProperty(key)) {
-                var values = checkboxes[key];
-                data.push({name: key, value: values});
+                data.push({name: key, value: checkboxes[key]});
             }
         }
         return data;
@@ -558,7 +557,7 @@
                 this.toggleCaseNumberDisplay(el.value === "yes" && el.checked);
             }.bind(this));
             this.unloaders.push(unload);
-        }.bind(this))
+        }.bind(this));
 
         var unload = $on(this.caseNumberEl, "input", function(event) {
             var radio = qs("[name=has-other-help]:checked");
@@ -724,14 +723,14 @@
                 var form = event.target;
                 var incomes = {};
                 incomeTypes.forEach(function(type) {
-                    var type = type.value;
+                    type = type.value;
                     var hasIncome = qs("[name=has-income-"+type+"]:checked", form).value === "yes";
                     if (!hasIncome) {
                         incomes[type] = {
                             amount: 0,
                             freq: "",
                             answered: true
-                        }
+                        };
                     } else {
                         var amount = parseInt(qs("[name=income-"+type+"-amount]", form).value, 10);
                         var freq = qs("[name=income-"+type+"-freq]", form).value;
@@ -739,7 +738,7 @@
                             amount: amount,
                             freq: freq,
                             answered: true
-                        }
+                        };
                     }
                 }.bind(this));
                 var person = this.person;
@@ -1041,7 +1040,7 @@
                         if (el.name === "") {
                             continue;
                         }
-                        var name = dashToCamel(el.name)
+                        var name = dashToCamel(el.name);
                         switch (el.name) {
                         case "is-hispanic":
                             if (el.checked) {
@@ -1202,7 +1201,7 @@
         values.forEach(function(obj) {
             this.model.set(obj.name, obj.value);
         }.bind(this));
-        var xhttp = new XMLHttpRequest()
+        var xhttp = new XMLHttpRequest();
         xhttp.open("POST", submitURL, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("data=" + JSON.stringify(this.model.data));
@@ -1284,7 +1283,7 @@
             appContainer.appendChild(div);
             var view = new ViewToLoad({model: this.model, template: template, el: div});
             view.render();
-            var nav = qs("header .nav")
+            var nav = qs("header .nav");
             window.scroll(0, nav.offsetTop + nav.clientHeight);
             this.activeView = view;
             if (this.handlers[id]) {
