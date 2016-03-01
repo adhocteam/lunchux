@@ -387,7 +387,7 @@
                 var nextScreenId = hash.slice(1);
                 handler({nextScreenId: nextScreenId});
             }.bind(this));
-            this.listenersToUnload.push(unload)
+            this.listenersToUnload.push(unload);
             break;
         default:
             this.peopleListView.bind(event, handler);
