@@ -1011,10 +1011,6 @@
         this.formEl = qs("form", this.el);
         this.model = options.model;
         this.unloaders = [];
-
-        this.model.on("updated:hasAddress", function() {
-            qs(".address", this.contactInfoEl).style.display = this.model.get("hasAddress") ? "block" : "none";
-        }.bind(this));
     }
 
     function dashToCamel(name) {
@@ -1023,14 +1019,6 @@
 
     ContactAndSignView.prototype.bind = function(event, handler) {
         switch (event) {
-        case "handleHasAddressRadioClick":
-            qsa("[name=has-address]", this.contactInfoEl).forEach(function(el) {
-                var unloader = $on(el, "click", function(event) {
-                    handler(event.target.value === "yes" && event.target.checked);
-                }.bind(this));
-                this.unloaders.push(unloader);
-            }.bind(this));
-            break;
         case "handleSubmit":
             var unloader = $on(this.formEl, "submit", function(event) {
                 event.preventDefault();
@@ -1162,8 +1150,7 @@
             ],
             "review": [],
             "contact": [
-                {event: "handleHasAddressRadioClick", handler: this.handleHasAddressRadioClick.bind(this)},
-                {event: "handleSubmit", handler: this.handleSubmit.bind(this)}
+              {event: "handleSubmit", handler: this.handleSubmit.bind(this)}
             ]
         };
     }
@@ -1196,10 +1183,6 @@
             }.bind(this));
         }
         this.setView(options.nextScreenId);
-    };
-
-    Controller.prototype.handleHasAddressRadioClick = function(hasAddress) {
-        this.model.set("hasAddress", hasAddress);
     };
 
     Controller.prototype.handleSubmit = function(values) {

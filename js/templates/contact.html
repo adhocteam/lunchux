@@ -1,15 +1,11 @@
 <section class="screen" id="contact">
   <h2>Just a few more things.</h2>
-
   <p class="hh-description"></p>
-
   <form>
     <div class="contact-info panel">
       <h3>Contact information</h3>
-      
-      
       <div>
-        <p><b>City, State and ZIP Code are required.</b></p>  
+        <p><b>City, State and ZIP Code are required.</b></p>
         <label>City:<br>
           <input type="text" name="city" value="" placeholder="Anytown" required>
         </label>
@@ -21,37 +17,17 @@
         <label>ZIP Code:<br>
           <input type="text" name="zip" value="" placeholder="99999" required pattern="^[0-9]{5}$">
         </label>
-        
       </div>
+
       <br>
-      <p><b>Is there a street address we can share?</b> This will help us stay in touch with you. If not, that’s ok! It won’t affect the application.</p>
 
-      <div class="form-controls-group">
-      <div class="radio-group">
-        <div class='radio-selection'>
-          <label><input type="radio" name="has-address" value="yes" required> Yes</label>
-
-          
-          <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
-            <label>Street address:<br>
-              <input type="text" name="street" value="" placeholder="123 Fake St">
-            </label>
-            
-          </div>
-
-        </div>
-
-        <div class='radio-selection'>
-          <label><input type="radio" name="has-address" value="no"> No</label>
-        </div>
-
-      </div>
-    </div>
-    
-    <br>
-    
       <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
       <div class="form-controls-group">
+        <div>
+          <label for="address">Street address:
+            <input type="text" name="street" value="" placeholder="742 Evergreen Terrace">
+          </label>
+        </div>
         <div>
           <label for="phone-number">Phone number:
             <input type="tel" name="phone" id="phone-number" value="" placeholder="(555) 555-1212">
@@ -63,17 +39,10 @@
           </label>
         </div>
       </div>
-      
-      
-      
-      
-      
     </div>
 
-    
-
     <div class='panel'>
-    
+
       <h3>Race &amp; Ethnicity</h3>
       <p><b>Responding to this section is optional</b> and does not affect your children's eligibility for free or reduced price meals. We are required to ask for information about your children's race and ethnicity. This information is important and helps to make sure we are fully serving our community.</p>
 
@@ -109,10 +78,10 @@
 
     <div class="agreements">
       <h2>Almost done!</h2>
-      
+
       <div class='panel'>
         <p>We have to show you some information before you submit this application.</p>
-        
+
         <div class="modal">
           <label for="modal-1">
             <div class="modal-trigger">USDA non-discrimination statement</div>
@@ -152,13 +121,13 @@
             </div>
           </div>
         </div>
-    
+
       </div>
     </div>
 
     <div class="sign-form inner-section last">
       <h2>Time to sign!</h2>
-      
+
       <div class='panel'>
       <p>The person signing is furnishing true information and to advise that person that the application is being made in connection with the receipt of Federal funds; School officials may verify the information on the application; and Deliberate misrepresentation of the information may subject the applicant to prosecution under State and Federal statutes.</p>
       <div class="form-controls-group">
@@ -171,7 +140,7 @@
       </div>
     </div>
     </div>
-    
+
     <div>
       <button class="button fwd submit">Send your application</button>
     </div>

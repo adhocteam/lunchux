@@ -55,7 +55,6 @@
             last4SSN: null, // null means has not said yes or no to having an SSN, empty string "" means no, non-empty string means yes
             phone: "",
             email: "",
-            hasAddress: false,
             street: "",
             city: "",
             state: "",
