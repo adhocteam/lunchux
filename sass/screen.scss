@@ -687,13 +687,23 @@ ul.review-list {
     margin-bottom:0;
   }
 }
-.ssn {
 
+label.ssn-label {
+  p {
+    display: block;
+  }
+}
+
+span.ssn {
+  float: left;
+  width: auto;
+  text-align: left;
+  margin-top: .6em;
+  margin-right: .5em;
   display:inline-block;
 }
 
 input.ssn {
-
   width:75px;
   margin-left:3px;
 }
@@ -829,6 +839,8 @@ label span {
   text-align: right;
 }
 
+label span.no-bold {}
+
 .income-control.panel {
     background: rgba(255, 255, 255, 0.25);
   }
@@ -842,6 +854,7 @@ label span {
     height: 2em;
     line-height: 1.5em;
   }
+  span {text-align: left; float: none; display: inline-block;}
 }
 
 .zip-input {
@@ -905,7 +918,7 @@ label span {
           font-size: .7em;
           display:none;
           position:absolute;
-          border: 1px solid red;
+
           padding: .5em 0;
         }
       }

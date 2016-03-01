@@ -804,7 +804,15 @@ ul.review-list {
   .ssn-form h3 {
     margin-bottom: 0; }
 
-.ssn {
+label.ssn-label p {
+  display: block; }
+
+span.ssn {
+  float: left;
+  width: auto;
+  text-align: left;
+  margin-top: .6em;
+  margin-right: .5em;
   display: inline-block; }
 
 input.ssn {
@@ -901,6 +909,10 @@ label span {
     margin: 0;
     height: 2em;
     line-height: 1.5em; }
+  .state-input span {
+    text-align: left;
+    float: none;
+    display: inline-block; }
 
 .zip-input {
   float: right;
@@ -949,7 +961,6 @@ label span {
           font-size: .7em;
           display: none;
           position: absolute;
-          border: 1px solid red;
           padding: .5em 0; }
       .mobile-subnav .prog-round.active {
         background-color: #E1EEE7;
