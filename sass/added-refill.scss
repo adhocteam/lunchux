@@ -2,7 +2,7 @@
   
   .question-mark-small {
     
-    vertical-align: super;
+    //vertical-align: super;
   }
   
   display:inline-block;
@@ -43,7 +43,8 @@
   .modal-trigger {
    // padding: 0.8em 1em;
    font-weight:normal;
-   color:$red;
+   color:$primary;
+   text-decoration: underline;
   }
 
   .modal-fade-screen { // overlay

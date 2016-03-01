@@ -94,7 +94,21 @@
           <li class="person valid">
             <div class="person-name-bar">
               <div class="person-name"><%= displayName %></div>
-              <div class="actions">Edit</div>
+              <div class="actions">
+                <a class="edit" href="#">Edit</a> |
+                <a class="remove" href="#">Remove</a>
+              </div>
+            </div>
+          </li>
+        </script>
+
+        <script type="text/template" id="income-person-template">
+          <li class="person valid">
+            <div class="person-name-bar">
+              <div class="person-name"><%= displayName %></div>
+              <div class="actions">
+                <a class="edit" href="#">Edit</a>
+              </div>
             </div>
           </li>
         </script>
@@ -123,7 +137,7 @@
               <label><input name="is-foster-child" type="radio" value="no" required <%= tribool(person.isFosterChild, false) %>> No</label>
             </div>
 
-            <p><b>Is this kid considered</b></p>
+            <p><b>Is this kid considered any of these:</b></p>
 
             <ul class="review-list">
               <li class="styled-list">
@@ -207,8 +221,7 @@
             </div>
 
             <div class="button-group justify">
-              <button class="button save">Save</button><br>
-              <a class="remove" href="#">Remove</a>
+              <button class="button save full-width">Save</button>
             </div>
           </form>
         </script>
@@ -222,8 +235,7 @@
               </label>
             </div>
             <div class="button-group justify">
-              <button class="button save">Save</button><br>
-              <a class="remove" href="#">Remove</a>
+              <button class="button save full-width">Save</button>
             </div>
           </form>
         </script>
@@ -233,18 +245,23 @@
             <p><b>Does <%= person.name %> have any income?</b></p>
             <div class="form-controls-group">
               <% incomeTypes.map(function(type) { %>
+
               <div class="income-<%= type.value %>">
+
                 From <%= type.label %><br>
+
                 <div class="radio-selection">
                   <label>
                     <input type="radio" name="has-income-<%= type.value %>" value="yes" data-income-type="<%= type.value %>" required> Yes
                   </label>
-                  <div class="income-control" style="display: none">
-                    <label>
+
+                  <div class="income-control panel" style="display: none">
+
+                    <label class='no-bg'>
                       How much? ($)<br>
                       <input name="income-<%= type.value %>-amount" type="tel" placeholder="$" value="<%= incomeAmount(person, type.value) %>" required>
                     </label>
-                    <label>
+                    <label class='no-bg'>
                       How often?
                       <select name="income-<%= type.value %>-freq">
                         <% frequencies.map(function(freq) { %>

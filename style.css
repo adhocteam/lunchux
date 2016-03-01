@@ -3,5 +3,3 @@
 /* moved css to screen.scss */
 
 .person .actions { cursor: pointer; }
-
-#income .person-list.incomplete { background: papayawhip; }

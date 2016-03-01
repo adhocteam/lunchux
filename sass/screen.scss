@@ -185,7 +185,7 @@ a { color: #000; }
 
 header {
 
-  background: darken(#63589C, 10) url(/images/logo.png) 50% 5% no-repeat;
+  background: darken($primary, 10) url(/images/logo.png) 50% 5% no-repeat;
   background-size: 2.5em;
   color: #fff;
   padding: 1em 0 0 0;
@@ -337,13 +337,15 @@ main {
 
 
   .button {
-    width: 100%;
     margin: 0 0 1em 0;
     text-align: center;
+    width: 45%;
 
-      width: 45%;
-
-
+  }
+  
+  .full-width {
+    
+    width:100% !important;
   }
  }
 
@@ -351,6 +353,19 @@ main {
 
    display:list-item;
  }
+ 
+ .full-width {
+    
+    width:100%;
+    text-align: center;
+  }  
+  
+  .reset {
+    
+    background-color: $dark-blue;
+    margin-top:30px;
+    margin-bottom:30px;
+  }
 
  /* =============
     HEADINGS
@@ -417,7 +432,14 @@ h4 {
   padding: 0;
 }
 
-.person-name-bar { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; padding: 10px 0; }
+.person-name-bar { 
+  
+  display: flex; 
+  justify-content: space-between; 
+  border-bottom: 1px solid #ccc; 
+  padding: 10px 0; 
+  
+}
 
 .person {
   margin-bottom:30px;
@@ -465,15 +487,22 @@ h4 {
 
     .person-name:before {
 
-      /*content: '𐄂';
-      margin-right:4px;
-      width:20px;
-      height:30px;
-      vertical-align:top;*/
-
     }
   }
 
+}
+
+.incomplete {
+  
+  .person-name-bar {
+    
+    color: $yellow;
+    
+    .person-name:before {
+      
+      content: '➙';
+    }
+  }
 }
 
 #review {
@@ -504,7 +533,6 @@ h4 {
        background-color: $green;
       
     }
-   
     
   }
 }
@@ -513,9 +541,17 @@ h4 {
 
   .person-name-bar {
 
-    color: $dark-blue;
     border-bottom:none;
+    background-color: $dark-blue;
+    
   }
+  
+  .person-name-bar.button {
+      
+      padding: 7px .75em;
+      color:white;
+      
+    }
 }
 
 .person-name { font-weight: 700; }
@@ -602,17 +638,6 @@ ul.review-list {
 [name=num-kids], [name=num-adults] { padding: 10px; font-size: 20px; text-align: left; }
 
 .notes { font-size: smaller; }
-
-
-/*
-
-  .details-form .normal-label label {
-    background: rgba(255, 255, 255, 0.25);
-    padding: .25em;
-    border-radius: .25em;
-    margin-bottom: .25em;
-}
-  */
 
 .radio-selection {
 
@@ -832,6 +857,26 @@ input.ssn {
      }
    }
 
+.income-control {
+  
+  label {
+    
+    width:46%;
+    justify-content: space-between;
+    display:inline-block;
+    vertical-align: top;
+  }
+  
+  .no-bg {
+    
+    background:none !important;
+  }
+}
+
+.income-control.panel {
+    
+    background: rgba(255, 255, 255, 0.25);
+  }
 
 /* =============
    Mobile

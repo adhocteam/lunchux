@@ -6,6 +6,50 @@
   <form>
     <div class="contact-info panel">
       <h3>Contact information</h3>
+      
+      
+      <div>
+        <p><b>City, State and ZIP Code are required.</b></p>  
+        <label>City:<br>
+          <input type="text" name="city" value="" placeholder="Anytown" required>
+        </label>
+        <label>State:<br>
+          <select name="state" required>
+            <option value=""></option>
+          </select>
+        </label>
+        <label>ZIP Code:<br>
+          <input type="text" name="zip" value="" placeholder="99999" required pattern="^[0-9]{5}$">
+        </label>
+        
+      </div>
+      <br>
+      <p><b>Is there a street address we can share?</b> This will help us stay in touch with you. If not, that’s ok! It won’t affect the application.</p>
+
+      <div class="form-controls-group">
+      <div class="radio-group">
+        <div class='radio-selection'>
+          <label><input type="radio" name="has-address" value="yes" required> Yes</label>
+
+          
+          <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
+            <label>Street address:<br>
+              <input type="text" name="street" value="" placeholder="123 Fake St">
+            </label>
+            
+          </div>
+
+        </div>
+
+        <div class='radio-selection'>
+          <label><input type="radio" name="has-address" value="no"> No</label>
+        </div>
+
+      </div>
+    </div>
+    
+    <br>
+    
       <p>Is there a good way for your school to get in touch with you? Please let us know!</p>
       <div class="form-controls-group">
         <div>
@@ -19,42 +63,14 @@
           </label>
         </div>
       </div>
+      
+      
+      
+      
+      
     </div>
 
-    <div class='panel'>
-      <p><b>Is there an address we can share?</b> If not, that’s ok! It won’t affect the application.</p>
-
-      <div class="form-controls-group">
-      <div class="radio-group">
-        <div class='radio-selection'>
-          <label><input type="radio" name="has-address" value="yes" required> Yes</label>
-
-          <div class="address" style="display: none"> <!-- initially hidden, visibility conditional on value of has-address -->
-            <label>Street address:<br>
-              <input type="text" name="street" value="" placeholder="123 Fake St">
-            </label>
-            <label>City:<br>
-              <input type="text" name="city" value="" placeholder="Anytown">
-            </label>
-            <label>State:<br>
-              <select name="state">
-                <option value=""></option>
-              </select>
-            </label>
-            <label>ZIP Code:<br>
-              <input type="text" name="zip" value="" placeholder="99999">
-            </label>
-          </div>
-
-        </div>
-
-        <div class='radio-selection'>
-          <label><input type="radio" name="has-address" value="no"> No</label>
-        </div>
-
-      </div>
-    </div>
-    </div>
+    
 
     <div class='panel'>
     
