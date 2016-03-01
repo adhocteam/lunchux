@@ -163,7 +163,17 @@
         li.appendChild(form);
         form.innerHTML = this.template({person: person, tribool: tribool});
 
+        this.renderAnswered();
+
         return this;
+    };
+
+    KidPersonView.prototype.renderAnswered = function() {
+        if (!isValidPerson(this.person)) {
+            qs("li", this.el).classList.add("incomplete");
+        } else {
+            qs("li", this.el).classList.remove("incomplete");
+        }
     };
 
     function serializeForm(form) {
@@ -335,18 +345,49 @@
         this.peopleListView = null;
         this.model = options.model;
 
-        this.model.on("addedPerson", this.setNumPeople.bind(this));
-        this.model.on("deletedPerson", this.setNumPeople.bind(this));
+        this.model.on("addedPerson", this.renderValidity.bind(this));
+        this.model.on("deletedPerson", this.renderValidity.bind(this));
+        this.model.on("updatedPerson", this.renderValidity.bind(this));
+    }
+
+    KidListView.prototype.renderValidity = function() {
+        var continueBtn = qs("form.navigation button", this.el);
+        if (!this.isValid()) {
+            continueBtn.disabled = true;
+        } else {
+            continueBtn.disabled = false;
+        }
+        this.setNumPeople();
+    };
+
+    KidListView.prototype.isValid = function() {
+        var kids = this.model.kids();
+        return kids.length > 0 && kids.all(isValidPerson);
+    };
+
+    function isValidPerson(person) {
+        return person.name !== "";
     }
 
     KidListView.prototype.bind = function(event, handler) {
+        var unload;
         switch (event) {
         case "handleAddPersonClick":
-            var unload = $on(qs(".add-person", this.el), "click", function(event) {
+            unload = $on(qs(".add-person", this.el), "click", function(event) {
                 // TODO: move details to controller/handler
                 handler({ageClass: LunchUX.AgeClass.child});
             }.bind(this));
             this.listenersToUnload.push(unload);
+            break;
+        case "handleContinueBtnClick":
+            unload = $on(qs("form.navigation", this.el), "submit", function(event) {
+                event.preventDefault();
+                var form = event.target;
+                var hash = getHashFromURL(form.action);
+                var nextScreenId = hash.slice(1);
+                handler({nextScreenId: nextScreenId});
+            }.bind(this));
+            this.listenersToUnload.push(unload)
             break;
         default:
             this.peopleListView.bind(event, handler);
@@ -357,7 +398,7 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: KidPersonView, model: this.model, peopleMethod: this.model.kids});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
-        this.setNumPeople();
+        this.renderValidity();
     };
 
     KidListView.prototype.setNumPeople = function() {
@@ -410,6 +451,7 @@
         var form = document.createElement("div");
         li.appendChild(form);
         form.innerHTML = this.template({person: this.person});
+        this.renderAnswered();
         return this;
     };
 
@@ -439,6 +481,14 @@
         }
     };
 
+    AdultPersonView.prototype.renderAnswered = function() {
+        if (!isValidPerson(this.person)) {
+            qs("li", this.el).classList.add("incomplete");
+        } else {
+            qs("li", this.el).classList.remove("incomplete");
+        }
+    };
+
     AdultPersonView.prototype.unload = function() {
     };
 
@@ -452,8 +502,9 @@
         this.model = options.model;
         this.unloaders = [];
 
-        this.model.on("addedPerson", this.setNumPeople.bind(this));
-        this.model.on("deletedPerson", this.setNumPeople.bind(this));
+        this.model.on("addedPerson", this.renderValidity.bind(this));
+        this.model.on("deletedPerson", this.renderValidity.bind(this));
+        this.model.on("updatedPerson", this.renderValidity.bind(this));
 
         var radioBtns = qsa("[name=has-ssn]", this.el);
         radioBtns.forEach(function(btn) {
@@ -464,6 +515,21 @@
             this.unloaders.push(unload);
         }.bind(this));
     }
+
+    AdultListView.prototype.renderValidity = function() {
+        var continueBtn = qs("form.ssn-form button", this.el);
+        if (!this.isValid()) {
+            continueBtn.disabled = true;
+        } else {
+            continueBtn.disabled = false;
+        }
+        this.setNumPeople();
+    };
+
+    AdultListView.prototype.isValid = function() {
+        var adults = this.model.adults();
+        return adults.length > 0 && adults.all(isValidPerson);
+    };
 
     AdultListView.prototype.toggleSSNDisplay = function(isDisplayed) {
         var el = qs(".last-4-ssn-control", this.el);
@@ -480,7 +546,7 @@
         var peopleListView = this.peopleListView = new PeopleListView({personView: AdultPersonView, model: this.model, peopleMethod: this.model.adults});
         empty(this.listEl);
         this.listEl.appendChild(peopleListView.render().el);
-        this.setNumPeople();
+        this.renderValidity();
 
         var last4SSN = this.model.get("last4SSN");
         if (typeof(last4SSN) === "string") {
@@ -551,28 +617,16 @@
             }.bind(this));
             this.unloaders.push(unload);
         }.bind(this));
-
-        var unload = $on(this.caseNumberEl, "input", function(event) {
-            var radio = qs("[name=has-other-help]:checked");
-            if (radio) {
-                if (radio.value === "yes" && this.caseNumberEl.value === "") {
-                    this.caseNumberEl.setCustomValidity("Please supply a case number.");
-                } else {
-                    this.caseNumberEl.setCustomValidity("");
-                }
-            }
-        }.bind(this));
-        this.unloaders.push(unload);
     }
 
     OtherHelpView.prototype.toggleCaseNumberDisplay = function(isDisplayed) {
         var el = qs(".case-number-control", this.el);
         if (isDisplayed) {
             el.style.display = "block";
-            this.caseNumberEl.setCustomValidity("Please supply a case number.");
+            this.caseNumberEl.required = true;
         } else {
             el.style.display = "none";
-            this.caseNumberEl.setCustomValidity("");
+            this.caseNumberEl.required = false;
         }
     };
 
@@ -1159,7 +1213,8 @@
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
                 {event: "handleSaveBtnClick", handler: this.handleSaveBtnClick.bind(this)},
                 {event: "handleDeleteBtnClick", handler: this.handleDeleteBtnClick.bind(this)},
-                {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)}
+                {event: "handleAddPersonClick", handler: this.handleAddPersonClick.bind(this)},
+                {event: "handleContinueBtnClick", handler: this.handleContinueBtnClick.bind(this)}
             ],
             "adults": [
                 {event: "toggleDetailsForm", handler: this.toggleDetailsForm.bind(this)},
