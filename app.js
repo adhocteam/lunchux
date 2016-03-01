@@ -1167,7 +1167,7 @@
         var dateString = [now.getMonth() + 1, now.getDate(), now.getFullYear()].join("/");
         qs("[name=date]", this.formEl).value = dateString;
 
-        qs("[name=id]", this.formEl).value = this.model.get("id");
+        qs(".id", this.formEl).innerHTML = this.model.get("id");
 
         return this;
     };
