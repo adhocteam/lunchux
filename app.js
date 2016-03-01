@@ -1354,15 +1354,21 @@
             appContainer.appendChild(div);
             var view = new ViewToLoad({model: this.model, template: template, el: div});
             view.render();
-            var nav = qs("header .nav");
-            window.scroll(0, nav.offsetTop + nav.clientHeight);
             this.activeView = view;
+            this.scroll();
             if (this.handlers[id]) {
                 this.handlers[id].forEach(function(handler) {
                     view.bind(handler.event, handler.handler);
                 });
             }
             this.events.notify("view:loaded");
+        }
+    };
+
+    Controller.prototype.scroll = function() {
+        if (!(this.activeView instanceof GetStartedView)) {
+            var nav = qs("header .nav");
+            window.scroll(0, nav.offsetTop + nav.clientHeight);
         }
     };
 
