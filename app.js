@@ -1441,6 +1441,9 @@
     $on(document, "DOMContentLoaded", function() {
         var store = new Store("lunchux");
         var model = window.model = new LunchUX.Model(store);
+        if (typeof(model.get("id")) === "undefined") {
+            model.set("id", model.getUniqueId());
+        }
         var controller = window.controller = new Controller(model);
 
         var initialViewId = "get-started";

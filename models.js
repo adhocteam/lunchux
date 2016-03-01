@@ -66,8 +66,13 @@
             isHispanic: undefined,
             isHispanicDeclined: undefined,
             races: [],
-            date: null
+            date: null,
+            id: this.getUniqueId()
         };
+    };
+
+    Model.prototype.getUniqueId = function() {
+        return Math.random().toString(36).slice(2) + "-" + (new Date()).getTime().toString(36);
     };
 
     Model.prototype.setInitialHousehold = function() {
