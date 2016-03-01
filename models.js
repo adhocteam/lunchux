@@ -65,7 +65,8 @@
             completed: {},
             isHispanic: undefined,
             isHispanicDeclined: undefined,
-            races: []
+            races: [],
+            date: null
         };
     };
 

@@ -1163,6 +1163,10 @@
             statesEl.appendChild(option);
         }.bind(this));
 
+        var now = new Date();
+        var dateString = [now.getMonth() + 1, now.getDate(), now.getFullYear()].join("/");
+        qs("[name=date]", this.formEl).value = dateString;
+
         return this;
     };
 
