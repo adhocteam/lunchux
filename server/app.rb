@@ -1,6 +1,4 @@
 require 'sinatra'
-require 'rubygems'
-require 'twilio-ruby'
 
 app_host = ENV["LUNCHUX_APP_HOST"] || "http://localhost:8000"
 
@@ -11,8 +9,5 @@ post "/submit" do
 end
 
 get "/sms" do
-  twiml = Twilio::TwiML::Response.new do |r|
-    r.Message "Apply for free and reduced-price school lunch program at https://lunchux.adhocteam.us/"
-  end
-  twiml.text
+  '<?xml version="1.0" encoding="UTF-8"?><Response><Message>Apply for free and reduced-price school lunch program at https://lunchux.adhocteam.us/</Message></Response>'
 end
